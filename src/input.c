@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 13:24:30 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 13:31:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	in_proc(char **cmd, size_t *i, size_t *l)
 
 	while ((*((uint64_t*)buff) = 0) || (r = read(0, buff, 7)) != 0)
 	{
-		if (r == 0 && **cmd == 0)
+		if (**cmd == 0 && (r == 0 || buff[0] == 4))
 			return (0);
 		if (ft_strequ(buff, "\n") || ft_strequ(buff, "\r"))
 			return (1);
