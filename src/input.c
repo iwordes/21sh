@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 10:37:43 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 13:24:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ static void	in_grow(char **cmd, size_t i, size_t *l)
 	*cmd = new_cmd;
 }
 
+static void	in_sert(char **cmd, size_t *i, size_t *l, char *buff)
+{
+	in_grow(cmd, *i + ft_strlen(buff), l);
+	ft_strins(*cmd, buff, *i);
+	*i += ft_strlen(buff);
+	ft_putvis(buff);
+	tm_cur_save();
+	ft_putvis(*cmd + *i);
+	tm_cur_rest();
+	(void)l;
+}
+
 static int	in_proc(char **cmd, size_t *i, size_t *l)
 {
 	char	buff[8];
@@ -68,7 +80,6 @@ static int	in_proc(char **cmd, size_t *i, size_t *l)
 			}
 		if (g_patt[p] != NULL)
 			continue ;
-		in_grow(cmd, *i + ft_strlen(buff), l);
 		in_sert(cmd, i, l, buff);
 	}
 	return (r);

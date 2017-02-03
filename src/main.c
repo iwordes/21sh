@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:40:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 10:58:31 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 13:20:38 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int		main(void)
 		write(1, "\n", 1);
 		if (ft_strequ(in, "exit"))
 			break ;
-		ft_printf("%s\n", in);
+		ft_printf("Vis: %v\n", in);
+		ft_printf("Raw: %s\n", in);
 		free(in);
 	}
 	free(in);

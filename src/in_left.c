@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 12:06:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 08:59:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 13:17:34 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	in_left(char **cmd, size_t *i, size_t *l)
 {
 	if (*i > 0)
 	{
-		*i -= 1;
+		if (ft_iscntrl((*cmd)[*i]))
+			tm_left();
 		tm_left();
+		*i -= 1;
 	}
-	(void)cmd;
 	(void)l;
 }
