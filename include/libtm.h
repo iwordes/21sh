@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 10:47:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 10:44:28 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 14:31:01 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define TM_LEFT "\e[D"
 
 # define TM_BKSP "\e[D \e[D"
+
+# define TM_HOME "\e[H"
+# define TM_END "\e[F"
 
 # define TM_CLR_LN ""
 # define TM_CLR_SCR ""

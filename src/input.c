@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 13:31:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 14:33:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static char	*g_patt[] =
 	TM_LEFT,
 	"\b",
 	"\x7f",
+	TM_HOME,
+	"\1",
+	TM_END,
 	NULL
 };
 
@@ -30,7 +33,10 @@ static void	(*g_fn[])(char**, size_t*, size_t*) =
 	in_right,
 	in_left,
 	in_bksp,
-	in_bksp
+	in_bksp,
+	in_home,
+	in_home,
+	in_end
 };
 
 static void	in_grow(char **cmd, size_t i, size_t *l)

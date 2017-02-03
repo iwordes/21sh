@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 12:39:31 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 14:33:38 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void				in_right(char **cmd, size_t *i, size_t *l);
 void				in_left(char **cmd, size_t *i, size_t *l);
 
 void				in_bksp(char **cmd, size_t *i, size_t *l);
+
+void				in_home(char **cmd, size_t *i, size_t *l);
+void				in_end(char **cmd, size_t *i, size_t *l);
 
 void				init_tty(void);
 
