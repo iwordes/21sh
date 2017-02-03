@@ -6,17 +6,19 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 12:06:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 13:17:34 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/03 15:32:32 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
+#define VAL_CNT(C) (C != 0 && ft_iscntrl(C))
+
 void	in_left(char **cmd, size_t *i, size_t *l)
 {
 	if (*i > 0)
 	{
-		if (ft_iscntrl((*cmd)[*i]))
+		if (VAL_CNT((*cmd)[*i - 1]))
 			tm_left();
 		tm_left();
 		*i -= 1;
