@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 19:40:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 11:29:38 by iwordes          ###   ########.fr       */
+/*   Created: 2017/02/03 19:09:30 by iwordes           #+#    #+#             */
+/*   Updated: 2017/02/04 11:22:15 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-t_sh	g_sh;
+/*
+** Compare the key part of two key(/value pair)s.
+** 0: No similarity.
+** 1: Match, kv1 is a key.
+** 2: Match, kv1 is a key/value pair.
+*/
 
-int		main(void)
+char	kv_cmp(const char *kv1, const char *kv2)
 {
-	char	*in;
-
-	init();
-	shell();
-	while ((ft_printf("\e[92m$\e[0m ")) && (in = input()) != NULL)
+	while (*kv1 != 0 && *kv1 != '=' && *kv1 == *kv2)
 	{
-		if (ft_strequ(in, "exit"))
-			return (0);
-		write(1, "\n", 1);
-		ft_printf("%s\n", in);
-		free(in);
+		kv1 += 1;
+		kv2 += 1;
 	}
-	ft_putstr("exit\n");
-	free(in);
-	uninit();
+	if (*kv1 == 0 && *kv2 == '=')
+		return (2);
+	else if (*kv1 == '=' && *kv2 == '=')
+		return (1);
 	return (0);
 }

@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   setkey.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 19:40:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 11:29:38 by iwordes          ###   ########.fr       */
+/*   Created: 2017/02/03 19:06:52 by iwordes           #+#    #+#             */
+/*   Updated: 2017/02/03 19:17:55 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-t_sh	g_sh;
+/*
+** 0: Not set.
+** 1: Updated.
+** 2: Created.
+*/
 
-int		main(void)
+char	var_setkey(const char *key, const char *val)
 {
-	char	*in;
+	char	*kv;
+	char	o;
 
-	init();
-	shell();
-	while ((ft_printf("\e[92m$\e[0m ")) && (in = input()) != NULL)
-	{
-		if (ft_strequ(in, "exit"))
-			return (0);
-		write(1, "\n", 1);
-		ft_printf("%s\n", in);
-		free(in);
-	}
-	ft_putstr("exit\n");
-	free(in);
-	uninit();
-	return (0);
+	if ((kv = kv_new(key, val)) == NULL)
+		return (0);
+	o = var_set(kv);
+	free(kv);
+	return (o);
 }

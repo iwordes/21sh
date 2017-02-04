@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_tty.c                                         :+:      :+:    :+:   */
+/*   tty.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 18:19:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/02 19:22:34 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/04 10:09:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	init_tty(void)
 	g_sh.tm_cfg.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR
 							| ICRNL | IXON);
 	g_sh.tm_cfg.c_oflag = OPOST | ONLCR;
-	g_sh.tm_cfg.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
+	g_sh.tm_cfg.c_lflag &= ~(ECHO | ECHONL | ICANON | IEXTEN);
+	//g_sh.tm_cfg.c_cc[VTIME] = 0
+	//g_sh.tm_cfg.c_cc[VMIN] = 1
 	if (tcsetattr(0, TCSANOW, &g_sh.tm_cfg) == -1)
 		exit(1);
 }

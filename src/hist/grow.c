@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   grow.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 19:40:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 11:29:38 by iwordes          ###   ########.fr       */
+/*   Created: 2017/02/04 11:16:47 by iwordes           #+#    #+#             */
+/*   Updated: 2017/02/04 11:20:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-t_sh	g_sh;
-
-int		main(void)
+void	hist_grow(size_t i)
 {
-	char	*in;
+	char	**hist;
+	size_t	l;
 
-	init();
-	shell();
-	while ((ft_printf("\e[92m$\e[0m ")) && (in = input()) != NULL)
-	{
-		if (ft_strequ(in, "exit"))
-			return (0);
-		write(1, "\n", 1);
-		ft_printf("%s\n", in);
-		free(in);
-	}
-	ft_putstr("exit\n");
-	free(in);
-	uninit();
-	return (0);
+	if (i < g_sh.hist_len)
+		return ;
+	l = g_sh.env_len;
+	while (i >= l)
+		l *= 2;
+	MGUARD(hist = ft_memalloc(sizeof(char*) * (l + 1)));
+	i = ~0L;
+	while (g_sh.hist[i += 1] != NULL)
+		hist[i] = g_sh.hist[i];
+	free(g_sh.hist);
+	g_sh.hist = hist;
+	g_sh.hist_len = l;
 }
