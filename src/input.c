@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/08 12:27:19 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/11 10:55:10 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,66 +109,4 @@ char	*input(void)
 	}
 	in_dest(&in);
 	return (NULL);
-}
-
-/*
-** =============================================================================
-*/
-
-static int	in_proc(t_in *in)
-{
-	char	buff[8];
-	int		r;
-	int		p;
-
-	while ((*((uint64_t*)buff) = 0) || read(0, buff, 7) >= 0)
-	{
-		p = ~0;
-		while (g_patt[p += 1] != NULL)
-			if (ft_strequ(g_patt[p], buff))
-			{
-				g_fn[p](cmd, i, l);
-				if (in->ret != ~0L)
-					return (in->ret);
-				break ;
-			}
-		if (g_patt[p] != NULL)
-			continue ;
-		in_sert(in);
-		in_print(in);
-	}
-	return ();
-}
-
-static void	in_it(t_in *in, const char *prompt)
-{
-	in->ret = ~0L;
-	in->i = 0;
-	in->cl = 0;
-	in->m = 256;
-	MGUARD(in->put = ft_strnew(in->m));
-	in->prompt = prompt;
-	in->pl = ft_strlen(in->prompt);
-	in->quote = 0;
-	in->ps1 = env_get_safe("PS1");
-	in->ps2 = env_get_safe("PS2");
-	in->ps1_len = ft_strlen(in->ps1);
-	in->ps2_len = ft_strlen(in->ps2);
-	tm_cur_save();
-}
-
-char		*input(const char *prompt)
-{
-	t_in	in;
-	int		o;
-
-	tm_cur_save();
-	if ((o = in_proc(&in)) < 0)
-		exit(110); // placeholder
-	else if (o == 0)
-	{
-		free(in->put);
-		return (NULL);
-	}
-	return (in->put);
 }
