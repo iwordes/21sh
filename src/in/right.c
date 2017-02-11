@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   in_right.c                                         :+:      :+:    :+:   */
+/*   right.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 12:22:07 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 13:19:28 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/08 12:25:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-void	in_right(char **cmd, size_t *i, size_t *l)
+void	in_right(t_in *in)
 {
-	if ((*cmd)[*i] != 0)
+	if (in->x < in->ln_len)
 	{
-		if (ft_iscntrl((*cmd)[*i]))
+		in->x += 1;
+		if ((in->ln[in->y].ps_len + in->x) % g_sh.cols == 1)
+			tm_nextln();
+		else
 			tm_right();
-		tm_right();
-		*i += 1;
 	}
-	(void)l;
 }

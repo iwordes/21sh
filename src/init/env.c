@@ -6,16 +6,31 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:11:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 10:13:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/05 12:36:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
+static void	update_shlvl_(void)
+{
+	char	*shlvl;
+
+	if ((shlvl = env_get("SHLVL")) != NULL)
+	{
+		shlvl = ft_itoa(ft_atoi(shlvl) + 1);
+		env_setkey("SHLVL", shlvl);
+		free(shlvl);
+	}
+}
+
 static void	default_env_(void)
 {
-	env_set("PS1=\e[91m$\e[0m ");
-	env_set("PS2=\e[93m.\e[0m ");
+	update_pwd();
+	env_del("OLDPWD");
+	env_set("PS1=$ ");
+	env_set("PS2=> ");
+	env_set("PS4=+ ");
 }
 
 void		init_env(void)

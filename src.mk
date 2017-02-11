@@ -1,9 +1,9 @@
 # Functions for 21sh
 
-SRC       = main.c init.c uninit.c
+SRC       = main.c init.c shell.c uninit.c
 SRC      += input.c
 
-SRC_BI    = echo.c
+SRC_BI    = echo.c exit.c
 
 SRC_IN    = up.c down.c right.c left.c
 SRC_IN   += home.c end.c
@@ -16,11 +16,11 @@ SRC_TM    = up.c down.c right.c left.c bksp.c
 SRC_TM   += clr_eol.c #clr_sol.c clr_ln.c
 SRC_TM   += clr_eos.c #clr_sos.c clr_scr.c
 SRC_TM   += cur_save.c cur_rest.c
-SRC_TM   += putstr.c
+SRC_TM   += putchar.c putstr.c
 
 SRC_ALS   =
 
-SRC_CMD   =
+SRC_CMD   = exec.c
 
 SRC_ENV   = del.c get.c grow.c set.c setkey.c
 
@@ -40,11 +40,11 @@ SRC      += $(addprefix bi/,$(SRC_BI))
 SRC      += $(addprefix in/,$(SRC_IN))
 SRC      += $(addprefix kv/,$(SRC_KV))
 SRC      += $(addprefix tm/,$(SRC_TM))
-SRC      += $(addprefix als/,$(SRC_ALS))
 SRC      += $(addprefix cmd/,$(SRC_CMD))
 SRC      += $(addprefix env/,$(SRC_ENV))
 SRC      += $(addprefix var/,$(SRC_VAR))
 SRC      += $(addprefix hist/,$(SRC_HIST))
 SRC      += $(addprefix init/,$(SRC_INIT))
+SRC      += $(addprefix alias/,$(SRC_ALS))
 SRC      += $(addprefix uninit/,$(SRC_UNIT))
 SRC      := $(addprefix src/,$(SRC))

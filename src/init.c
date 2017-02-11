@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/04 10:39:42 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 11:27:33 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/04 14:46:49 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	init(void)
 {
-	init_tty();
-	//init_tty1();
 	init_env();
 	init_var();
 	init_hist();
+	init_tty();
 }

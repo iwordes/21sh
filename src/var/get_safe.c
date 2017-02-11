@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   in_sert.c                                          :+:      :+:    :+:   */
+/*   get_safe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/03 10:31:27 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 10:43:20 by iwordes          ###   ########.fr       */
+/*   Created: 2017/02/06 13:14:21 by iwordes           #+#    #+#             */
+/*   Updated: 2017/02/06 13:16:00 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-void	in_sert(char **cmd, size_t *i, size_t *l, char *buff)
+char	*var_get_safe(const char *key)
 {
-	ft_strins(*cmd, buff, *i);
-	*i += ft_strlen(buff);
-	ft_putstr(buff);
-	tm_cur_save();
-	ft_putstr(*cmd + *i);
-	tm_cur_rest();
-	(void)l;
+	char	*val;
+
+	val = env_get(key);
+	if (val == NULL)
+		val = var_get(key);
+	if (val == NULL)
+		MGUARD(val = ft_strnew(0));
+	return (val);
 }

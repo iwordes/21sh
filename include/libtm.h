@@ -6,16 +6,16 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 10:47:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 14:31:01 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/04 15:37:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBTM_H
 # define LIBTM_H
 
-# include <curses.h>
 # include <term.h>
 # include <termios.h>
+# include <unistd.h>
 
 # define TM_UP "\e[A"
 # define TM_DOWN "\e[B"
@@ -54,7 +54,7 @@
 
 # define TM_GRY "\e[90m"
 
-void		tm_putchar(int c);
+int			tm_putchar(int c);
 void		tm_putstr(const char *str);
 
 void		tm_up(void);

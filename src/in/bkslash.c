@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end.c                                              :+:      :+:    :+:   */
+/*   bkslash.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/03 14:27:38 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/06 17:29:17 by iwordes          ###   ########.fr       */
+/*   Created: 2017/02/07 17:47:13 by iwordes           #+#    #+#             */
+/*   Updated: 2017/02/07 17:49:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-void	in_end(t_in *in)
+void	in_bkslash(t_in *in)
 {
-	while (in->i < in->cl)
-		in_right(in);
+	if (in->quote == '\\')
+		in->quote = 0;
+	else if (in->quote == 0)
+		in->quote = '\\';
+	in_sert(in, "\\");
 }

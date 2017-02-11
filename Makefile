@@ -4,7 +4,7 @@ AUTHOR   = iwordes
 
 CC       = gcc
 CF       = -Wall -Wextra -Werror
-CF      += -L libfs -L libft -l fs -l ft
+CF      += -L libfs -L libft -l fs -l ft -ltermcap
 CF      += -I include -I libfs/include -I libft/include
 
 include src.mk
