@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/11 10:55:10 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/20 10:51:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 static char	*g_patt[] =
 {
 	"",
+
+	"\x1",
+	"\x2",
+	"\x3",
 	"\x4",
+
 	"\n",
 	"\r",
 	"\b",
@@ -25,7 +30,6 @@ static char	*g_patt[] =
 	"\e[C",
 	"\e[D",
 	TM_HOME,
-	"\1",
 	TM_END,
 	NULL
 };
@@ -33,7 +37,12 @@ static char	*g_patt[] =
 static void	(*g_fn[])(char**, size_t*, size_t*) =
 {
 	in_eot,
+
+	in_home,
+	in_left,
+	in_reset,
 	in_eot,
+
 	in_enter,
 	in_enter,
 	in_bksp,
@@ -43,17 +52,16 @@ static void	(*g_fn[])(char**, size_t*, size_t*) =
 	in_right,
 	in_left,
 	in_home,
-	in_home,
 	in_end
 };
 
 static void	in_it(t_in *in, const char *prompt)
 {
-	in->i = 0;
-	in->cl = 0;
-	in->m = 256;
-	MGUARD(in->put = ft_strnew(in->m));
 	in->q = 0;
+	in->x = 0;
+	in->y = 0;
+	in->mem = 4;
+	MGUARD(in->ln = ft_memalloc(sizeof(t_inln) * 5));
 	in->ps1 = env_get_safe("PS1");
 	in->ps2 = env_get_safe("PS2");
 	in->ps1_len = ft_strlen(in->ps1);
@@ -81,7 +89,6 @@ static void	in_sert(t_in *in, char *buff)
 	in_grow(in);
 	ft_strins(in->put, buff, in->i);
 	in->x += ft_strlen(buff);
-	in->ln_len += ft_strlen(buff);
 }
 
 char	*input(void)
@@ -102,7 +109,7 @@ char	*input(void)
 					return (in_join(&in));
 				break ;
 			}
-		if (g_patt[p] != NULL)
+		if (g_patt[p] != NULL || ft_strlen(buff) != 1)
 			continue ;
 		in_sert(&in, buff);
 		in_print(&in);
