@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/08 11:43:50 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/22 16:19:36 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define HIST_LEN 128
 # define ALIAS_LEN 64
 
+# define PS_ERRIF(COND, MSG) if (COND) { ps_err(505, MSG); return ; }
+
 /*
 ** Variables can be replaced after tokenization by simply "inserting" more
 ** arguments/tokens into the space where the one would have gone.
@@ -34,58 +36,88 @@
 ** N(<|>)&N should also work (e.g. 2>&1)
 */
 
-# define TK_AND
-# define TK_BG
-# define TK_HEREDOC
-# define TK_OR
-# define TK_PIPE
-# define TK_SEP
-# define TK_STR
-# define TK_STR1
-# define TK_STR2
-# define TK_RIN
-# define TK_ROUT
-# define TK_RAOUT
+# define RD_IN   0
+# define RD_OUT  1
+# define RD_AOUT 2
+# define RD_HDOC 3
+
+# define TK_HDOC  0
+# define TK_PIPE  1
+# define TK_SEP   2
+# define TK_STR   3
+# define TK_STR1  4
+# define TK_STR2  5
+# define TK_RIN   6
+# define TK_ROUT  7
+# define TK_RAOUT 8
+
+# define TK_ISSTR__1(TK) (TK->type == TK_STR)
+# define TK_ISSTR__2(TK) (TK->type == TK_STR1 || TK->type == TK_STR2)
+# define TK_ISSTR(TK) (TK_ISSTR__1(TK) || TK_ISSTR__2(TK))
 
 # define MGUARD(MEM) if ((MEM) == NULL) exit(12)
 
+/*
+** Parse phase
+** ===========
+*/
+
+typedef struct		s_ps
+{
+	char			*ln;
+	size_t			i;
+	size_t			l;
+}					t_ps;
+
+/*
+** tk.adj: Whether or not the token is adjacent to its prior token.
+*/
+
 typedef struct		s_token
 {
-	char			*cont;
 	uint8_t			type;
+	bool			adj;
+	char			*val;
+	struct s_token	*next;
 }					t_token;
+
+typedef struct		s_redir
+{
+	int				from;
+	int				over;
+	char			*path;
+	int				opt;
+	struct s_redir	*next;
+}					t_redir;
 
 typedef struct		s_cmd
 {
 	char			**argv;
-	int				stdin;
-	int				stdout;
-	int				stderr;
+	int				argc;
+	size_t			l;
+	t_redir			*redir;
+	bool			pipe;
 }					t_cmd;
 
-/*
-** 1. Create pipes.
-** 2. Set each command's std{in,out,err} to the required one (if not redir)
-*/
-
-typedef struct		s_pipeline
+typedef struct		s_cmds
 {
 	t_cmd			*cmd;
-	size_t			len;
-}					t_pipeline;
+	size_t			l;
+}					t_cmds;
 
-typedef struct		s_job
-{
-	int				jid;
-	pid_t			*pid;
-	size_t			pcount;
-}					t_job;
+/*
+*/
+
+/*
+** Input phase
+*/
 
 /*
 ** char *ps -- Rendered, cached prompt string
 ** char *ln -- User-editable line contents
 ** size_t mem -- Amount of bytes allocated to ln
 ** size_t ps_len -- Cached length of the prompt string
+** size_t ln_len -- Cached length of the input string
 */
 
 typedef struct		s_inln
@@ -94,31 +126,25 @@ typedef struct		s_inln
 	char			*ln;
 	size_t			mem;
 	size_t			ps_len;
+	size_t			ln_len;
 }					t_inln;
 
 typedef struct		s_in
 {
-	char			**ln;
-	size_t			*m;
+	t_inln			*ln;
+	size_t			mem;
 	size_t			x;
 	size_t			y;
-	char			quote;
+	char			*q;
 
-	/*
-	** Working
-	*/
-	size_t			il;
-
-	char			q;
-
-	/*
-	** Prompt
-	*/
 	char			*ps1;
 	char			*ps2;
 	size_t			ps1_len;
 	size_t			ps2_len;
 }					t_in;
+
+/*
+*/
 
 typedef struct		s_sh
 {
@@ -153,6 +179,17 @@ void				env_grow(size_t i);
 void				env_list(void);
 char				env_set(const char *env);
 char				env_setkey(const char *key, const char *val);
+
+int					exec_bi(t_cmd *cmd);
+int					exec_cmd(t_cmd *cmd);
+int					exec_cmds(t_cmds *cmds);
+int					exec_name(t_cmd *cmd);
+int					exec_path(t_cmd *cmd, const char *path);
+
+pid_t				exec_bi_async(t_cmd *cmd);
+pid_t				exec_cmd_async(t_cmd *cmd);
+pid_t				exec_name_async(t_cmd *cmd);
+pid_t				exec_path_async(t_cmd *cmd, const char *path);
 
 void				hist_add(const char *line);
 void				hist_grow(size_t i);
