@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 16:38:18 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/25 12:36:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 14:26:03 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	cmds_init(t_cmds *cmds)
 {
-	MGUARD(cmds->cmd = MALT(t_cmd, 9));
+	MGUARD(cmds->cmd = ZALT(t_cmd, 9));
 	cmds->l = 8;
 }

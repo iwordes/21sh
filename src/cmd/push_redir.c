@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 15:23:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/25 11:30:00 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 13:37:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ void	cmd_push_redir(t_cmd *cmd, int from, int over)
 	rd->from = from;
 	rd->over = over;
 	head = cmd->redir;
-	while (head->next != NULL)
-		head = head->next;
-	head->next = rd;
+	if (head == NULL)
+		cmd->redir = rd;
+	else
+	{
+		while (head->next != NULL)
+			head = head->next;
+		head->next = rd;
+	}
 }

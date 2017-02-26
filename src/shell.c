@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/04 11:31:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 11:56:46 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 14:31:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,20 @@ void	shell(void)
 	t_token	*tk;
 	t_cmds	cmds;
 
-	cmds_init(&cmds);
 	while (ft_printf("$ ") && (in = input()) != NULL)
 	{
-		ft_printf("Processing command...\n");
-		ft_printf("\"%s\"\n", in);
+		cmds_init(&cmds);
+		ft_printf("Processing command... (\"%s\")\n", in);
 		tk = lex(in);
-		ft_printf("after lex\n");
+		ft_printf("+ lex\n");
 		debug_tokens(tk);
 		if (!parse(&cmds, tk))
 			continue ;
-		ft_printf("after parse\n");
+		ft_printf("+ parse\n");
+		debug_cmds(&cmds);
 		exec_cmds(&cmds);
-		ft_printf("after exec\n");
+		ft_printf("+ exec\n");
+		cmds_del(&cmds);
 		tk_del(tk);
 		free(in);
 	}

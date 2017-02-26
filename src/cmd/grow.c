@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/25 11:20:38 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/25 11:38:49 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 14:26:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	cmd_grow(t_cmd *cmd, size_t c)
 	ft_bzero(tmp + cmd->l, sizeof(char*) * cmd->l);
 	free(cmd->argv);
 	cmd->argv = tmp;
+	cmd->l *= 2;
 }

@@ -1,33 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   del.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/06 14:55:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 13:41:14 by iwordes          ###   ########.fr       */
+/*   Created: 2017/02/26 13:44:20 by iwordes           #+#    #+#             */
+/*   Updated: 2017/02/26 13:53:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-int		exec_cmd(t_cmd *cmd)
+static void	redir_del(t_redir *rd)
 {
-	if (ft_strchr(cmd->argv[0], '/'))
-		return (exec_path(cmd, cmd->argv[0]));
-	else if (is_bi(cmd->argv[0]))
-		return (exec_bi(cmd));
-	else
-		return (exec_name(cmd));
+	t_redir	*tmp;
+
+	while (rd != NULL)
+	{
+		tmp = rd->next;
+		free(rd->path);
+		free(rd->doc);
+		free(rd);
+		rd = tmp;
+	}
 }
 
-pid_t	exec_cmd_async(t_cmd *cmd)
+void	cmds_del(t_cmds *cmds)
 {
-	if (ft_strchr(cmd->argv[0], '/'))
-		return (exec_path_async(cmd, cmd->argv[0]));
-	else if (is_bi(cmd->argv[0]))
-		return (exec_bi_async(cmd));
-	else
-		return (exec_name_async(cmd));
+	size_t	i;
+	int		a;
+
+	i = 0;
+	while (i < cmds->l)
+	{
+		a = 0;
+		while (a < cmds->cmd[i].argc)
+			free(cmds->cmd[i].argv[a++]);
+		free(cmds->cmd[i].argv);
+		redir_del(cmds->cmd[i].redir);
+		i += 1;
+	}
+	free(cmds->cmd);
 }

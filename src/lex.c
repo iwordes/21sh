@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 18:51:10 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 12:33:43 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 13:10:33 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_token		*lex(const char *ln)
 		g_lx[p](tk, &ln, &err);
 		if (err)
 			return (panic_(head));
+		if (*ln == 0)
+			break ;
 		MGUARD(tk->next = tk_new());
 		tk = tk->next;
 		tk->adj = !(ft_isspace(*ln));

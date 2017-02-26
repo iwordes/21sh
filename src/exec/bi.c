@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 15:20:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/23 20:42:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 14:29:02 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			exec_bi(t_cmd *cmd)
 
 	i = ~0L;
 	while (g_bicmd[i += 1] != NULL)
-		if (ft_stricmp(g_bicmd[i], cmd->argv[0]))
+		if (ft_striequ(g_bicmd[i], cmd->argv[0]))
 			break ;
 	std[0] = dup(0);
 	std[1] = dup(1);
