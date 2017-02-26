@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 19:04:32 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 14:08:19 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 14:51:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	lx_str(t_token *tk, const char **str, bool *err)
 	MGUARD(tk->val = MALT(char, len_(*str) + 1));
 	while ((*str)[i] != 0 && VAL_CHR((*str)[i]))
 	{
-		if (**str == '\\')
+		if ((*str)[i] == '\\')
 		{
 			*str += 1;
 			if ((*str)[i] == 0)
