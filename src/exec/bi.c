@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 15:20:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/22 15:44:45 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/23 20:42:53 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ bool		is_bi(const char *str)
 
 static void	redir_(t_redir *rd, int std[3])
 {
-	int		fd;
-
 	while (rd != NULL)
 	{
 		if (!IS_RESV(rd->over))
@@ -48,7 +46,7 @@ static void	redir_(t_redir *rd, int std[3])
 				rd->from = open(rd->path, rd->opt);
 			else if (rd->doc != NULL)
 				rd->from = heredoc(rd->doc);
-			if (rd->from >= 0 && rd->to >= 0)
+			if (rd->from >= 0 && rd->over >= 0)
 				dup2(rd->from, rd->over);
 			else if (rd->from >= 0 && rd->over < 0)
 				close(rd->from);
@@ -86,9 +84,9 @@ int			exec_bi(t_cmd *cmd)
 	std[0] = dup(0);
 	std[1] = dup(1);
 	std[2] = dup(2);
-	redir_(cmd->redir);
+	redir_(cmd->redir, std);
 	state = g_bi[i](cmd->argv);
-	unredir_(cmd->redir);
+	unredir_(cmd->redir, std);
 	dup2(std[0], 0);
 	dup2(std[1], 1);
 	dup2(std[2], 2);

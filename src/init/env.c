@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:11:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/05 12:36:40 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/23 16:05:38 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ void		init_env(void)
 		MGUARD(g_sh.env[i]);
 	}
 	default_env_();
+	update_shlvl_();
 }

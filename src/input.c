@@ -6,12 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/20 10:51:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 11:22:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
+/*
 static char	*g_patt[] =
 {
 	"",
@@ -116,4 +117,21 @@ char	*input(void)
 	}
 	in_dest(&in);
 	return (NULL);
+}
+*/
+
+/*
+** Cheap placeholder for the real input().
+*/
+
+char	*input(void)
+{
+	char	*in;
+
+	if (ft_readln(0, &in) <= 0)
+	{
+		free(in);
+		return (NULL);
+	}
+	return (in);
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 18:19:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 10:09:06 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/25 13:14:49 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	init_tty(void)
 	g_sh.tm_cfg.c_lflag &= ~(ECHO | ECHONL | ICANON | IEXTEN);
 	//g_sh.tm_cfg.c_cc[VTIME] = 0
 	//g_sh.tm_cfg.c_cc[VMIN] = 1
-	if (tcsetattr(0, TCSANOW, &g_sh.tm_cfg) == -1)
-		exit(1);
+//	if (tcsetattr(0, TCSANOW, &g_sh.tm_cfg) == -1)
+//		exit(1);
 }

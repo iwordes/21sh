@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/04 14:53:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 15:08:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/25 12:23:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	var_list(void)
 	while (g_sh.var[i += 1] != NULL)
 	{
 		l = ft_struntil(g_sh.var[i], '=');
-		ft_printf("\e[1m%.*s\e[0m='%s'\n", l, g_env.env[i],
-			g_env.env[i] + l + 1);
+		ft_printf("\e[1m%.*s\e[0m='%s'\n", l, g_sh.var[i],
+			g_sh.var[i] + l + 1);
 	}
 }

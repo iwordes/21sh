@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 17:51:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/08 11:35:32 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/20 12:54:17 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 void	in_enter(t_in *in)
 {
+	write(1, "\r\n", 2);
 	if (in->q != 0)
 	{
 		// Start a new input line.

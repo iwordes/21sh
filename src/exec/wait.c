@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 15:19:22 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/22 16:12:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/23 21:17:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		exec_wait(pid_t pid)
 		return (-1);
 	waitpid(pid, &state, 0);
 	if (WIFSIGNALED(state))
-		ft_eprintf("[%jd] %s\n", pid, g_sigmsg[WTERMSIG(status)]);
+		ft_eprintf("[%jd] %s\n", pid, g_sigmsg[WTERMSIG(state)]);
 	state = WEXITSTATUS(state);
 	return (state);
 }

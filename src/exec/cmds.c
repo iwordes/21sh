@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 13:47:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/22 16:22:57 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 11:47:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,21 @@ void		exec_cmds(t_cmds *cmds)
 	size_t	d;
 	size_t	i;
 
-	i = ~0;
-	while (cmds->cmd[i += 1] != NULL)
+	i = 0;
+	while (i < cmds->l)
 	{
 		d = i;
 		while (cmds->cmd[i].pipe)
 		{
 			pipe(pip);
-			cmd_push_redir(cmds->cmd[i], pipe[1], 1);
-			cmd_push_redir(cmds->cmd[i + 1], pip[0], 0);
+			cmd_push_redir(cmds->cmd + i, pip[1], 1);
+			cmd_push_redir(cmds->cmd + i + 1, pip[0], 0);
+			ft_printf("after push_redir\n");
 			exec_cmd_async(cmds->cmd + i);
 			i += 1;
 		}
-		exec_cmd(cmds.cmd[i]);
+		exec_cmd(cmds->cmd + i);
+		ft_printf("after exec_cmd\n");
 		d = i - d;
 		while (d--)
 			waitpid(WAIT_ANY, NULL, 0);

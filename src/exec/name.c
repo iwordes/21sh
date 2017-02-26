@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 15:29:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/22 15:42:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/23 21:16:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static char	*find_name_(const char *name)
 {
 	char	*envpath;
 	char	*path;
+	char	*dir;
 	size_t	l;
 
 	l = 0;
