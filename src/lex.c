@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 18:51:10 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 11:43:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 12:20:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_token		*lex(const char *ln)
 	err = false;
 	MGUARD(head = tk_new());
 	tk = head;
+	ITER(ln, ft_isspace(*ln));
 	while (*ln != 0)
 	{
 		p = 0;
@@ -64,8 +65,8 @@ t_token		*lex(const char *ln)
 		MGUARD(tk->next = tk_new());
 		tk = tk->next;
 		tk->adj = !(ft_isspace(*ln));
-		while (ft_isspace(*ln))
-			ln += 1;
+		ITER(ln, ft_isspace(*ln));
+		ft_printf("LN: \"%s\"\n", ln);
 	}
 	return (head);
 }
