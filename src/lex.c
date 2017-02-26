@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/19 18:51:10 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 12:20:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 12:33:43 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ t_token		*lex(const char *ln)
 		tk = tk->next;
 		tk->adj = !(ft_isspace(*ln));
 		ITER(ln, ft_isspace(*ln));
-		ft_printf("LN: \"%s\"\n", ln);
 	}
 	return (head);
 }
