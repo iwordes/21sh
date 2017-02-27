@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 15:20:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 14:29:02 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 16:10:39 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static char		*g_bicmd[] =
 {
+	"echo",
 	"exit",
 	NULL
 };
 
 static int		(*g_bi[])(char**) =
 {
+	bi_echo,
 	bi_exit
 };
 

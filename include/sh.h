@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 13:50:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 16:10:56 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void				alias_list(void);
 char				alias_set(const char *name, const char *cmd);
 bool				alias_setkv(const char *kv);
 
+int					bi_echo(char **argv);
 int					bi_exit(char **argv);
 
 void				cmd_grow(t_cmd *cmd, size_t c);
