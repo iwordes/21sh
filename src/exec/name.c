@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 15:29:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/23 21:16:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 19:18:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static char	*find_name_(const char *name)
 		MGUARD(dir = ft_strsub(envpath, 0, l));
 		if (fs_search(dir, name))
 			path = fs_join(dir, name);
+		envpath += l;
 		free(dir);
 	}
 	return (path);
