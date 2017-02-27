@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/25 11:20:38 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 14:26:30 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 15:54:32 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	cmd_grow(t_cmd *cmd, size_t c)
 
 	if (c < cmd->l)
 		return ;
+	ft_printf("Growing cmd...\n");
+	ft_printf("c: %zu\n", c);
+	ft_printf("cmd->l: %zu\n", cmd->l);
 	MGUARD(tmp = MALT(char*, cmd->l * 2));
 	ft_memcpy(tmp, cmd->argv, sizeof(char*) * cmd->l);
 	ft_bzero(tmp + cmd->l, sizeof(char*) * cmd->l);

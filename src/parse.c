@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 20:56:56 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 14:28:54 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 16:04:56 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ bool	parse(t_cmds *cmds, t_token *tk)
 	size_t	c;
 
 	c = 0;
+	cmd_init(cmds->cmd);
 	while (tk != NULL)
 	{
 		cmds_grow(cmds, c);
@@ -36,6 +37,7 @@ bool	parse(t_cmds *cmds, t_token *tk)
 			if (TK_ISPIPE(tk))
 				cmds->cmd[c].pipe = true;
 			c += 1;
+			cmd_init(cmds->cmd + c);
 		}
 		tk = tk->next;
 	}
