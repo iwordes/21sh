@@ -4,18 +4,22 @@ AUTHOR   = iwordes
 
 CC       = gcc
 CF       = -Wall -Wextra -Werror
-CF      += -L libfs -L libft -l fs -l ft -ltermcap
-CF      += -I include -I libfs/include -I libft/include
+CL       = -L libfs -L libft -l fs -l ft -ltermcap
+CI      += -I include -I libfs/include -I libft/include
+
+CLI      = $(CC) $(CF) $(CI)
 
 include src.mk
+OBJ     := $(subst src,build,$(SRC:.c=.o))
 
 .PHONY: all
 all: $(NAME)
 
 .PHONY: clean
 clean:
-	make -C fclean lib/fs
-	make -C fclean lib/ft
+	rm -rf build
+	make -C libfs fclean
+	make -C libft fclean
 
 .PHONY: fclean
 fclean: clean
@@ -24,8 +28,12 @@ fclean: clean
 .PHONY: re
 re: fclean all
 
-$(NAME): libfs/libfs.a libft/libft.a $(SRC)
-	$(CC) $(CF) -o $@ $(SRC)
+$(NAME): $(OBJ) libfs/libfs.a libft/libft.a
+	$(CLI) $(CL) -o $@ $(OBJ)
+
+build/%.o: src/%.c
+	mkdir -p $(@D)
+	$(CLI) -c -o $@ $<
 
 libfs/libfs.a:
 	make -C libfs

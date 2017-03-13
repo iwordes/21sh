@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 11:48:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 13:18:01 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 19:43:38 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	debug_tokens(t_token *tk)
 	while (tk != NULL)
 	{
 		ft_printf("{\n");
-		ft_printf("    \"type\": %u\n", tk->type);
+		ft_printf("    \"type\": \"%s\"\n", debug_type(tk->type));
 		ft_printf("    \"adj\":  %v\n", (tk->adj) ? "true" : "false");
 		if (tk->type != TK_REDIR)
 			ft_printf("    \"val\":  \"%s\"\n", tk->val);

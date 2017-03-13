@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 16:10:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/02/26 19:42:01 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,11 +191,13 @@ typedef struct		s_sh
 
 void				debug_cmds(t_cmds *cmds);
 void				debug_tokens(t_token *tk);
+char				*debug_type(int type);
 
 char				alias_add(const char *name, const char *cmd);
 void				alias_list(void);
 char				alias_set(const char *name, const char *cmd);
 bool				alias_setkv(const char *kv);
+
 
 int					bi_echo(char **argv);
 int					bi_exit(char **argv);
