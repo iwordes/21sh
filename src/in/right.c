@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 18:33:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/13 19:08:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:20:54 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	in_right(t_in *in)
 {
-	if (in->x + 1 == in->ln[in->y].ln_len)
+	if (in->x == in->ln[in->y].ln_len)
 		return (false);
 	if (g_sh.cx + 1 == g_sh.cols)
 	{
