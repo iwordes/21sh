@@ -5,25 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/02 12:22:07 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/11 14:03:43 by iwordes          ###   ########.fr       */
+/*   Created: 2017/03/13 18:33:12 by iwordes           #+#    #+#             */
+/*   Updated: 2017/03/13 19:00:51 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-void	in_right(t_in *in)
+bool	in_right(t_in *in)
 {
-	if (in->x < in->ln_len)
+	if (g_sh.cx = g_sh.cols - 1)
 	{
-		in->x += 1;
-		if ((in->ln[in->y].ps_len + in->x) % g_sh.cols == 1)
-			tm_nextln();
-		else
-		{
-			if (ft_iscntrl(in->ln[in->y].ln[in->x]))
-				tm_right();
-			tm_right();
-		}
+		tm_nextln();
+		g_sh.cy += 1;
+		g_sh.cx = 0;
 	}
+	else
+	{
+		tm_right();
+		g_sh.cx += 1;
+	}
+	in->x += 1;
 }
