@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:18:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/13 18:34:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 13:42:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	in_sert(t_in *in, char buff[8])
 	char	*tmp;
 	size_t	i;
 
-	if (in->x + 1 > LN.m)
+	if (in->x + 1 >= LN.mem)
 	{
-		MGUARD(tmp = (char*)malloc(LN.m * 2));
-		ft_memcpy(tmp, LN.ln, LN.m);
+		MGUARD(tmp = (char*)malloc(LN.mem * 2));
+		ft_memcpy(tmp, LN.ln, LN.mem);
 		free(LN.ln);
 		LN.ln = tmp;
-		LN.m *= 2;
+		LN.mem *= 2;
 	}
 	ft_strins(LN.ln, buff, in->x);
 	in_print(in);
