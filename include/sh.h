@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 19:42:01 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 13:51:45 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct		s_in
 {
 	t_inln			*ln;
 	size_t			mem;
+	size_t			l;
 	size_t			x;
 	size_t			y;
 	char			*q;
@@ -173,10 +174,9 @@ typedef struct		s_sh
 	size_t			hist_len;
 	size_t			alias_len;
 
-	int				last_status;
-
-	int				rows;
 	int				cols;
+	int				cx;
+	int				cy;
 
 	char			**whist;
 	char			*ln;
@@ -241,16 +241,20 @@ void				init_var(void);
 void				init_hist(void);
 
 char				*input(void);
-void				in_bksp(t_in *in);
-void				in_down(t_in *in);
-void				in_end(t_in *in);
-void				in_eot(t_in *in);
-void				in_enter(t_in *in);
-void				in_home(t_in *in);
-void				in_left(t_in *in);
-void				in_reset(t_in *in);
-void				in_right(t_in *in);
-void				in_up(t_in *in);
+bool				in_eot(t_in *in);
+bool				in_return(t_in *in);
+
+bool				in_soi(t_in *in);
+bool				in_eoi(t_in *in);
+bool				in_sol(t_in *in);
+bool				in_eol(t_in *in);
+bool				in_left(t_in *in);
+bool				in_right(t_in *in);
+
+void				in_sert(t_in *in, char buff[8]);
+bool				in_del(t_in *in);
+
+void				in_print(t_in *in);
 
 char				kv_cmp(const char *kv1, const char *kv2);
 char				*kv_new(const char *key, const char *val);

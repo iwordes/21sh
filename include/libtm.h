@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 10:47:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/25 12:22:21 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 13:55:33 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,15 @@ void				tm_up(void);
 void				tm_down(void);
 void				tm_right(void);
 void				tm_left(void);
+void				tm_gotor(int x, int y);
 
 void				tm_bksp(void);
 
 int					tm_cols(void);
 int					tm_rows(void);
+
+void				tm_nextln();
+void				tm_prevln();
 
 /*
 ** void				tm_clr(void);
