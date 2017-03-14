@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:47:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/13 22:59:46 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 13:57:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 
 int		sum_lines(t_in *in)
 {
-	int		i;
+	size_t	i;
 	int		l;
 
 	i = 0;
+	l = 0;
 	while (i < in->l)
 	{
 		l += LN.ps_len + LN.ln_len;
