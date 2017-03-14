@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 13:51:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:01:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static void	init_(t_in *in)
 	in->ps1_len = ft_strlen(in->ps1);
 	in->ps2_len = ft_strlen(in->ps2);
 	MGUARD(in->ln->ln = ft_strnew(128));
+	MGUARD(in->ln->ps = ft_strdup(in->ps1));
 	in->ln->ps_len = in->ps1_len;
-	in->ln->ps = in->ps1;
 	in->ln->ln_len = 0;
 	in->ln->mem = 128;
 }
