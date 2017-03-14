@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 14:01:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:04:24 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ bool	(*g_fn[])(t_in*) =
 
 static void	init_(t_in *in)
 {
-	g_sh.cx = 0;
-	g_sh.cy = 0;
 	MGUARD(in->ln = MALT(t_inln, 1));
 	in->mem = 1;
 	in->l = 1;
@@ -88,6 +86,8 @@ static void	init_(t_in *in)
 	in->ln->ps_len = in->ps1_len;
 	in->ln->ln_len = 0;
 	in->ln->mem = 128;
+	g_sh.cx = in->ps1_len % g_sh.cols;
+	g_sh.cy = in->ps1_len / g_sh.cols;
 }
 
 static char	*end_(t_in *in)
