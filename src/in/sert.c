@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:18:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/13 17:40:37 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/13 18:34:15 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #define LN (in->ln[in->y])
 
-bool	in_sert(t_in *in, char buff[8])
+void	in_sert(t_in *in, char buff[8])
 {
 	char	*tmp;
 	size_t	i;
@@ -35,6 +35,5 @@ bool	in_sert(t_in *in, char buff[8])
 	}
 	ft_strins(LN.ln, buff, in->x);
 	in_print(in);
-	in->x += 1;
-	return (FALSE);
+	in_right(in);
 }
