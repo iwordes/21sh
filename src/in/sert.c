@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:18:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 13:42:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 13:57:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 void	in_sert(t_in *in, char buff[8])
 {
 	char	*tmp;
-	size_t	i;
 
 	if (in->x + 1 >= LN.mem)
 	{
