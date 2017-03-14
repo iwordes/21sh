@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 14:04:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:14:53 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ static char	*end_(t_in *in)
 	{
 		MGUARD(ln = ft_strdjoin(ln, in->ln[i].ln));
 		free(in->ln[i].ps);
-		free(in->ln[i].ln);
 		free(in->ln + i);
 		i += 1;
 	}
