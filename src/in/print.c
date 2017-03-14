@@ -5,66 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/05 12:40:58 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/11 19:24:02 by iwordes          ###   ########.fr       */
+/*   Created: 2017/03/13 16:41:02 by iwordes           #+#    #+#             */
+/*   Updated: 2017/03/13 18:46:33 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
 /*
-** This can be heavily optimized, but is also the easiest flexible
-** implementation.
+** Reprint the input buffer.
+** Finally, relocate the cursor to its expected position.
 */
 
-static void		left_(t_in *in, t_2u32 *i)
+/*
+** From a given t_in, find and navigate to the beginning cursor position of the
+** input buffer, taking into account each line's length and prompt.
+*/
+
+/*
+** How does this react if the user resizes the window between calls?
+*/
+
+#define LN (in->ln[in->y])
+
+void	in_print(t_in *in)
 {
-	i->x -= 1;
-	if ((in->ln[i->y].ps_len + i->x) % g_sh.cols == g_sh.cols - 1)
-		tm_gotor(g_sh.cols, -1);
-	else
+	size_t	i;
+
+	i = 0;
+	tm_gotor(-g_sh.cx, -g_sh.cy);
+	while (i < in->l)
 	{
-		if (ft_iscntrl(in->ln[i->y].ln[i->x]))
-			tm_left();
-		tm_left();
+		write(1, LN.ps, LN.ps_len);
+		if (i != in->y)
+			write(1, LN.ln, LN.ln_len);
+		else
+		{
+			write(1, LN.ln, in->x);
+			tm_cur_save();
+			write(1, LN.ln + in->x, LN.ln_len - in->x);
+		}
+		i += 1;
 	}
-}
-
-static void		right_(t_in *in, t_2u32 *i)
-{
-	if ((in->ln[i->y].ps_len + i->x) % g_sh.cols == g_sh.cols - 1)
-		tm_nextln();
-	else
-	{
-		if (ft_iscntrl(in->ln[i->y].ln[i->x]))
-			tm_right();
-		tm_right();
-	}
-	i->x += 1;
-}
-
-void			in_print(t_in *in)
-{
-	t_2u32	i;
-
-	tm_cur_load();
 	tm_clr_eos();
-	i.y = ~0L;
-	while (in->ln[i.y += 1] != NULL)
-	{
-		ft_putstr(in->ln[i.y].ps);
-		ft_putvis(in->ln[i.y].ln);
-		if (in->ln[i.y + 1] != NULL)
-			write(1, "\n", 1);
-	}
-	while (i.y != in->y)
-	{
-		i.x = ft_strlen(in->ln[i.y].ln);
-		while (i.x > 0)
-			left_(in, &i);
-		tm_up();
-		i.y -= 1;
-	}
-	while (i.x != in->x)
-		right_(in, &i);
+	tm_cur_load();
 }
