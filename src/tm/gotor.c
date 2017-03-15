@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/05 13:21:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 14:00:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/15 15:46:08 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	tm_gotor(int x, int y)
 			tm_right();
 	if (y < 0)
 		while (y++)
-			tm_down();
+			tm_up();
 	else
 		while (y--)
-			tm_up();
+			tm_down();
 }
