@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 18:19:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 14:03:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/15 14:31:41 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void	init_tty(void)
 	g_sh.tm_cfg.c_cc[VMIN] = 1;
 	if (tcsetattr(0, TCSANOW, &g_sh.tm_cfg) == -1)
 		exit(1);
+	tm_init();
 	g_sh.cols = tm_cols();
 }
