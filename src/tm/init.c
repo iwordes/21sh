@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/05 14:04:22 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/06 14:44:58 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/15 14:25:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		tm_init(void)
 		return (0);
 	i = ~0L;
 	while (environ[i += 1] != NULL)
-		if (ft_strnequ(environ[i], "TERM") && environ[i][4] == '=')
+		if (tm__strnequ(environ[i], "TERM=", 5))
 		{
 			if (tgetent(tcbuff, environ[i] + 5) > 0)
 				return (1);

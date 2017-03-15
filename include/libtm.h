@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 10:47:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 13:55:33 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/15 14:30:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@
 # include <term.h>
 # include <termios.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 /*
 ** This library expects stdout/err to be to a TTY.
 ** Verify this is the case before use.
+**
+** Additionally, tm_init() uses malloc() and free().
 */
+
+int					tm_init();
 
 # define TM_HOME "\e[H"
 # define TM_END "\e[F"
@@ -53,6 +58,8 @@
 # define TM_CYN "\e[36m"
 
 # define TM_GRY "\e[90m"
+
+int					tm__strnequ(const char *str1, const char *str2, int n);
 
 int					tm_putchar(int c);
 void				tm_putstr(const char *str);
