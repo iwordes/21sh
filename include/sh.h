@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 13:51:45 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/16 14:15:25 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,9 @@ bool				patt_str1_2(const char *str);
 void				redir(t_redir *r);
 
 void				shell(void);
+
+void				sh_left(void);
+void				sh_right(void);
 
 void				sig_abrt(int sig);
 void				sig_alrm(int sig);

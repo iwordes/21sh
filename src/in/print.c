@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:41:02 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/15 15:18:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/16 14:17:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,9 @@ void	in_print(t_in *in)
 	{
 		write(1, LN.ps, LN.ps_len);
 		write(1, LN.ln, LN.ln_len);
+		write(1, "\r\n", 2);
 		c += LN.ps_len + LN.ln_len;
-		if (i + 1 < in->l)
-		{
-			write(1, "\r\n", 2);
-			c += (g_sh.cols - (c % g_sh.cols));
-		}
+		c += g_sh.cols - X;
 		i += 1;
 	}
 	tm_clr_eos();

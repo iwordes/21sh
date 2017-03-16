@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:18:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 14:16:28 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/16 14:07:22 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	in_sert(t_in *in, char buff[8])
 	}
 	LN.ln_len += ft_strlen(buff);
 	ft_strins(LN.ln, buff, in->x);
-	in_print(in);
 	in_right(in);
+	in_print(in);
 }
