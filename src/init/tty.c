@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 18:19:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/15 14:31:41 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/16 19:30:55 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	init_tty(void)
 	if (tcgetattr(0, &g_sh.tm_cfg_) == -1)
 		exit(1);
 	g_sh.tm_cfg = g_sh.tm_cfg_;
-	g_sh.tm_cfg.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR
-							| ICRNL | IXON);
+	g_sh.tm_cfg.c_iflag = 0;
 	g_sh.tm_cfg.c_oflag = OPOST | ONLCR;
 	g_sh.tm_cfg.c_lflag &= ~(ECHO | ECHONL | ICANON | IEXTEN);
 	g_sh.tm_cfg.c_cc[VTIME] = 0;

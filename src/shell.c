@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/04 11:31:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/26 19:45:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/16 19:28:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	shell(void)
 	t_token	*tk;
 	t_cmds	cmds;
 
-	while (ft_printf("$ ") && (in = input()) != NULL)
+	while ((in = input()) != NULL)
 	{
 		cmds_init(&cmds);
 
