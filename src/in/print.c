@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:41:02 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/17 12:55:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/17 12:58:48 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 #define X (c % g_sh.cols)
 #define Y (c / g_sh.cols)
 
+/*
+** Don't remove that useless-looking putstr(" \e[D"). It's the only thing making
+** word wrap work right. I have NO IDEA why.
+*/
+
 void	in_print(t_in *in)
 {
 	size_t	i;
@@ -40,11 +45,7 @@ void	in_print(t_in *in)
 	tm_gotor(-g_sh.cx, -g_sh.cy);
 	while (i < in->l)
 	{
-		//ft_putstr("\e[92m");
-		write(1, LN.ps, 1);
-		//ft_putstr("\e[0m");
-		write(1, LN.ps + 1, LN.ps_len - 1);
-		//write(1, LN.ps, LN.ps_len);
+		write(1, LN.ps, LN.ps_len);
 		write(1, LN.ln, LN.ln_len);
 		c += LN.ps_len + LN.ln_len;
 		tm_clr_eos();
@@ -55,6 +56,6 @@ void	in_print(t_in *in)
 		}
 		i += 1;
 	}
-	ft_putstr("\e[91mX\e[0m\e[D");
+	ft_putstr(" \e[D");
 	tm_gotor(g_sh.cx - X, g_sh.cy - Y);
 }
