@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/17 13:32:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/17 13:33:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char		*input(void)
 	size_t	k;
 
 	init_(&in);
-	ft_printf("\e[1;7m%%\e[0m%*=\r\e[K", g_sh.cols - 1);
+	ft_printf("\e[1;7m%%\e[0m%*=\r", g_sh.cols - 1);
 	ft_putstr(in.ps1);
 
 	// DEBUG
