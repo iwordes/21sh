@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:41:02 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/17 12:51:50 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/17 12:55:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ void	in_print(t_in *in)
 	tm_gotor(-g_sh.cx, -g_sh.cy);
 	while (i < in->l)
 	{
-		ft_putstr("\e[92m");
+		//ft_putstr("\e[92m");
 		write(1, LN.ps, 1);
-		ft_putstr("\e[0m");
+		//ft_putstr("\e[0m");
 		write(1, LN.ps + 1, LN.ps_len - 1);
 		//write(1, LN.ps, LN.ps_len);
 		write(1, LN.ln, LN.ln_len);
-		ft_eprintf("c (%d) += %jd + %jd\n", c, LN.ps_len, LN.ln_len);
 		c += LN.ps_len + LN.ln_len;
 		tm_clr_eos();
 		if (i + 1 < in->l)
