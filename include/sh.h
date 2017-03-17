@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/16 14:15:25 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/17 13:13:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,8 @@ bool				in_sol(t_in *in);
 bool				in_eol(t_in *in);
 bool				in_left(t_in *in);
 bool				in_right(t_in *in);
+bool				in_wd_left(t_in *in);
+bool				in_wd_right(t_in *in);
 
 void				in_sert(t_in *in, char buff[8]);
 bool				in_del(t_in *in);

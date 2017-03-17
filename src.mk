@@ -9,6 +9,7 @@ SRC_ENV = del.c get.c get_safe.c grow.c list.c pwd.c set.c setkey.c
 SRC_EXEC = bi.c cmd.c cmds.c name.c path.c wait.c
 SRC_HIST = add.c grow.c history_next.c history_prev.c
 SRC_IN = print.c return.c eot.c left.c right.c sert.c del.c sol.c eol.c eoi.c
+SRC_IN += wd_left.c wd_right.c
 SRC_INIT = env.c hist.c sig.c tty.c tty1.c tty2.c var.c
 SRC_KV = cmp.c new.c val.c
 SRC_LX = err.c pipe.c redir.c sep.c str.c str1_2.c

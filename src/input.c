@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/16 19:35:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/17 13:13:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ char	*g_key[] =
 	"\e[C",
 	"\e[D",
 
-	//"\e[H",
-	//"\e[F",
+	"\e\e[C",
+	"\e\e[D",
+
+	"\e[H",
+	"\e[F",
 
 	NULL
 };
@@ -65,8 +68,11 @@ bool	(*g_fn[])(t_in*) =
 	in_right,
 	in_left,
 
-	//in_home,
-	//in_end
+	in_wd_right,
+	in_wd_left,
+
+	in_sol,
+	in_eol
 };
 
 static void	init_(t_in *in)
