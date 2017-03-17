@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 13:08:47 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/17 13:09:54 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/17 13:14:27 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-#define X in->ln[in->y]
+#define LN in->ln[in->y]
 
 bool	in_wd_right(t_in *in)
 {
