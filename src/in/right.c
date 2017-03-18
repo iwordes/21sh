@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 18:33:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/16 15:11:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 10:19:56 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,5 @@ bool	in_right(t_in *in)
 		return (false);
 	sh_right();
 	in->x += 1;
-	ft_eprintf("R: [%d,%d]\n", g_sh.cx, g_sh.cy);
 	return (false);
 }

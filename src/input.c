@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/17 13:35:08 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 09:55:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,6 @@ static char	*end_(t_in *in)
 	in_eoi(in);
 	write(1, "\n", 1);
 
-	///
-	ft_printf("\e[1;92m[%d,%d]\e[0m\n", g_sh.cx, g_sh.cy);
-	///
-
 	// TODO: Append (flat) line to history
 	return (ln);
 }
@@ -135,12 +131,6 @@ char		*input(void)
 	init_(&in);
 	ft_printf("\e[1;7m%%\e[0m%*\r", g_sh.cols - 1);
 	ft_putstr(in.ps1);
-
-	// DEBUG
-	//g_sh.cols = 80;
-	tm_gotor(-ft_printf("| %d cols | @[%d,%d]", g_sh.cols, g_sh.cx, g_sh.cy), 0);
-	// DEBUG
-
 	while (ZEROBUF || read(0, buff, 7) >= 0)
 	{
 		k = ~0;
