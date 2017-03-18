@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 11:28:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 11:51:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,12 @@ bool				in_soi(t_in *in);
 bool				in_eoi(t_in *in);
 bool				in_sol(t_in *in);
 bool				in_eol(t_in *in);
+
+bool				in_up(t_in *in);
+bool				in_down(t_in *in);
 bool				in_left(t_in *in);
 bool				in_right(t_in *in);
+
 bool				in_wd_left(t_in *in);
 bool				in_wd_right(t_in *in);
 
