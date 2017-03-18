@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 15:09:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:29:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ char	*input(void)
 
 char	*g_key[] =
 {
-	"",
+	//"\03",
+	"\04",
 
 	"\n",
 	"\r",
@@ -58,6 +59,7 @@ char	*g_key[] =
 
 bool	(*g_fn[])(t_in*) =
 {
+	//in_cancel,
 	in_eot,
 
 	in_return,
@@ -85,6 +87,8 @@ static void	init_(t_in *in)
 {
 	MGUARD(in->ln = MALT(t_inln, 1));
 	in->mem = 1;
+	in->eot = false;
+	in->cancel = false;
 	in->l = 1;
 	in->x = 0;
 	in->y = 0;
@@ -121,8 +125,11 @@ static char	*end_(t_in *in)
 	}
 	free(in->ln);
 	in_eoi(in);
-	write(1, "\n", 1);
-	//hist_add(ln);
+	hist_add(ln);
+	if (in->eot || in->cancel)
+		ft_memdel((void**)&ln);
+	if (in->cancel)
+		MGUARD(ln = ft_strnew(0));
 	return (ln);
 }
 

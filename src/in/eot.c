@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 13:34:18 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/14 13:56:48 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:25:02 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 bool	in_eot(t_in *in)
 {
-	(void)in;
-	return (true);
+	if (in->ln[in->y].ln_len == 0)
+	{
+		in->eot = true;
+		return (true);
+	}
+	else
+	{
+		write(1, "\07", 1);
+		return (false);
+	}
 }

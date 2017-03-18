@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/04 11:31:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 15:08:13 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:27:05 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	shell(void)
 
 	while ((in = input()) != NULL)
 	{
+		write(1, "\n", 1);
 		cmds_init(&cmds);
 
 		ft_printf("Processing command... (\"%s\")\n", in);

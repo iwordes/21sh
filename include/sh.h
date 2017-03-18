@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 11:51:06 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:25:17 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,9 @@ typedef struct		s_in
 	size_t			x;
 	size_t			y;
 	char			*q;
+
+	bool			eot;
+	bool			cancel;
 
 	char			*ps1;
 	char			*ps2;
