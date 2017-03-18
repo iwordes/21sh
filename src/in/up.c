@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 10:41:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 10:42:06 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 11:49:32 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 bool	in_up(t_in *in)
 {
-	// ...
+	if (in->y == 0)
+		return (false);
+	in->x = 0;
+	in->y -= 1;
+	in_goto(in, in->x, in->y);
 	return (false);
 }
