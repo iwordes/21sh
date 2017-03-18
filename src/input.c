@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 11:52:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:05:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,22 @@ static char	*end_(t_in *in)
 {
 	char	*ln;
 	size_t	i;
+	size_t	l;
 
 	i = 0;
 	MGUARD(ln = ft_strnew(0));
 	while (i < in->l)
 	{
 		MGUARD(ln = ft_strdjoin(ln, in->ln[i].ln));
+		l = ft_strlen(ln);
+		if (l > 1 && ln[l - 1] == '\\' && ln[l - 2] != '\\')
+			ln[l - 1] = 0;
 		free(in->ln[i].ps);
-		free(in->ln + i);
 		i += 1;
 	}
+	free(in->ln);
 	in_eoi(in);
-	write(1, "\n", 1);
-
-	// TODO: Append (flat) line to history
+	//hist_add(ln);
 	return (ln);
 }
 
@@ -136,7 +138,7 @@ char		*input(void)
 
 	init_(&in);
 	ft_printf("\e[1;7m%%\e[0m%*\r", g_sh.cols - 1);
-	ft_putstr(in.ps1);
+	ft_putstr(in.ln[0].ps);
 	while (ZEROBUF || read(0, buff, 7) >= 0)
 	{
 		k = ~0;
