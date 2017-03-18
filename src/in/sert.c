@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:18:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/17 13:01:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 11:15:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@
 
 #define LN (in->ln[in->y])
 
-void	in_sert(t_in *in, char buff[2])
+void	in_sert(t_in *in, char buff[8])
 {
 	char	*tmp;
 
-	buff[1] = 0;
 	if (LN.ln_len + 1 >= LN.mem)
 	{
 		MGUARD(tmp = (char*)malloc(LN.mem * 2));
@@ -35,8 +34,6 @@ void	in_sert(t_in *in, char buff[2])
 	}
 	LN.ln_len += 1;
 	ft_strins(LN.ln, buff, in->x);
-
-	sh_right();
-	in->x += 1;
+	in_right(in);
 	in_print(in);
 }
