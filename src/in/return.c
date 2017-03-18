@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 13:30:51 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 11:34:21 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 11:47:08 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	in_return(t_in *in)
 	{
 		MGUARD(tmp = ZALT(t_inln, in->mem * 2));
 		ft_memcpy(tmp, in->ln, sizeof(t_in) * in->mem);
+		in->mem *= 2;
 		free(in->ln);
 		in->ln = tmp;
 	}
