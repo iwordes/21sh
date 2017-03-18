@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 15:13:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/03 19:57:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:35:10 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,15 @@
 
 /*
 ** Save terminal history to file.
+** Unfortunately, the required function to do this properly is unavailable.
 */
 
 void	uninit_hist(void)
 {
-	int		fd;
 	size_t	i;
 
-	if ((fd = open("~/.21sh_history", O_WRONLY | O_CREAT | O_TRUNC)) >= 0)
-	{
-		i = ~0L;
-		while (g_sh.hist[i += 1] != NULL)
-		{
-			write(fd, g_sh.hist[i], ft_strlen(g_sh.hist[i]));
-			write(fd, "\n", 1);
-		}
-		close(fd);
-	}
+	i = ~0L;
+	while (g_sh.hist[i += 1] != NULL)
+		free(g_sh.hist[i]);
 	free(g_sh.hist);
 }
