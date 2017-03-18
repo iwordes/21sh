@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 15:05:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:09:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ static char	*end_(t_in *in)
 	}
 	free(in->ln);
 	in_eoi(in);
+	write(1, "\n", 1);
 	//hist_add(ln);
 	return (ln);
 }

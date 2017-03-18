@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:47:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 15:03:01 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:09:10 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int		sum_lines(t_in *in)
 	while (i < in->l)
 	{
 		l += LN.ps_len + LN.ln_len;
-		l += g_sh.cols - (l % g_sh.cols);
+		if (i + 1 < in->l)
+			l += g_sh.cols - (l % g_sh.cols);
 		i += 1;
 	}
 	return (l);
@@ -46,7 +47,6 @@ bool	in_eoi(t_in *in)
 	in->x = in->ln[in->y].ln_len - 1;
 	g_sh.cx += dx;
 	g_sh.cy += dy;
-	ft_eprintf("goto %d,%d\n", dx, dy);
 	tm_gotor(dx, dy);
 	return (false);
 }

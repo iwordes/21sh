@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/04 11:31:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/16 19:28:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/18 15:08:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	shell(void)
 
 		tk = lex(in);
 
-		ft_printf("+ lex\n");
-		debug_tokens(tk);
+		//ft_printf("+ lex\n");
+		//debug_tokens(tk);
 
 		if (tk->type != 255 && parse(&cmds, tk))
 		{
-			ft_printf("+ parse\n");
-			debug_cmds(&cmds);
+			//ft_printf("+ parse\n");
+			//debug_cmds(&cmds);
 
 			exec_cmds(&cmds);
 		}
