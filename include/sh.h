@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 15:25:17 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/20 13:13:00 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ void				init_var(void);
 void				init_hist(void);
 
 char				*input(void);
+bool				in_cancel(t_in *in);
 bool				in_eot(t_in *in);
 bool				in_return(t_in *in);
 

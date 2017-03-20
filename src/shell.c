@@ -6,15 +6,11 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/04 11:31:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 15:27:05 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/20 13:17:32 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
-
-/*
-** Placeholder command-executor.
-*/
 
 void	shell(void)
 {
@@ -27,7 +23,7 @@ void	shell(void)
 		write(1, "\n", 1);
 		cmds_init(&cmds);
 
-		ft_printf("Processing command... (\"%s\")\n", in);
+		//ft_printf("Processing command... (\"%s\")\n", in);
 
 		tk = lex(in);
 

@@ -6,32 +6,15 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/18 15:29:40 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/20 13:13:36 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sh.h>
 
-/*
-** Cheap placeholder for the real input().
-*/
-/*
-char	*input(void)
-{
-	char	*in;
-
-	if (ft_readln(0, &in) <= 0)
-	{
-		free(in);
-		return (NULL);
-	}
-	return (in);
-}
-*/
-
 char	*g_key[] =
 {
-	//"\03",
+	"\03",
 	"\04",
 
 	"\n",
@@ -59,7 +42,7 @@ char	*g_key[] =
 
 bool	(*g_fn[])(t_in*) =
 {
-	//in_cancel,
+	in_cancel,
 	in_eot,
 
 	in_return,

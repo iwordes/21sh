@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 18:19:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/16 20:05:32 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/20 13:17:10 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,18 @@
 
 /*
 ** c_iflag:
-** - Don't ignore break conditions.
-** - Don't send a SIGINT when a break condition is detected.
-** - Don't mark parity errors.
-** - Don't strip the most significant bit from input bytes.
-** - Don't convert newlines to carriage returns.
-** - Don't ignore carriage returns.
-** - Don't convert carriage returns to newlines.
-** - Don't use start/stop input control.
+** - Nothing.
 **
 ** c_oflag:
-** - Enable processing.
+** - Enable output processing.
 ** - Interpret '\n' as "\r\n" (return cursor to beginning of line)
 **
 ** c_lflag:
-** - Disable echoing of input to terminal display
-** - Disable echoing of newlines to terminal display
-** - Disable canonical mode
-** - Disable handling for Ctrl signaling
-** - Disable special input handling
+** - Only enable signals (e.g. ^C)
+**
+** c_cc:
+** - Don't wait for input.
+** - Return at least 1 character (keypress?) at a time.
 */
 
 void	init_tty(void)
@@ -42,7 +35,7 @@ void	init_tty(void)
 	g_sh.tm_cfg = g_sh.tm_cfg_;
 	g_sh.tm_cfg.c_iflag = 0;
 	g_sh.tm_cfg.c_oflag = OPOST | ONLCR;
-	g_sh.tm_cfg.c_lflag = ISIG;
+	g_sh.tm_cfg.c_lflag = 0; //ISIG;
 	g_sh.tm_cfg.c_cc[VTIME] = 0;
 	g_sh.tm_cfg.c_cc[VMIN] = 1;
 	if (tcsetattr(0, TCSANOW, &g_sh.tm_cfg) == -1)
