@@ -36,7 +36,7 @@ build/%.o: src/%.c
 	$(CLI) -c -o $@ $<
 
 libfs/libfs.a:
-	make -C libfs
+	make -j7 -C libfs
 
 libft/libft.a:
-	make -C libft
+	make -j7 -C libft

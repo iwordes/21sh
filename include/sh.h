@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 19:20:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/20 13:13:00 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/03/20 19:07:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 
 # include <fcntl.h>
+# include <sys/ioctl.h>
 
 # include <libfs.h>
 # include <libft.h>
@@ -181,8 +182,9 @@ typedef struct		s_sh
 	int				cx;
 	int				cy;
 
-	char			**whist;
+	//char			**whist;
 	char			*ln;
+	size_t			hi;
 
 	struct termios	tm_cfg_;
 	struct termios	tm_cfg;
@@ -239,6 +241,7 @@ void				hist_grow(size_t i);
 
 void				init(void);
 void				init_env(void);
+void				init_sig(void);
 void				init_tty(void);
 void				init_var(void);
 void				init_hist(void);
@@ -299,37 +302,8 @@ void				shell(void);
 void				sh_left(void);
 void				sh_right(void);
 
-void				sig_abrt(int sig);
-void				sig_alrm(int sig);
-void				sig_bus(int sig);
-void				sig_chld(int sig);
-void				sig_cont(int sig);
-void				sig_emt(int sig);
-void				sig_fpe(int sig);
-void				sig_hup(int sig);
-void				sig_ill(int sig);
-void				sig_int(int sig);
-void				sig_pipe(int sig);
-void				sig_quit(int sig);
-void				sig_segv(int sig);
-void				sig_sys(int sig);
-void				sig_term(int sig);
-void				sig_trap(int sig);
-void				sig_tstp(int sig);
-void				sig_ttin(int sig);
-void				sig_ttou(int sig);
-void				sig_urg(int sig);
+void				sig_end(int sig);
 void				sig_winch(int sig);
-/*
-int					sig_(int sig);
-int					sig_(int sig);
-int					sig_(int sig);
-int					sig_(int sig);
-int					sig_(int sig);
-int					sig_(int sig);
-int					sig_(int sig);
-int					sig_(int sig);
-*/
 
 void				tk_del(t_token *tk);
 t_token				*tk_new(void);
