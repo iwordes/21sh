@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   val.c                                              :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/04 10:38:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 10:38:41 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 14:51:09 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 15:25:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sh.h>
+#include <main.h>
 
-bool	kv_val(const char *kv)
+void	loop(void)
 {
-	return (kv[0] != '=' && ft_strchr(kv, '=') != NULL);
+	char	*in;
+	t_ps	ps;
+
+	while ((in = input()))
+	{
+		if (parse(&ps, in))
+			shell(&ps);
+		free(in);
+	}
 }

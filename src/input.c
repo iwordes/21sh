@@ -5,143 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/01 16:05:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/20 16:35:07 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 15:42:07 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sh.h>
+#include <main.h>
 
-char	*g_key[] =
+/*
+** Goals:
+** 1. Allow intuitive line editing.
+** 2. Allow editing of multiple lines.
+**
+** Additionally:
+** 1. Manage input history.
+** 2. Manage a clipboard, because we certainly don't live in a graphical age.
+*/
+
+static t_inkey	g_key[] =
 {
-	"\03",
-	"\04",
-
-	"\n",
-	"\r",
-
-	"\b",
-	"\x7f",
-
-	//"\e[A",
-	//"\e[B",
-
-	"\e\e[A",
-	"\e\e[B",
-	"\e[C",
-	"\e[D",
-
-	"\e\e[C",
-	"\e\e[D",
-
-	"\e[H",
-	"\e[F",
-
-	NULL
+	{ "\e[D", in_left },
+	{ "\e[C", in_right },
 };
 
-bool	(*g_fn[])(t_in*) =
+static void		input_init(t_in *in)
 {
-	in_cancel,
-	in_eot,
+	// % protection
+	// ft_printf("\e[7m%%\e[0m%.*c\n", g_mn., ' ');
 
-	in_return,
-	in_return,
-
-	in_del,
-	in_del,
-
-	//in_hist_up,
-	//in_hist_down,
-
-	in_up,
-	in_down,
-	in_right,
-	in_left,
-
-	in_wd_right,
-	in_wd_left,
-
-	in_sol,
-	in_eol
-};
-
-static void	init_(t_in *in)
-{
-	MGUARD(in->ln = MALT(t_inln, 1));
-	in->mem = 1;
-	in->eot = false;
-	in->cancel = false;
-	in->l = 1;
-	in->x = 0;
-	in->y = 0;
-	in->q = NULL;
-	in->ps1 = env_get_safe("PS1");
-	in->ps2 = env_get_safe("PS2");
-	in->ps1_len = ft_strlen(in->ps1);
-	in->ps2_len = ft_strlen(in->ps2);
-	MGUARD(in->ln->ln = ft_strnew(128));
-	MGUARD(in->ln->ps = ft_strdup(in->ps1));
-	in->ln->ps_len = in->ps1_len;
-	in->ln->ln_len = 0;
-	in->ln->mem = 128;
-	g_sh.cx = in->ps1_len % g_sh.cols;
-	g_sh.cy = in->ps1_len / g_sh.cols;
+	
 }
 
-static char	*end_(t_in *in)
-{
-	char	*ln;
-	size_t	i;
-	size_t	l;
-
-	i = 0;
-	MGUARD(ln = ft_strnew(0));
-	while (i < in->l)
-	{
-		MGUARD(ln = ft_strdjoin(ln, in->ln[i].ln));
-		l = ft_strlen(ln);
-		if (l > 1 && ln[l - 1] == '\\' && ln[l - 2] != '\\')
-			ln[l - 1] = 0;
-		free(in->ln[i].ps);
-		i += 1;
-	}
-	free(in->ln);
-	in_eoi(in);
-	hist_add(ln);
-	if (in->eot || in->cancel)
-		ft_memdel((void**)&ln);
-	if (in->cancel)
-		MGUARD(ln = ft_strnew(0));
-	return (ln);
-}
-
-// If issues occur with live-reading, invert the lookup table and pattern-search
-// each buffer.
-
-#define ZEROBUF (*(uint64_t*)buff = 0)
-
-char		*input(void)
+static void		input_loop(t_in *in)
 {
 	char	buff[8];
-	t_in	in;
-	size_t	k;
 
-	init_(&in);
-	ft_printf("\e[1;7m%%\e[0m%*\r", g_sh.cols - 1);
-	ft_putstr(in.ln[0].ps);
-	while (ZEROBUF || read(0, buff, 7) >= 0)
+	while (read(0, buff, 8) >= 0)
 	{
-		k = ~0;
-		while (g_key[k += 1] != NULL)
-			if (ft_strequ(g_key[k], buff))
-			{
-				if (g_fn[k](&in))
-					return (end_(&in));
-				break;
-			}
-		if (g_key[k] == NULL && buff[1] == 0)
-			in_sert(&in, buff);
+		// ...
 	}
-	return (end_(&in));
+}
+
+static void		input_unit(t_in *in)
+{
+	// 1. Join lines
+	// 2. Free lines
+	// 3. ???
+}
+
+char			*input(void)
+{
+	t_in		in;
+
+	input_init(&in);
+	input_loop(&in);
+	input_unit(&in);
+	return (in->line);
 }

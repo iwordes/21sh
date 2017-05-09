@@ -5,18 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/04 10:39:42 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/20 14:51:08 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 14:31:14 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 15:07:48 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sh.h>
+#include <main.h>
 
 void	init(void)
 {
 	init_env();
-	init_var();
-	init_hist();
 	init_sig();
 	init_tty();
 }

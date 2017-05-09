@@ -5,44 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/07 17:58:39 by iwordes           #+#    #+#             */
-/*   Updated: 2017/03/20 19:07:50 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 15:07:58 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 15:17:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sh.h>
+#include <main.h>
 
-#define IGN(S) (S == 16 || S == 19 || S == 20 || S == 23 || S == 28 || S == 29)
+/*
+** static void	sig_none(int sig)
+** {
+** 	(void)sig;
+** }
+*/
 
-static void	auto_end(void)
+static void	sig_winch(int sig)
 {
-	size_t	i;
+	struct winsize	ws;
+	uint32_t		i;
 
-	i = 1;
-	while (i < 32)
-	{
-		if (!IGN(i) && i != SIGKILL && i != SIGSTOP)
-			signal(i, sig_end);
-		i += 1;
-	}
+	signal(SIGWINCH, SIG_IGN);
+	ioctl(1, TIOCGWINSZ, &ws);
+	i = g_mn.w * g_mn.y + g_mn.x;
+	g_mn.w = ws.ws_col;
+	g_mn.x = i / g_mn.w;
+	g_mn.y = i % g_mn.w;
+	signal(SIGWINCH, sig_winch);
+	(void)sig;
 }
 
-static void	auto_ign(void)
+void		init_sig(void)
 {
-	size_t	i;
+	uint8_t	sig;
 
-	i = 1;
-	while (i < 32)
-	{
-		if (IGN(i) && i != SIGKILL && i != SIGSTOP)
-			signal(i, SIG_IGN);
-		i += 1;
-	}
-}
-
-void	init_sig(void)
-{
-	auto_end();
-	auto_ign();
+	sig = 1;
+	/*
+	while (sig < 32)
+		signal(sig, sig_none);
+	*/
 	signal(SIGWINCH, sig_winch);
 }

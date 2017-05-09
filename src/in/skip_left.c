@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   skip_left.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/05 10:34:29 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/05 12:35:43 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 15:22:36 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 15:22:50 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sh.h>
+#include <main.h>
 
-void	env_list(void)
+void	in_skip_left(t_in *in)
 {
-	size_t	i;
-	size_t	l;
-
-	i = ~0L;
-	while (g_sh.env[i += 1] != NULL)
-	{
-		l = ft_struntil(g_sh.env[i], '=');
-		ft_printf("\e[97m%.*s\e[0m='%s'", l, g_sh.env[i], g_sh.env[i] + l + 1);
-	}
+	// ...
 }

@@ -5,19 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 19:40:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/02/04 11:31:53 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 14:50:43 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 14:51:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sh.h>
-
-t_sh	g_sh;
+#include <main.h>
 
 int		main(void)
 {
 	init();
-	shell();
+	loop();
 	uninit();
-	return (0);
 }
