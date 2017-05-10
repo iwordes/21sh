@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:40:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 11:49:19 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,19 @@
 
 static t_inkey	g_key[] =
 {
-	{ "^C", in_ctrl_c }
-	{ "^D", in_ctrl_d },
-	{ "^V", in_ctrl_v },
-	{ "^X", in_ctrl_x },
 
-	{ "^?", in_delete },
+	{ "\n", in_submit },
+	{ "\r", in_submit },
+	{ "\r\n", in_submit },
+
+	{ "\x03", in_ctrl_c },
+	/*
+	{ "\x04", in_ctrl_d },
+	*/
+	{ "\x16", in_ctrl_v },
+	{ "\x18", in_ctrl_x },
+
+	{ "\x7f", in_delete },
 	{ "\e[3~", in_delete },
 
 	/*
@@ -40,14 +47,18 @@ static t_inkey	g_key[] =
 	{ "\e[C", in_line_right },
 	{ "\e[D", in_line_left },
 
+	/*
 	{ "\e[...", in_line_up },
 	{ "\e[...", in_line_down },
+	*/
 
 	{ "\e[1;2C", in_sel_right },
-	{ "\e[1;2D", in_sel_left },
+	{ "\e[1;2D", in_sel_left }
 
+	/*
 	{ "\e[...", in_skip_right },
 	{ "\e[...", in_skip_left }
+	*/
 };
 
 static void		input_init(t_in *in)
@@ -64,10 +75,10 @@ static void		input_init(t_in *in)
 
 static void		input_loop(t_in *in)
 {
-	char	buff[8];
+	char	buff[9];
 
-	*(uint64_t*)buff = 0;
-	while (read(0, buff, 7) > 0)
+	ft_bzero(buff, 9);
+	while (read(0, buff, 8) > 0)
 	{
 		i = ~0;
 		while (++i < G_KEY_LEN)

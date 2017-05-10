@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:16:02 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 12:29:39 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,23 @@ typedef struct	s_main
 ** Input
 */
 
-char			*input(void);
 
-void			in_left(t_in *in);
-void			in_right(t_in *in);
+void			in_sert(t_in *in, char *buff);
 
-void			in_skip_left(t_in *in);
-void			in_skip_right(t_in *in);
+void			in_submit(t_in *in);
+void			in_delete(t_in *in);
 
-void			in_home(t_in *in);
-void			in_end(t_in *in);
+void			in_ctrl_c(t_in *in);
+void			in_ctrl_d(t_in *in);
+void			in_ctrl_v(t_in *in);
+void			in_ctrl_x(t_in *in);
+
+void			in_line_left(t_in *in);
+void			in_line_right(t_in *in);
+
+void			in_sel_del(t_in *in);
+void			in_sel_left(t_in *in);
+void			in_sel_right(t_in *in);
 
 /*
 ** =============================================================================
@@ -122,5 +129,17 @@ void			in_end(t_in *in);
 */
 
 // ...
+
+/*
+** =============================================================================
+** Main
+*/
+
+void			init(void);
+void			loop(void);
+char			*input(void);
+bool			parse(t_ps *ps, const char *in);
+void			shell(t_ps *ps);
+void			uninit(void);
 
 #endif

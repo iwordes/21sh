@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sert.c                                             :+:      :+:    :+:   */
+/*   sel_del.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:53:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 11:11:36 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/10 11:27:13 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/10 11:30:32 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-#define LN in->ln[in->y]
-
-void	in_sert(t_in *in, char *buff)
+void	sel_del(t_in *in)
 {
 	if (in->s != 0)
 	{
-		// Erase selection
+		if (in->s > 0)
+		{
+			ft_strcut(LN.ln, in->x, in->s);
+			LN.len -= in->s;
+		}
+		else
+		{
+			ft_strcut(LN.ln, in->x + in->s, -in->s);
+			LN.len += in->s;
+			in->x += in->s;
+		}
 	}
-	if (in->x + 1 == LN.mem)
-	{
-		MGUARD(DRALT(LN.ln, /* ... */, LN.mem * 2));
-		LN.mem *= 2;
-	}
-	LN.ln[in->x] = *buff;
-	LN.len += 1;
-	in->x += 1;
-	in_meta_redraw(in);
 }
