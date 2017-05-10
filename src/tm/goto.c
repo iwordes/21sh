@@ -1,21 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skip_left.c                                        :+:      :+:    :+:   */
+/*   goto.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:22:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:39:29 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 16:49:14 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 16:53:34 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	in_skip_left(t_in *in)
+/*
+** IDEA: Terminal library with internal position management
+*/
+
+void	tm_goto(int16_t x, int16_t y)
 {
-	while (in->x > 0 && !ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
-	while (in->x > 0 && ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
+	g_mn.x += x;
+	g_mn.y += y;
+	while (x > 0)
+	{
+		write(1, "\e[C", 3);
+		x -= 1;
+	}
+	while (x < 0)
+	{
+		write(1, "\e[D", 3);
+		x += 1;
+	}
+	while (y > 0)
+	{
+		write(1, "\e[B", 3);
+		y -= 1;
+	}
+	while (y < 0)
+	{
+		write(1, "\e[A", 3);
+		y += 1;
+	}
 }

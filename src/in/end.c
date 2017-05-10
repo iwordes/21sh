@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:18:57 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 15:19:08 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/09 20:39:17 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	in_end(t_in *in)
 {
-	// ...
+	while (in->x < in->ln[in->y].len)
+		in_line_right(in);
 }

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skip_left.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:22:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:39:29 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 20:12:50 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 20:17:50 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <main.h>
-
-void	in_skip_left(t_in *in)
+int		sh_exit(char **argv)
 {
-	while (in->x > 0 && !ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
-	while (in->x > 0 && ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
+	if (argv[1] == NULL)
+	{
+		uninit();
+		exit(0);
+	}
+	return (1);
 }

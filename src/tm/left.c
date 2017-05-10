@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skip_left.c                                        :+:      :+:    :+:   */
+/*   left.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:22:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:39:29 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 16:54:42 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 17:47:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	in_skip_left(t_in *in)
+void	tm_left(void)
 {
-	while (in->x > 0 && !ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
-	while (in->x > 0 && ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
+	if (g_mn.x != 0)
+	{
+		write(1, "\e[D", 3);
+		g_mn.x -= 1;
+	}
+	else if (g_mn.y != 0)
+	{
+		write(1, "\e[F", 3);
+		g_mn.y -= 1;
+		g_mn.x = ~0;
+		while (++g_mn.x < g_mn.w)
+			write(1, "\e[C", 3);
+	}
 }

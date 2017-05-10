@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:51:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 15:25:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/09 16:20:39 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	loop(void)
 
 	while ((in = input()))
 	{
-		if (parse(&ps, in))
-			shell(&ps);
+		ft_printf("\e[92m\"%s\"\e[0m\n", in);
+		//if (parse(&ps, in))
+		//	shell(&ps);
 		free(in);
 	}
 }

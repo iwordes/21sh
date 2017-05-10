@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skip_left.c                                        :+:      :+:    :+:   */
+/*   sert.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:22:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:39:29 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 15:53:59 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 16:15:56 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	in_skip_left(t_in *in)
+#define LN in->ln[in->y]
+
+void	in_sert(t_in *in, char *buff)
 {
-	while (in->x > 0 && !ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
-	while (in->x > 0 && ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
+	if (in->x + 1 == LN.mem)
+	{
+		MGUARD(DRALT(LN.ln, /* ... */, LN.mem * 2));
+		LN.mem *= 2;
+	}
+	LN.ln[in->x] = *buff;
+	LN.len += 1;
+	in->x += 1;
+	in_meta_redraw(in);
 }

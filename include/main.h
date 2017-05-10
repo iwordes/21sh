@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 15:37:55 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/09 20:16:02 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,61 @@
 
 # define MGUARD(M) if ((M) == NULL) exit(255)
 
-typedef void	(*t_infn)(t_in*);
+/*
+** =============================================================================
+** Structs - Input
+*/
+
+typedef struct	s_inkey
+{
+	char		*key;
+	void		(*fn)(t_in*);
+}				t_inkey;
+
+typedef struct	s_inline
+{
+	char		*ln;
+	char		*ps;
+	uint32_t	len;
+	uint32_t	mem;
+	uint32_t	ps_len;
+}				t_inline;
+
+typedef struct	s_inquote
+{
+	char		*s;
+	char		*e;
+}				t_inquote;
+
+typedef struct	s_in
+{
+	char		*line;
+
+	t_inline	*ln;
+	uint32_t	len;
+	uint32_t	mem;
+
+	char		*clip;
+	int32_t		s;
+
+	uint32_t	x;
+	uint32_t	y;
+
+	bool		eot;
+	bool		cancel;
+	bool		submit;
+}				t_in;
 
 /*
 ** =============================================================================
 ** Structs
 */
 
-typedef struct	s_in
+typedef struct	s_bi
 {
-	char		*line;
-
-	char		**ln;
-	char		**ps;
-	uint32_t	ln_cnt;
-	uint32_t	ln_mem;
-	uint32_t	ps_mem;
-
-	uint32_t	x;
-	uint32_t	y;
-}				t_in;
-
-typedef struct	s_inkey
-{
-	char		*key;
-	t_infn		fn;
-}				t_inkey;
-
-typedef struct	s_inq
-{
-	char		*s;
-	char		*e;
-}				t_inq;
+	char		*cmd;
+	int			(*fn)(char**);
+}				t_bi;
 
 typedef struct	s_ps
 {

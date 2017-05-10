@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skip_left.c                                        :+:      :+:    :+:   */
+/*   line_down.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:22:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:39:29 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/09 20:37:37 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/09 20:38:25 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	in_skip_left(t_in *in)
+void	in_line_down(t_in *in)
 {
-	while (in->x > 0 && !ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
-	while (in->x > 0 && ft_isspace(LN.ln[in->x - 1]))
-		in_left(in);
+	if (in->y < in->len)
+	{
+		in->s = 0;
+		in->y += 1;
+		in->x = MIN(in->x, in->ln[in->y].len);
+		in_redraw(in);
+	}
 }
