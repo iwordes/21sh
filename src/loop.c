@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:51:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 16:20:39 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 13:07:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	loop(void)
 {
 	char	*in;
-	t_ps	ps;
+	//t_ps	ps;
 
 	while ((in = input()))
 	{

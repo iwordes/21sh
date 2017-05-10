@@ -6,11 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 15:21:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 13:07:28 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
+
+/*
 
 static t_keyfn	g_scan[] =
 {
@@ -26,3 +28,5 @@ bool			parse(t_ps *ps, const char *in)
 {
 	// ...
 }
+
+*/

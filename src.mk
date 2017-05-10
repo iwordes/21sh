@@ -1,10 +1,16 @@
 SRC       = init.c input.c loop.c main.c parse.c shell.c uninit.c
-SRC_IN    = in_sert.c in_submit.c in_delete.c \
-			in_ctrl_c.c in_ctrl_d.c in_ctrl_v.c in_ctrl_x.c \
-			in_line_left.c in_line_right.c
-			in_sel_del.c in_sel_left.c in_sel_right.c
+
+SRC_IN    = redraw.c sert.c submit.c delete.c \
+			ctrl_c.c ctrl_d.c ctrl_v.c ctrl_x.c \
+			line_left.c line_right.c \
+			sel_del.c sel_left.c sel_right.c
+
+SRC_TM    = goto.c left.c right.c
 
 SRC_INIT  = env.c sig.c tty.c
 
 SRC += $(addprefix in/,$(SRC_IN))
+SRC += $(addprefix tm/,$(SRC_TM))
+SRC += $(addprefix init/,$(SRC_INIT))
+
 SRC := $(addprefix src/,$(SRC))

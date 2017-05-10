@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:15:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 11:09:09 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 13:14:03 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ void		in_submit(t_in *in)
 	{
 		if (in->len == in->mem)
 		{
-			MGUARD(DRALT(/* in->ln, t_inline, in->mem, in->mem * 2 */));
+			MGUARD(DRALT(in->ln, t_inline, in->mem * 2, in->mem));
 			in->mem *= 2;
 		}
+		in->len += 1;
 		in->y += 1;
 		in->x = 0;
 		in_redraw(in);

@@ -6,13 +6,15 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 11:27:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 11:30:32 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 13:18:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	sel_del(t_in *in)
+#define LN in->ln[in->y]
+
+void	in_sel_del(t_in *in)
 {
 	if (in->s != 0)
 	{

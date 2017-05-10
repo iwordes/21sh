@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:16:04 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 19:51:27 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 13:18:22 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define LN in->ln[y]
 
-static void	in_redraw_cur(t_in *in)
+static void	in_redraw_cur(t_in *in, uint32_t y)
 {
 	if (in->s < 0)
 	{
@@ -41,7 +41,7 @@ void		in_redraw(t_in *in)
 
 	i = 0;
 	y = 0;
-	tm_gotor(-g_mn.x, -g_mn.y);
+	tm_goto(-g_mn.x, -g_mn.y);
 	while (y < in->len)
 	{
 		i += LN.ps_len;
@@ -50,7 +50,7 @@ void		in_redraw(t_in *in)
 			ft_putendl(LN.ln);
 		else
 		{
-			in_redraw_cur(in);
+			in_redraw_cur(in, y);
 			g_mn.x = (i + in->x) % g_mn.w;
 			g_mn.y = (i + in->x) / g_mn.w;
 		}
