@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 21:01:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/11 13:26:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 static t_inkey	g_key[] =
 {
-
+	{ "\t", in_tab },
 	{ "\n", in_submit },
 	{ "\r", in_submit },
 	{ "\r\n", in_submit },
@@ -84,7 +84,7 @@ static void		input_loop(t_in *in)
 				g_key[i].fn(in);
 				break ;
 			}
-		if (i == G_KEY_LEN && ft_strlen(buff) == 1)
+		if (i == G_KEY_LEN && buff[0] != '\e')
 			in_sert(in, buff);
 		if (in->eot || in->cancel || in->submit)
 			return ;

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 20:42:30 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/11 13:19:33 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ bool			env_setkv(const char *key, const char *val);
 void			in_redraw(t_in *in);
 
 void			in_sert(t_in *in, char *buff);
+
+void			in_tab(t_in *in);
 
 void			in_submit(t_in *in);
 void			in_delete(t_in *in);
