@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:37:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:17:43 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:27:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 void	in_line_down(t_in *in)
 {
-	if (in->y + 1 < in->len)
+	if (in->len > 1)
 	{
-		in->s = 0;
-		in->y += 1;
-		in->x = MIN(in->x, in->ln[in->y].len);
-		in_redraw(in);
+		if (in->y + 1 < in->len)
+		{
+			in->s = 0;
+			in->y += 1;
+			in->x = MIN(in->x, in->ln[in->y].len);
+			in_redraw(in);
+		}
+	}
+	else if (g_mn.hist_len > 0)
+	{
+		// ...
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:53:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:20:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:39:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	in_sert(t_in *in, char *buff)
 {
+	in_hist_del(in);
 	if (in->s != 0)
 	{
 		in_sel_del(in);

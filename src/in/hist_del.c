@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   hist_del.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 14:31:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:33:16 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/10 19:39:22 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/10 19:39:43 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	init(void)
+void	in_hist_del(t_in *in)
 {
-	bzero(&g_mn, sizeof(t_main));
-	//init_env();
-	init_sig();
-	init_tty();
+	if (in->hist != NULL)
+	{
+		free(in->hist);
+		in->hist = NULL;
+	}
 }

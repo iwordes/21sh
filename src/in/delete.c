@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:08:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 16:05:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:39:56 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	in_delete(t_in *in)
 {
+	in_hist_del(in);
 	if (in->s != 0)
 	{
 		in_sel_del(in);

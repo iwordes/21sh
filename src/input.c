@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:05:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:31:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,10 @@ static t_inkey	g_key[] =
 	{ "\x7f", in_delete },
 	{ "\e[3~", in_delete },
 
-	/*
-	{ "\e[A", in_hist_up },
-	{ "\e[B", in_hist_down },
-	*/
-
+	{ "\e[A", in_line_up },
+	{ "\e[B", in_line_down },
 	{ "\e[C", in_line_right },
 	{ "\e[D", in_line_left },
-
-	{ "\e\e[A", in_line_up },
-	{ "\e\e[B", in_line_down },
 
 	{ "\e[1;2C", in_sel_right },
 	{ "\e[1;2D", in_sel_left },

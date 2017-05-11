@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:01:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 13:15:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:40:00 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	in_ctrl_x(t_in *in)
 {
 	if (in->s != 0)
 	{
+		in_hist_del(in);
 		free(in->clip);
 		if (in->s > 0)
 			in->clip = ft_strsub(LN.ln, in->x, in->s);

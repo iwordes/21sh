@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:19:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:41:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 
 # include <libft.h>
 
-# define MGUARD(M) if ((M) == NULL) exit(255)
+# define MAX_HIST 64
 
 # define S_TERMIOS struct termios
 # define S_WINSIZE struct winsize
+
+# define MGUARD(M) if ((M) == NULL) exit(255)
 
 /*
 ** =============================================================================
@@ -54,8 +56,9 @@ typedef struct	s_in
 	uint32_t	mem;
 
 	char		*clip;
-	int64_t		s;
+	char		*hist;
 
+	int64_t		s;
 	uint32_t	x;
 	uint32_t	y;
 
@@ -94,6 +97,11 @@ typedef struct	s_main
 	char		**env;
 	size_t		env_mem;
 
+	char		*hist[MAX_HIST];
+	uint32_t	hist_len;
+	uint32_t	hist_mem;
+
+	uint32_t	h;
 	uint32_t	w;
 	uint32_t	x;
 	uint32_t	y;
@@ -142,6 +150,8 @@ void			in_sel_right(t_in *in);
 
 void			in_skip_left(t_in *in);
 void			in_skip_right(t_in *in);
+
+void			in_hist_del(t_in *in);
 
 /*
 ** =============================================================================
