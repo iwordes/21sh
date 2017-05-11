@@ -6,14 +6,19 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:37:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:27:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 20:27:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
+#define LN in->ln[0]
+#define HIST g_mn.hist[g_mn.hist_len - 1 - g_mn.h]
+
 void	in_line_down(t_in *in)
 {
+	char	*tmp;
+
 	if (in->len > 1)
 	{
 		if (in->y + 1 < in->len)
@@ -24,8 +29,23 @@ void	in_line_down(t_in *in)
 			in_redraw(in);
 		}
 	}
-	else if (g_mn.hist_len > 0)
+	else if (g_mn.hist_len > 0 && g_mn.h != ~0U)
 	{
-		// ...
+		g_mn.h -= 1;
+		if (g_mn.h == ~0U)
+			tmp = in->hist;
+		else
+			tmp = HIST;
+		ft_bzero(LN.ln, LN.len);
+		LN.len = ft_strlen(tmp);
+		while (LN.mem < LN.len)
+		{
+			MGUARD(DRALT(LN.ln, char, LN.mem * 2, LN.mem));
+			bzero(LN.ln + LN.mem, LN.mem);
+			LN.mem *= 2;
+		}
+		ft_strcat(LN.ln, tmp);
+		in->x = LN.len;
+		in_redraw(in);
 	}
 }

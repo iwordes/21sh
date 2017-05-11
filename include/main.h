@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:41:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 20:42:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,13 @@ typedef struct	s_inquote
 
 typedef struct	s_in
 {
+	char		*clip;
+	char		*hist;
 	char		*line;
 
 	t_inline	*ln;
 	uint32_t	len;
 	uint32_t	mem;
-
-	char		*clip;
-	char		*hist;
 
 	int64_t		s;
 	uint32_t	x;
@@ -97,7 +96,7 @@ typedef struct	s_main
 	char		**env;
 	size_t		env_mem;
 
-	char		*hist[MAX_HIST];
+	char		**hist;
 	uint32_t	hist_len;
 	uint32_t	hist_mem;
 
@@ -151,6 +150,7 @@ void			in_sel_right(t_in *in);
 void			in_skip_left(t_in *in);
 void			in_skip_right(t_in *in);
 
+void			in_hist_add(t_in *in);
 void			in_hist_del(t_in *in);
 
 /*
@@ -190,6 +190,7 @@ void			shell(t_ps *ps);
 */
 void			uninit(void);
 
+void			init_hist(void);
 void			init_env(void);
 void			init_sig(void);
 void			init_tty(void);

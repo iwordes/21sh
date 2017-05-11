@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hist_del.c                                         :+:      :+:    :+:   */
+/*   hist_add.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/10 19:39:22 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 20:52:07 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/10 20:01:32 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/10 20:55:19 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	in_hist_del(t_in *in)
+#define E(M...) ft_dprintf(2, M)
+
+void	in_hist_add(t_in *in)
 {
-	if (in->hist != NULL)
+	if (g_mn.hist_len == g_mn.hist_mem)
 	{
-		g_mn.h = ~0;
-		free(in->hist);
-		in->hist = NULL;
+		MGUARD(DRALT(g_mn.hist, char*, g_mn.hist_mem * 2, g_mn.hist_mem));
+		g_mn.hist_mem *= 2;
 	}
+	if ((g_mn.hist[g_mn.hist_len] = ft_strdup(in->line)) != NULL)
+		g_mn.hist_len += 1;
 }

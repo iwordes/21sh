@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:31:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:33:16 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 20:42:34 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init(void)
 {
 	bzero(&g_mn, sizeof(t_main));
+	init_hist();
 	//init_env();
 	init_sig();
 	init_tty();

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hist_del.c                                         :+:      :+:    :+:   */
+/*   hist.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/10 19:39:22 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 20:52:07 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/10 20:27:32 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/10 20:28:48 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	in_hist_del(t_in *in)
+void	init_hist(void)
 {
-	if (in->hist != NULL)
-	{
-		g_mn.h = ~0;
-		free(in->hist);
-		in->hist = NULL;
-	}
+	MGUARD(g_mn.hist = MALT(char*, 128));
+	g_mn.hist_mem = 128;
 }
