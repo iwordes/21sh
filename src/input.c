@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 17:43:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 18:35:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void		input_init(t_in *in)
 	ft_bzero(in, sizeof(t_in));
 	MGUARD(in->ln = ZALT(t_inline, 1));
 	MGUARD(in->ln[0].ln = ZALT(char, 128));
-	in->ln[0].len = 0;
+	in->ln[0].mem = 128;
 	// TODO: ENV(PS1)
 	in->ln[0].ps = "$ ";
 	in->ln[0].ps_len = ft_strlen(in->ln[0].ps);
@@ -90,7 +90,6 @@ static void		input_loop(t_in *in)
 	ft_bzero(buff, 9);
 	while (read(0, buff, 8) > 0)
 	{
-		ft_dprintf(g_mn.err, "%u,%u\n", g_mn.x, g_mn.y);
 		i = ~0;
 		while (++i < G_KEY_LEN)
 			if (ft_strequ(g_key[i].key, buff))
@@ -110,13 +109,19 @@ static void		input_loop(t_in *in)
 
 static void		input_unit(t_in *in)
 {
-	uint32_t	len;
+	uint64_t	skip;
+	uint64_t	len;
 	uint32_t	i;
 
 	i = ~0;
 	len = 0;
+	skip = 0;
 	while (++i < in->len)
+	{
+		skip += LN.ps_len + LN.len;
+		skip += g_mn.w - (skip % g_mn.w);
 		len += LN.len;
+	}
 	if (len != 0)
 		MGUARD(in->line = ZALT(char, len));
 	i = ~0;
@@ -126,7 +131,8 @@ static void		input_unit(t_in *in)
 			ft_strcat(in->line, LN.ln);
 		free(LN.ln);
 	}
-	tm_goto(-g_mn.x, (len / g_mn.w) - g_mn.y + 1);
+	tm_goto(-g_mn.x, (skip / g_mn.w) - (g_mn.y + 1));
+	write(1, "\n", 1);
 	if (in->submit)
 		return ;
 	free(in->line);

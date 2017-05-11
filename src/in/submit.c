@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:15:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 16:45:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 18:28:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** TODO: Line Insertion
 */
 
-#define LN in->ln[in->y]
+#define LN in->ln[y]
 #define IS_QUOTE(C) (C == '\"' || C == '\'' || C == '\\')
 
 static bool	test_parse(t_in *in)
@@ -30,6 +30,8 @@ static bool	test_parse(t_in *in)
 	while (y < in->len)
 	{
 		x = 0;
+		if (q == '\\')
+			q = 0;
 		while (x < LN.len)
 		{
 			if (q == '\\')
@@ -42,8 +44,12 @@ static bool	test_parse(t_in *in)
 		}
 		y += 1;
 	}
+
 	return (q == 0);
 }
+
+#undef LN
+#define LN in->ln[in->y]
 
 void		in_submit(t_in *in)
 {
@@ -54,6 +60,7 @@ void		in_submit(t_in *in)
 		if (in->len == in->mem)
 		{
 			MGUARD(DRALT(in->ln, t_inline, in->mem * 2, in->mem));
+			ft_bzero(in->ln + in->mem, in->mem * sizeof(t_inline));
 			in->mem *= 2;
 		}
 		in->len += 1;
@@ -63,7 +70,7 @@ void		in_submit(t_in *in)
 		LN.ps = ": ";
 		LN.ps_len = ft_strlen(LN.ps);
 		MGUARD(LN.ln = ZALT(char, 128));
-		LN.len = 128;
+		LN.mem = 128;
 		in_redraw(in);
 	}
 }
