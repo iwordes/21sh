@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:15:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 20:12:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 21:13:31 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ void		in_submit(t_in *in)
 		in->submit = true;
 	else if (in->y + 1 == in->len)
 	{
-		if (in->len == in->mem)
+		in->len += 1;
+		if (in->len >= in->mem)
 		{
 			MGUARD(DRALT(in->ln, t_inline, in->mem * 2, in->mem));
 			ft_bzero(in->ln + in->mem, in->mem * sizeof(t_inline));
 			in->mem *= 2;
 		}
-		in->len += 1;
 		in->y += 1;
 		in->x = 0;
-		// TODO: ENV(PS2)
+		//      env_get("PS2");
 		LN.ps = ": ";
 		LN.ps_len = ft_strlen(LN.ps);
 		MGUARD(LN.ln = ZALT(char, 128));
