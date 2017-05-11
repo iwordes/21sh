@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:31:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 13:40:57 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:19:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	init(void)
 {
-	g_mn.err = open("err.log", O_RDWR | O_CREAT | O_APPEND, 0600);
-
 	//init_env();
 	init_sig();
 	init_tty();

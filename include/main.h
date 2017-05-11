@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 19:07:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:19:56 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct	s_inkey
 ** Structs
 */
 
-/*
 typedef struct	s_bi
 {
 	char		*cmd;
@@ -84,10 +83,11 @@ typedef struct	s_bi
 
 typedef struct	s_ps
 {
-	t_tk		*head;
-	t_tk		*tail;
+	//t_tk		*head;
+	//t_tk		*tail;
+
+	size_t		i;
 }				t_ps;
-*/
 
 typedef struct	s_main
 {
@@ -99,8 +99,6 @@ typedef struct	s_main
 	uint32_t	y;
 
 	S_TERMIOS	tm_cfg;
-
-	int			err;
 }				t_main;
 
 /*
