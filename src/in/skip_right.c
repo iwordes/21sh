@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:22:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:39:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:11:25 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	in_skip_right(t_in *in)
 {
 	while (in->x < LN.len && !ft_isspace(LN.ln[in->x]))
-		in_right(in);
+		in_line_right(in);
 	while (in->x < LN.len && ft_isspace(LN.ln[in->x]))
-		in_right(in);
+		in_line_right(in);
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 16:57:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 19:07:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,17 @@ void			in_ctrl_d(t_in *in);
 void			in_ctrl_v(t_in *in);
 void			in_ctrl_x(t_in *in);
 
+void			in_line_up(t_in *in);
+void			in_line_down(t_in *in);
 void			in_line_left(t_in *in);
 void			in_line_right(t_in *in);
 
 void			in_sel_del(t_in *in);
 void			in_sel_left(t_in *in);
 void			in_sel_right(t_in *in);
+
+void			in_skip_left(t_in *in);
+void			in_skip_right(t_in *in);
 
 /*
 ** =============================================================================
