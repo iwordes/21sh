@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 13:31:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 16:57:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct	s_in
 	uint32_t	mem;
 
 	char		*clip;
-	int32_t		s;
+	int64_t		s;
 
 	uint32_t	x;
 	uint32_t	y;
@@ -99,6 +99,8 @@ typedef struct	s_main
 	uint32_t	y;
 
 	S_TERMIOS	tm_cfg;
+
+	int			err;
 }				t_main;
 
 /*

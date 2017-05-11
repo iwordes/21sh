@@ -6,11 +6,15 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 17:57:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 17:58:19 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 16:58:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
+
+/*
+** TODO: Fix right-selection
+*/
 
 void	in_sel_right(t_in *in)
 {

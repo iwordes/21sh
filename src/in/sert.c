@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:53:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 13:12:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 14:58:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ void	in_sert(t_in *in, char *buff)
 {
 	if (in->s != 0)
 	{
-		// Erase selection
+		in_sel_del(in);
+		in->s = 0;
 	}
 	if (in->x + 1 == LN.mem)
 	{
+		ft_dprintf(g_mn.err, "Growing line %u...\n", in->y);
 		MGUARD(DRALT(LN.ln, char, LN.mem * 2, LN.mem));
 		LN.mem *= 2;
 	}
-	LN.ln[in->x] = *buff;
+	ft_strins(LN.ln, buff, in->x);
 	LN.len += 1;
 	in->x += 1;
 	in_redraw(in);

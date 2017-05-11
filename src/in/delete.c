@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:08:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 18:03:16 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 16:05:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ void	in_delete(t_in *in)
 {
 	if (in->s != 0)
 	{
-		// Erase selection
+		in_sel_del(in);
+		in->s = 0;
+		in_redraw(in);
 	}
-	else
+	else if (in->x > 0)
 	{
-		// Erase previous
+		ft_strcut(in->ln[in->y].ln, in->x - 1, 1);
+		in->ln[in->y].len -= 1;
+		in->x -= 1;
+		in_redraw(in);
 	}
 }

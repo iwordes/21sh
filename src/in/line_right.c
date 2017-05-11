@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:22:51 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 13:16:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 17:41:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	in_line_right(t_in *in)
 			tm_right();
 		else
 		{
+			if (in->s > 0)
+				in->x += in->s - 1;
 			in->s = 0;
 			in_redraw(in);
 		}

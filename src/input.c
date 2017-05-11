@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 13:06:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 17:43:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,20 @@ static t_inkey	g_key[] =
 static void		input_init(t_in *in)
 {
 	ft_printf("\e[1;7m%%\e[0m%*c", g_mn.w - 1, '\r');
-	g_mn.x = 0;
-	g_mn.y = 0;
 	ft_bzero(in, sizeof(t_in));
 	MGUARD(in->ln = ZALT(t_inline, 1));
+	MGUARD(in->ln[0].ln = ZALT(char, 128));
+	in->ln[0].len = 0;
 	// TODO: ENV(PS1)
 	in->ln[0].ps = "$ ";
+	in->ln[0].ps_len = ft_strlen(in->ln[0].ps);
 	in->len = 1;
 	in->mem = 1;
+	ft_putstr(in->ln[0].ps);
+	g_mn.x = in->ln[0].ps_len;
+	g_mn.y = 0;
+	in->x = 0;
+	in->y = 0;
 }
 
 static void		input_loop(t_in *in)
@@ -84,6 +90,7 @@ static void		input_loop(t_in *in)
 	ft_bzero(buff, 9);
 	while (read(0, buff, 8) > 0)
 	{
+		ft_dprintf(g_mn.err, "%u,%u\n", g_mn.x, g_mn.y);
 		i = ~0;
 		while (++i < G_KEY_LEN)
 			if (ft_strequ(g_key[i].key, buff))
@@ -119,6 +126,7 @@ static void		input_unit(t_in *in)
 			ft_strcat(in->line, LN.ln);
 		free(LN.ln);
 	}
+	tm_goto(-g_mn.x, (len / g_mn.w) - g_mn.y + 1);
 	if (in->submit)
 		return ;
 	free(in->line);

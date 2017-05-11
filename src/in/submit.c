@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:15:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 13:14:03 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/10 16:45:24 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void		in_submit(t_in *in)
 		in->len += 1;
 		in->y += 1;
 		in->x = 0;
+		// TODO: ENV(PS2)
+		LN.ps = ": ";
+		LN.ps_len = ft_strlen(LN.ps);
+		MGUARD(LN.ln = ZALT(char, 128));
+		LN.len = 128;
 		in_redraw(in);
 	}
 }
