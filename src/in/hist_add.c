@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 20:01:32 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/11 18:14:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/12 14:29:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,35 @@
 
 #define IS_QUOTE(C) (C == '\'' || C == '\"' || C == '\\')
 
+/*
+** TODO: Solve clear() not actually removing newlines
+*/
+
 static void	clear(char *ln)
 {
-	char	q;
+	uint32_t	i;
+	char		q;
 
+	i = 0;
 	q = 0;
-	while (*ln)
+	while (ln[i] != 0)
 	{
 		if (q == '\\')
 		{
-			if (*ln == '\n')
-				ft_strcut(ln - 1, 0, 2);
+			if (ln[i] == '\n')
+			{
+				ft_strcut(ln, i - 1, 2);
+				i -= 2;
+			}
 			q = 0;
 		}
-		else if (*ln == q)
+		else if (ln[i] == q)
 			q = 0;
-		else if (IS_QUOTE(*ln))
-			q = *ln;
-		ln += 1;
+		else if (q == 0 && IS_QUOTE(ln[i]))
+			q = ln[i];
+		else if (ln[i] == '\n')
+			ft_strcut(ln, i--, 1);
+		i += 1;
 	}
 }
 
@@ -39,6 +50,10 @@ void		in_hist_add(t_in *in)
 {
 	char	*tmp;
 
+	if (in->line[0] == 0)
+		return ;
+	if (g_mn.hist_len > 0 && ft_strequ(in->line, g_mn.hist[g_mn.hist_len - 1]))
+		return ;
 	if (g_mn.hist_len == g_mn.hist_mem)
 	{
 		MGUARD(DRALT(g_mn.hist, char*, g_mn.hist_mem * 2, g_mn.hist_mem));

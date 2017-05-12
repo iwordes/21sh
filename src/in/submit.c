@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:15:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 21:13:31 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/12 14:29:18 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	test_parse(t_in *in)
 				q = 0;
 			else if (LN.ln[x] == q)
 				q = 0;
-			else if (IS_QUOTE(LN.ln[x]))
+			else if (q == 0 && IS_QUOTE(LN.ln[x]))
 				q = LN.ln[x];
 			x += 1;
 		}
