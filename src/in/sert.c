@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:53:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/11 13:29:12 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/11 18:05:02 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,25 @@
 
 #define LN in->ln[in->y]
 
-void	in_sert(t_in *in, char *buff)
+static void	clear(char *buff)
+{
+	uint8_t	i;
+
+	i = 0;
+	while (i < ft_strlen(buff))
+	{
+		if (buff[i] < 32 || buff[i] > 127)
+			ft_strcut(buff, i, 1);
+		else
+			i += 1;
+	}
+}
+
+void		in_sert(t_in *in, char *buff)
 {
 	uint8_t	len;
 
+	clear(buff);
 	len = ft_strlen(buff);
 	in_hist_del(in);
 	if (in->s != 0)

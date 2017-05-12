@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/11 13:26:46 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/11 18:16:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,17 @@ static void		input_unit(t_in *in)
 	skip = 0;
 	while (++i < in->len)
 	{
-		len += LN.len;
+		len += LN.len + 1;
 		skip += LN.ps_len + LN.len;
 		skip += g_mn.w - (skip % g_mn.w);
 	}
 	i = ~0;
-	MGUARD(in->line = ZALT(char, len + 1));
+	MGUARD(in->line = ZALT(char, len));
 	while (++i < in->len)
 	{
 		ft_strcat(in->line, LN.ln);
+		if (i + 1 < in->len)
+			ft_strcat(in->line, "\n");
 		free(LN.ln);
 	}
 	tm_goto(-g_mn.x, (skip / g_mn.w) - (g_mn.y + 1));
