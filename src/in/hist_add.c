@@ -6,17 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 20:01:32 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/12 14:29:30 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/12 14:30:24 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
 #define IS_QUOTE(C) (C == '\'' || C == '\"' || C == '\\')
-
-/*
-** TODO: Solve clear() not actually removing newlines
-*/
 
 static void	clear(char *ln)
 {
