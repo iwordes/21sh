@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 19:24:05 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 20:49:33 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/16 15:19:45 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	in_line_up(t_in *in)
 	{
 		if (in->y > 0)
 		{
+			in->x += in->s;
 			in->s = 0;
 			in->y -= 1;
 			in->x = MIN(in->x, in->ln[in->y].len);

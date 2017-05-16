@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:37:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 20:27:13 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/16 15:19:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	in_line_down(t_in *in)
 	{
 		if (in->y + 1 < in->len)
 		{
+			in->x += in->s;
 			in->s = 0;
 			in->y += 1;
 			in->x = MIN(in->x, in->ln[in->y].len);
