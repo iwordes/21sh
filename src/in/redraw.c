@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:16:04 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 17:45:41 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/16 15:15:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		in_redraw(t_in *in)
 	i = 0;
 	y = 0;
 	tm_goto(-g_mn.x, -g_mn.y);
+	write(1, "\e[J", 3);
 	while (y < in->len)
 	{
 		i += LN.ps_len;
@@ -65,5 +66,5 @@ void		in_redraw(t_in *in)
 			i += g_mn.w - (i % g_mn.w);
 		y += 1;
 	}
-	write(1, "\e[J" "\e[u", 6);
+	write(1, "\e[u", 3);
 }
