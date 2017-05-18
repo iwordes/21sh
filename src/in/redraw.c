@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:16:04 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/18 12:29:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/18 12:44:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void		in_redraw(t_in *in)
 	y = 0;
 	g_mn.in = NULL;
 	tm_goto(-g_mn.x, -g_mn.y);
+	//ft_putstr("\e[7;93;41mX\e[0m\e[D");
+
 	write(1, "\e[J", 3);
 	while (y < in->len)
 	{

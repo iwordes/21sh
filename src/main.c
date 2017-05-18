@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/18 12:23:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/18 12:41:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ t_main	g_mn;
 
 int		main(void)
 {
+
 	init();
+	for (unsigned i = 0; i < W; i++)
+		write(1, "a", 1);
+	write(1, "\n", 1);
 	ft_printf("W: %u\n", W);
 	loop();
 	uninit();

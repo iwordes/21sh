@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:53:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/16 14:24:12 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/18 12:38:22 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	clear(char *buff)
 void		in_sert(t_in *in, char *buff)
 {
 	uint8_t	len;
+
+	ft_dprintf(2, "[i] %u,%u\n", g_mn.x, g_mn.y);
 
 	clear(buff);
 	len = ft_strlen(buff);
