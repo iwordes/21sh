@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:16:04 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/18 12:44:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/18 13:12:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	draw(const char *ps, const char *ln, size_t n, bool newln)
 	while (i < n)
 	{
 		tmp = MIN_2;
-		(i) && write(1, "\n", 1);
 		write(1, ln + i, tmp);
+		(tmp == W - (x % W)) && write(1, "\n", 1);
 		x += tmp;
 		i += tmp;
 	}
@@ -63,7 +63,7 @@ static void	drawln(t_in *in, uint32_t y)
 		write(1, "\e[7m", 4);
 		draw(NULL, LONGEST, -in->s, 0);
 		write(1, "\e[0m" "\e[s", 7);
-		draw(NULL, LN.ln + in->x, LEN(LN.ln + in->x), (y + 1 < in->len));
+		draw(NULL, LN.ln + in->x, LEN(LN.ln + in->x), 1);
 	}
 	else
 	{
@@ -71,7 +71,7 @@ static void	drawln(t_in *in, uint32_t y)
 		write(1, "\e[s" "\e[7m", 7);
 		draw(NULL, LN.ln + in->x, in->s, 0);
 		write(1, "\e[0m", 4);
-		draw(NULL, LONGEST, LEN(LONGEST), (y + 1 < in->len));
+		draw(NULL, LONGEST, LEN(LONGEST), 1);
 	}
 }
 
@@ -83,9 +83,9 @@ void		in_redraw(t_in *in)
 	i = 0;
 	y = 0;
 	g_mn.in = NULL;
-	tm_goto(-g_mn.x, -g_mn.y);
-	//ft_putstr("\e[7;93;41mX\e[0m\e[D");
 
+	// Issue: Maligned goto, misrepresented x/y
+	tm_goto(-g_mn.x, -g_mn.y);
 	write(1, "\e[J", 3);
 	while (y < in->len)
 	{
@@ -94,6 +94,9 @@ void		in_redraw(t_in *in)
 		else
 		{
 			drawln(in, y);
+
+			// It's saving the cursor at the wrong position!
+			// Determined X/Y mismatch with new rendering system
 			g_mn.x = (LN.ps_len + in->x) % W;
 			g_mn.y = (LN.ps_len + in->x + i) / W;
 		}

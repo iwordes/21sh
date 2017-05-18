@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:53:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/18 12:45:18 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/18 13:06:54 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	clear(char *buff)
 	uint8_t	i;
 
 	i = 0;
-	while (i < ft_strlen(buff))
+	while (buff[i] != 0)
 	{
 		if (buff[i] < 32 || buff[i] > 127)
 			ft_strcut(buff, i, 1);
