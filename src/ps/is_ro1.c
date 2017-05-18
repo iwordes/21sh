@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   is_ro1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 14:51:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/17 14:59:34 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/12 15:26:01 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/12 15:39:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	loop(void)
+bool	ps_is_ro1(const char *tk)
 {
-	char	*in;
-	t_ps	ps;
-
-	while ((in = input()))
+	ITER(tk, ft_isdigit(*tk));
+	tk += (*tk == '>');
+	if (*tk == '&')
 	{
-		ft_printf("\e[1;93m:\e[0m \e[92m\"%s\"\e[0m\n", in);
-		if (parse(&ps, in))
-		{
-			for (uint32_t i = 0; i < ps.tk_len; i += 1)
-				ft_printf("\e[1;92m:\e[0;1m {\e[0m \e[92m\"%s\"\e[0m, %u, %u \e[1m}\e[0m\n", ps.tk[i].str, ps.tk[i].flag, ps.tk[i].type);
-			write(1, "\n", 1);
-			// shell(&ps);
-		}
-		clean(&ps, in);
+		tk += 1;
+		ITER(tk, ft_isdigit(*tk));
 	}
+	return (*tk == 0 || ft_isspace(*tk));
 }

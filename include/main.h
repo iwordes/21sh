@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/11 13:19:33 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/18 12:29:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # include <libft.h>
 
+# define W (g_mn.w - 1)
 # define MAX_HIST 64
 
 # define S_TERMIOS struct termios
@@ -74,6 +75,68 @@ typedef struct	s_inkey
 
 /*
 ** =============================================================================
+** Structs - Parser
+*/
+
+/*
+** Flags
+** F_ADJ: Token is adjacent to previous token.
+** F_VAR: Token should be scanned for variables.
+** F_EXP: Variables should expand to multiple arguments.
+**  NOTE: First in series inherits flags and type.
+*/
+
+# define TKF_ADJ 1
+# define TKF_VAR 2
+# define TKF_EXP 4
+
+# define TKT_NONE 0
+# define TKT_QUOT 1
+# define TKT_R_O1 2
+# define TKT_R_O2 3
+# define TKT_R_I1 4
+# define TKT_R_I2 5
+# define TKT_PIPE 6
+# define TKT_SEMI 7
+
+# define EXF_ADJ 1
+
+typedef struct	s_pscan
+{
+	uint8_t		type;
+	bool		(*fn)(const char*);
+}				t_pscan;
+
+typedef struct	s_tk
+{
+	char		*str;
+	uint8_t		flag;
+	uint8_t		type;
+}				t_tk;
+
+typedef struct	s_exe
+{
+	char		**argv;
+
+	int			*rd;
+	uint32_t	rd_len;
+
+	bool		pipe;
+}				t_exe;
+
+typedef struct	s_ps
+{
+	t_tk		*tk;
+	uint32_t	tk_len;
+	uint32_t	tk_mem;
+
+	t_exe		*exe;
+	uint32_t	exe_len;
+	uint32_t	exe_mem;
+}				t_ps;
+
+/*
+** =============================================================================
 ** Structs
 */
 
@@ -83,14 +146,6 @@ typedef struct	s_bi
 	int			(*fn)(char**);
 }				t_bi;
 
-typedef struct	s_ps
-{
-	//t_tk		*head;
-	//t_tk		*tail;
-
-	size_t		i;
-}				t_ps;
-
 typedef struct	s_main
 {
 	char		**env;
@@ -99,6 +154,8 @@ typedef struct	s_main
 	char		**hist;
 	uint32_t	hist_len;
 	uint32_t	hist_mem;
+
+	t_in		*in;
 
 	uint32_t	h;
 	uint32_t	w;
@@ -169,7 +226,19 @@ void			tm_right(void);
 ** Parsing
 */
 
-// ...
+bool			parse(t_ps *ps, const char *ln);
+
+bool			ps_init(t_ps *ps);
+bool			ps_tokens(t_ps *ps, const char *ln);
+bool			ps_proc(t_ps *ps);
+bool			ps_unit(t_ps *ps);
+
+bool			ps_is_pipe(const char *tk);
+bool			ps_is_ri1(const char *tk);
+bool			ps_is_ri2(const char *tk);
+bool			ps_is_ro1(const char *tk);
+bool			ps_is_ro2(const char *tk);
+bool			ps_is_semi(const char *tk);
 
 /*
 ** =============================================================================
@@ -183,6 +252,7 @@ void			tm_right(void);
 ** Main
 */
 
+void			clean(t_ps *ps, char *ln);
 void			init(void);
 void			loop(void);
 char			*input(void);

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/11 18:31:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/17 15:30:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void		input_init(t_in *in)
 	g_mn.x = in->ln[0].ps_len;
 	g_mn.h = ~0;
 	g_mn.y = 0;
+	g_mn.in = in;
 }
 
 static void		input_loop(t_in *in)
@@ -100,6 +101,7 @@ static void		input_unit(t_in *in)
 	uint64_t	len;
 	uint32_t	i;
 
+	g_mn.in = NULL;
 	i = ~0;
 	len = 0;
 	skip = 0;
