@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 14:45:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/15 16:34:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/19 12:54:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ static bool	loop_(t_ps *ps, const char **ln)
 	return (true);
 }
 
+/*
+** TODO: Heredoc handling
+*/
+
 bool		ps_tokens(t_ps *ps, const char *ln)
 {
 	uint32_t	i;
@@ -100,6 +104,8 @@ bool		ps_tokens(t_ps *ps, const char *ln)
 			TK.type = g_scan[i].type;
 			if (TK.type == TKT_NONE)
 				TK.flag |= TKF_VAR | TKF_EXP;
+			if (TK.type == TKT_R_I2)
+				;
 		}
 
 		ps->tk_len += 1;

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/17 15:30:09 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/22 15:02:01 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ static void		input_init(t_in *in)
 	in->len = 1;
 	in->mem = 1;
 	ft_putstr(in->ln[0].ps);
-	g_mn.x = in->ln[0].ps_len;
+	g_mn.x = in->ln[0].ps_len % g_mn.w;
+	g_mn.y = in->ln[0].ps_len / g_mn.w;
 	g_mn.h = ~0;
-	g_mn.y = 0;
 	g_mn.in = in;
 }
 

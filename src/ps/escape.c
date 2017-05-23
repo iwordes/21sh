@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   escape.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/15 14:28:56 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/22 13:23:55 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/19 12:36:55 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/19 12:46:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-bool	ps_init(t_ps *ps)
+#define TK ps->tk[t]
+
+bool	ps_escape(t_ps *ps)
 {
-	bzero(ps, sizeof(t_ps));
-	if ((ps->tk = ZALT(t_tk, 64)) == NULL)
-		return (false);
-	if ((ps->exe = ZALT(t_exe, 4)) == NULL)
-		return (false);
-	ps->tk_mem = 64;
-	ps->exe_mem = 4;
+	uint32_t	i;
+	uint32_t	t;
+
+	t = 0;
+	while (t < ps->tk_len)
+	{
+		i = 0;
+		if (TK.type != TKT_QUOT)
+			while (TK.str[i] != 0)
+			{
+				if (TK.str[i] == '\\')
+				{
+					if (TK.str[i + 1] == 0)
+						return (false);
+					ft_strcut(TK.str, i, 1);
+				}
+				i += 1;
+			}
+		t += 1;
+		ITER(t, TK.flag & TKF_ADJ);
+	}
 	return (true);
 }

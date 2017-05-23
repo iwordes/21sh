@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/18 13:03:06 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/18 13:42:55 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ int		main(void)
 {
 
 	init();
-	ft_printf("W: %u\n", W);
-	for (unsigned i = 0; i < W; i++)
-		write(1, "-", 1);
-	ft_putstr("\e[41m|\e[0m\n");
 	loop();
 	uninit();
 }

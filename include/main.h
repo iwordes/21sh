@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/18 12:29:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/22 13:13:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define S_TERMIOS struct termios
 # define S_WINSIZE struct winsize
 
+# define PSFAIL(M) { ps->err = M; return (false); }
 # define MGUARD(M) if ((M) == NULL) exit(255)
 
 /*
@@ -99,8 +100,6 @@ typedef struct	s_inkey
 # define TKT_PIPE 6
 # define TKT_SEMI 7
 
-# define EXF_ADJ 1
-
 typedef struct	s_pscan
 {
 	uint8_t		type;
@@ -117,10 +116,10 @@ typedef struct	s_tk
 typedef struct	s_exe
 {
 	char		**argv;
+	uint32_t	argv_len;
+	uint32_t	argv_mem;
 
-	int			*rd;
-	uint32_t	rd_len;
-
+	int			fd[3];
 	bool		pipe;
 }				t_exe;
 
@@ -129,6 +128,8 @@ typedef struct	s_ps
 	t_tk		*tk;
 	uint32_t	tk_len;
 	uint32_t	tk_mem;
+
+	char		*err;
 
 	t_exe		*exe;
 	uint32_t	exe_len;
@@ -230,8 +231,14 @@ bool			parse(t_ps *ps, const char *ln);
 
 bool			ps_init(t_ps *ps);
 bool			ps_tokens(t_ps *ps, const char *ln);
+bool			ps_home(t_ps *ps);
+bool			ps_escape(t_ps *ps);
 bool			ps_proc(t_ps *ps);
-bool			ps_unit(t_ps *ps);
+void			ps_uninit(t_ps *ps);
+
+bool			ps_proc_delim(t_ps *ps, uint32_t *t);
+bool			ps_proc_plain(t_ps *ps, uint32_t *t);
+bool			ps_proc_redir(t_ps *ps, uint32_t *t);
 
 bool			ps_is_pipe(const char *tk);
 bool			ps_is_ri1(const char *tk);
