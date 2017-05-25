@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 11:19:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 11:52:39 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ bool			ps_proc_delim(t_ps *ps, uint32_t *t);
 bool			ps_proc_plain(t_ps *ps, uint32_t *t);
 bool			ps_proc_redir(t_ps *ps, uint32_t *t);
 
-bool			ps_tokens_ri2(t_ps *ps, const char *ln, uint32_t *i);
+bool			ps_tokens_ri2(t_ps *ps, const char **ln);
 
 bool			ps_is_pipe(const char *tk);
 bool			ps_is_ri1(const char *tk);

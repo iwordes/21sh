@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 14:45:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/22 18:20:58 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 13:58:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,27 @@ static bool	qloop_(t_ps *ps, const char **ln, uint32_t *i, char *q)
 		TK.flag |= TKF_VAR;
 	while (LN[*i] && LN[*i] != *q)
 		*i += 1 + (LN[*i] == '\\' && LN[*i + 1] == *q);
-	return (LN[*i] == *q);
+	if (LN[*i] != *q)
+		PSFAIL("Unmatched quote.");
+	return (true);
 }
+
+#define LAST_TK (ps->tk[ps->tk_len - 1])
+#define LAST_RI2 (LAST_TK.type == TKT_R_I2)
 
 static bool	loop_(t_ps *ps, const char **ln)
 {
 	uint32_t	i;
 	char		q;
 
+	ft_putstr("\e[95mloop_\e[0m\n");
+
 	q = 0;
 	i = 0;
-	if (ps->tk_len == ps->tk_mem)
-	{
-		MGUARD(DRALT(ps->tk, t_tk, ps->tk_mem * 2, ps->tk_mem));
-		bzero(ps->tk + ps->tk_mem, ps->tk_mem * sizeof(t_tk));
-	}
 	if (*LN == ';' || *LN == '|')
 		i = 1;
+	else if (ps->tk_len > 0 && LAST_RI2)
+		return (ps_tokens_ri2(ps, ln));
 	else if (QUOTE(LN[i]) && !qloop_(ps, ln, &i, &q))
 		return (false);
 	else
@@ -76,42 +80,53 @@ static bool	loop_(t_ps *ps, const char **ln)
 		}
 	MGUARD(TK.str = ft_strsub(LN, 0, i - (q != 0)));
 	LN += i;
+
+	ft_putstr("\e[92mloop_\e[0m\n");
 	return (true);
 }
 
 /*
 ** TODO: Break at end of /[0-9]*(<<?|>>?)/
-** TODO: Heredoc handling
 */
+
+void		post_(t_ps *ps, const char *ln)
+{
+	uint32_t	i;
+
+	if (TK.type == TKT_NONE)
+	{
+		i = ~0;
+		while (g_scan[++i].fn)
+		{
+			if (g_scan[i].fn(TK.str))
+				break ;
+		}
+		TK.type = g_scan[i].type;
+		TK.flag |= (TK.type == TKT_NONE) ? (TKF_VAR | TKF_EXP) : (0);
+	}
+	ps->tk_len += 1;
+	if (!SPACE(*ln))
+		TK.flag |= TKF_ADJ;
+}
 
 bool		ps_tokens(t_ps *ps, const char *ln)
 {
-	uint32_t	i;
+	ft_printf("\e[95mps_tokens\e[0m\n");
 
 	while (*ln)
 	{
 		ITER(ln, ft_isspace(*ln));
-		if (*ln == 0)
-			break ;
+		BREAKIF(*ln == 0);
+		if (ps->tk_len == ps->tk_mem)
+		{
+			MGUARD(DRALT(ps->tk, t_tk, ps->tk_mem * 2, ps->tk_mem));
+			bzero(ps->tk + ps->tk_mem, ps->tk_mem * sizeof(t_tk));
+		}
 		if (!loop_(ps, &ln))
 			return (false);
-
-		i = ~0;
-		if (TK.type == TKT_NONE)
-		{
-			while (g_scan[++i].fn)
-				if (g_scan[i].fn(TK.str))
-					break ;
-			TK.type = g_scan[i].type;
-			if (TK.type == TKT_NONE)
-				TK.flag |= TKF_VAR | TKF_EXP;
-			if (TK.type == TKT_R_I2 && !ps_tokens_ri2(ps, ln, &i))
-				return (false);
-		}
-
-		ps->tk_len += 1;
-		if (!SPACE(*ln))
-			TK.flag |= TKF_ADJ;
+		post_(ps, ln);
 	}
+
+	ft_printf("\e[92mps_tokens\e[0m\n");
 	return (true);
 }

@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   escape.c                                           :+:      :+:    :+:   */
+/*   preps.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/19 12:36:55 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 14:25:42 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/25 14:36:56 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/25 14:38:53 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-#define TK ps->tk[t]
-
-bool	ps_escape(t_ps *ps)
+bool	in_preps(t_in *in)
 {
-	uint32_t	i;
-	uint32_t	t;
+	char	q;
+	size_t	x;
+	size_t	y;
 
-	t = 0;
-	while (t < ps->tk_len)
+	q = 0;
+	y = ~0;
+	while (++y < in->len)
 	{
-		i = 0;
-		if (TK.type != TKT_QUOT)
-			while (TK.str[i] != 0)
-			{
-				if (TK.str[i] == '\\')
-				{
-					if (TK.str[i + 1] == 0)
-						PSFAIL("Backslash at EOL.")
-					ft_strcut(TK.str, i, 1);
-				}
-				i += 1;
-			}
-		t += 1;
-		ITER(t, TK.flag & TKF_ADJ);
+		x = ~0;
+		if (q == '\\')
+			q = 0;
+		while (++x < LN.len)
+		{
+			if (q == '\\')
+				q = 0;
+			else if (LN.ln[x] == q)
+				q = 0;
+			else if (q == 0 && IS_QUOTE(LN.ln[x]))
+				q = LN.ln[x];
+			else if (ft_strncmp(LN.ln + x, "<<", 2))
+				;
+		}
 	}
-	return (true);
+	return (q == 0);
 }

@@ -6,44 +6,40 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 18:07:18 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 11:20:21 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 14:35:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-static bool	cmp_(const char *lhs, const char *rhs)
-{
-	uint32_t	i;
-	uint32_t	n;
+#define LN (*ln)
+#define TK ps->tk[ps->tk_len]
+#define L (l - (l > 0 && eof[l] && eof[l - 1] == '\\'))
+#define CMP (ft_strncmp(eof, LN + n, L) == 0)
 
-	i = 0;
-	while (rhs[i])
-	{
-		n = ft_struntil(rhs + i, '\n');
-		if (ft_strnequ(lhs, rhs + i, n))
-			return (true);
-		i += n + (rhs[i + n] != 0);
-	}
-	return (false);
-}
-
-bool	ps_tokens_ri2(t_ps *ps, const char *ln, uint32_t *i)
+bool	ps_tokens_ri2(t_ps *ps, const char **ln)
 {
-	char		*eof;
+	const char	*eof;
+	uint32_t	l;
 	uint32_t	n;
 
 	n = 0;
-	ITER(*i, ft_isspace(ln[*i]));
-	eof = (char*)(ln + *i);
-	ITER(*i, ln[*i] && ln[*i] != '\n');
-	while (ln[*i + n] && !cmp_(eof, ln + *i + n))
+	eof = LN;
+	l = ft_struntil(eof, '\n');
+	ITER(LN, *LN && *LN != '\n');
+	LN += (*LN != 0);
+	while (LN[n] && !CMP)
 	{
-		ITER(n, ln[*i + n] && ln[*i + n] != '\n');
-		n += (ln[*i + n] != 0);
+		ITER(n, LN[n] && LN[n] != '\n');
+		n += (LN[n] != 0);
 	}
-	if (!cmp_(eof, ln + *i + n))
+
+	ft_printf("  ... (%u)\n", n);
+
+	if (!LN[n])
 		PSFAIL("Bad heredoc.");
-	*i += n;
+	if ((TK.str = ft_strsub(LN, 0, n - (n > 0))) == NULL)
+		PSFAIL("Allocation failure: heredoc.");
+	LN += n + l;
 	return (true);
 }

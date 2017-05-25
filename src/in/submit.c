@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:15:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/12 14:29:18 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 15:12:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,47 @@
 ** TODO: Line Insertion
 */
 
+#define LN in->ln[*y]
+#define CMP (ft_strncmp(eof, LN.ln, l) == 0 /*&& LN.ln[l] == '\n' || LN.ln[l] == 0*/)
+
+static bool	pps_ri2(t_in *in, size_t *x, size_t *y)
+{
+	char	*eof;
+	size_t	l;
+	size_t	n;
+
+	n = 0;
+	*x += 2;
+	ITER(*x, *x < LN.len && ft_isspace(LN.ln[*x]));
+	if (*x == LN.len)
+		return (false);
+	eof = LN.ln + *x;
+	l = ft_struntil(eof, '\n');
+	*x = 0;
+	*y += 1;
+	while (*y < in->len && !CMP)
+		*y += 1;
+	return (*y < in->len);
+}
+
+#undef LN
 #define LN in->ln[y]
 #define IS_QUOTE(C) (C == '\"' || C == '\'' || C == '\\')
 
-static bool	test_parse(t_in *in)
+static bool	preparse(t_in *in)
 {
 	char	q;
 	size_t	x;
 	size_t	y;
 
 	q = 0;
-	y = 0;
-	while (y < in->len)
+	y = ~0;
+	while (++y < in->len)
 	{
-		x = 0;
+		x = ~0;
 		if (q == '\\')
 			q = 0;
-		while (x < LN.len)
+		while (++x < LN.len)
 		{
 			if (q == '\\')
 				q = 0;
@@ -40,11 +64,14 @@ static bool	test_parse(t_in *in)
 				q = 0;
 			else if (q == 0 && IS_QUOTE(LN.ln[x]))
 				q = LN.ln[x];
-			x += 1;
+			else if (ft_strnequ(LN.ln + x, "<<", 2))
+			{
+				if (!pps_ri2(in, &x, &y))
+					return (false);
+				break ;
+			}
 		}
-		y += 1;
 	}
-
 	return (q == 0);
 }
 
@@ -53,7 +80,7 @@ static bool	test_parse(t_in *in)
 
 void		in_submit(t_in *in)
 {
-	if (test_parse(in))
+	if (preparse(in))
 		in->submit = true;
 	else if (in->y + 1 == in->len)
 	{

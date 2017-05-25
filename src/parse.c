@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 11:08:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 14:30:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ bool	parse(t_ps *ps, const char *in)
 		return (false);
 	if (!ps_home(ps))
 		return (false);
-
 	//if (!ps_wild(ps))
 	//	return (false);
 	if (!ps_escape(ps))
