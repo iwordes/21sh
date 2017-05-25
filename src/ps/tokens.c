@@ -6,19 +6,11 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 14:45:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 15:27:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 15:34:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
-
-/*
-** 1. Discard whitespace.
-** 2. Identify known types.
-**
-** Notes:
-** - Special parsing is disabled within quotes.
-*/
 
 t_pscan		g_scan[] =
 {
@@ -91,10 +83,6 @@ static bool	loop_(t_ps *ps, const char **ln)
 	return (true);
 }
 
-/*
-** TODO: Break at end of /[0-9]*(<<?|>>?)/
-*/
-
 void		post_(t_ps *ps, const char *ln)
 {
 	uint32_t	i;
@@ -117,8 +105,6 @@ void		post_(t_ps *ps, const char *ln)
 
 bool		ps_tokens(t_ps *ps, const char *ln)
 {
-	ft_printf("\e[95mps_tokens\e[0m\n");
-
 	while (*ln)
 	{
 		ITER(ln, ft_isspace(*ln));
@@ -132,7 +118,5 @@ bool		ps_tokens(t_ps *ps, const char *ln)
 			return (false);
 		post_(ps, ln);
 	}
-
-	ft_printf("\e[92mps_tokens\e[0m\n");
 	return (true);
 }

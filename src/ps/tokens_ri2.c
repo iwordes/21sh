@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 18:07:18 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 14:35:12 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 15:32:53 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ bool	ps_tokens_ri2(t_ps *ps, const char **ln)
 		ITER(n, LN[n] && LN[n] != '\n');
 		n += (LN[n] != 0);
 	}
-
-	ft_printf("  ... (%u)\n", n);
-
 	if (!LN[n])
 		PSFAIL("Bad heredoc.");
 	if ((TK.str = ft_strsub(LN, 0, n - (n > 0))) == NULL)
