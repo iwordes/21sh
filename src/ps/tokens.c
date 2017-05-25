@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 14:45:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 13:58:16 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 15:27:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,27 @@ static bool	qloop_(t_ps *ps, const char **ln, uint32_t *i, char *q)
 #define LAST_TK (ps->tk[ps->tk_len - 1])
 #define LAST_RI2 (LAST_TK.type == TKT_R_I2)
 
+static void	nloop_(const char **ln, uint32_t *i)
+{
+	while (LN[*i])
+	{
+		if (LN[*i] == '<' || LN[*i] == '>')
+		{
+			*i += 1 + (LN[*i] == LN[*i + 1]);
+			break ;
+		}
+		else if (LN[*i] == '\\')
+			*i += 1;
+		*i += (LN[*i] != 0);
+		if (DELIM(LN[*i]))
+			break ;
+	}
+}
+
 static bool	loop_(t_ps *ps, const char **ln)
 {
 	uint32_t	i;
 	char		q;
-
-	ft_putstr("\e[95mloop_\e[0m\n");
 
 	q = 0;
 	i = 0;
@@ -70,18 +85,9 @@ static bool	loop_(t_ps *ps, const char **ln)
 	else if (QUOTE(LN[i]) && !qloop_(ps, ln, &i, &q))
 		return (false);
 	else
-		while (LN[i])
-		{
-			if (LN[i] == '\\')
-				i += 1;
-			i += (LN[i] != 0);
-			if (DELIM(LN[i]))
-				break ;
-		}
+		nloop_(ln, &i);
 	MGUARD(TK.str = ft_strsub(LN, 0, i - (q != 0)));
 	LN += i;
-
-	ft_putstr("\e[92mloop_\e[0m\n");
 	return (true);
 }
 
