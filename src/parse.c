@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/22 14:24:55 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 11:08:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ bool	parse(t_ps *ps, const char *in)
 		for (uint32_t k = 0; k < ps->exe[j].argv_len; k += 1)
 			ft_printf("        \e[92m\"%s\"\e[0m%s\n", EXE.argv[k], (k + 1 < EXE.argv_len) ? "," : "");
 		ft_printf("    },\n    { \e[1m%d\e[0m, \e[1m%d\e[0m, \e[1;91m%d\e[0m },\n    \e[1;93m%s\e[0m\n", EXE.fd[0], EXE.fd[1], EXE.fd[2], ps->exe[j].pipe ? "true" : "false");
-		ft_printf("\e[1m}\e[0m\n");
+		ft_printf("  \e[1m}\e[0m\n");
 	}
+	write(1, "\n", 1);
 	///
 
 	ps_uninit(ps);
