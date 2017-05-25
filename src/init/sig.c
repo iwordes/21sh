@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:07:58 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 15:17:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 16:35:51 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,17 @@ static void	sig_winch(int sig)
 	(void)sig;
 }
 
+static void	sig_nal(int sig)
+{
+	(void)sig;
+}
+
 void		init_sig(void)
 {
 	uint8_t	sig;
 
 	sig = 1;
-	/*
 	while (sig < 32)
-		signal(sig, sig_none);
-	*/
+		signal(sig, sig_nal);
 	signal(SIGWINCH, sig_winch);
 }
