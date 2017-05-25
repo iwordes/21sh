@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:27:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/22 15:48:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 15:35:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	rhs_(t_ps *ps, uint32_t *t, int *rhs, uint32_t i)
 		}
 		else
 		{
-			*rhs = ft_atoi(file);
+			*rhs = ft_atoi(file + 1);
 			if (file[1] == '-' && file[2] == 0)
 				*rhs = -1;
 		}

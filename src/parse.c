@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 14:30:46 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 15:35:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ bool	parse(t_ps *ps, const char *in)
 
 	if (!ps_init(ps))
 		return (false);
+	ft_printf("\e[95mps_tokens\e[0m\n");
 	if (!ps_tokens(ps, in))
 		return (false);
+	ft_printf("\e[95mps_home\e[0m\n");
 	if (!ps_home(ps))
 		return (false);
 	//if (!ps_wild(ps))
 	//	return (false);
+	ft_printf("\e[95mps_escape\e[0m\n");
 	if (!ps_escape(ps))
 		return (false);
 
@@ -35,8 +38,10 @@ bool	parse(t_ps *ps, const char *in)
 		ft_printf("\e[1;93m:\e[0;1m {\e[0m \e[92m\"%s\"\e[0m, \e[94m%u\e[0m, \e[95m%u\e[0m \e[1m}\e[0m\n", ps->tk[i].str, ps->tk[i].flag, ps->tk[i].type);
 	///
 
+	ft_printf("\e[95mps_proc\e[0m\n");
 	if (!ps_proc(ps))
 		return (false);
+	ft_printf("\e[92mps_proc\e[0m\n");
 
 	///
 	for (uint32_t j = 0; j < ps->exe_len; j += 1)
