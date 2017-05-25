@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:27:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 15:35:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/25 15:55:25 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,14 @@ bool	ps_proc_redir(t_ps *ps, uint32_t *t)
 	if (ft_isdigit(TK.str[0]))
 		lhs = ft_atoi(TK.str);
 	ITER(i, ft_isdigit(TK.str[i]));
+	if (TK.str[i] == '<')
+		lhs = 0;
 	ITER(i, TK.str[i] == '<' || TK.str[i] == '>');
 	rhs_(ps, t, &rhs, i);
-	if (lhs < 2 || (lhs == 2 && !(TK.type <= TKT_R_O2)))
-		lhs = (TK.type <= TKT_R_O2);
+	if (lhs < 0)
+		lhs = 1;
+	if (lhs > 0 && rhs == 0)
+		rhs = (lhs > 1) + 1;
 	else if (lhs > 2)
 		PSFAIL("File descriptor too large.");
 	if (EXE.fd[lhs] > 2)
