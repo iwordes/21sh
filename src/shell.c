@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 13:30:55 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 14:41:24 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ static bool		pipeto(t_ps *ps, uint32_t i)
 	{
 		if (pipe(fd))
 			return (false);
+		if (ps->exe[i].fd[1] > 2)
+			close(ps->exe[i].fd[1]);
+		if (ps->exe[i + 1].fd[0] > 2)
+			close(ps->exe[i + 1].fd[0]);
 		ps->exe[i].fd[1] = fd[1];
 		ps->exe[i + 1].fd[0] = fd[0];
 	}

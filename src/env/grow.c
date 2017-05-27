@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tty.c                                              :+:      :+:    :+:   */
+/*   grow.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:00:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:55:04 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/27 12:49:15 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/27 13:52:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	init_tty(void)
+bool	env_grow(uint32_t i)
 {
-	S_WINSIZE	ws;
+	char		**tmp;
+	uint32_t	mem;
 
-	if (tcgetattr(0, &g_mn.tm_cfg) == -1)
-		exit(31);
-	g_mn.tm = g_mn.tm_cfg;
-	g_mn.tm.c_iflag = 0;
-	g_mn.tm.c_oflag = OPOST | ONLCR;
-	g_mn.tm.c_lflag = 0;
-	g_mn.tm.c_cc[VMIN] = 1;
-	g_mn.tm.c_cc[VTIME] = 0;
-	if (ioctl(1, TIOCGWINSZ, &ws))
-		exit(33);
-	g_mn.w = ws.ws_col;
+	if (i + 1 >= g_mn.env_mem)
+	{
+		mem = g_mn.env_mem;
+		while (i + 1 >= mem)
+			mem *= 2;
+		if ((tmp = ZALT(char*, mem)) == NULL)
+			return (false);
+		ft_memcpy(tmp, g_mn.env, g_mn.env_mem * sizeof(char*));
+		g_mn.env_mem = mem;
+		free(g_mn.env);
+		g_mn.env = tmp;
+	}
+	return (true);
 }

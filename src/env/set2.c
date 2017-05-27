@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tty.c                                              :+:      :+:    :+:   */
+/*   set2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 15:00:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:55:04 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/10 12:47:18 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/27 13:17:27 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-void	init_tty(void)
+bool	env_set2(const char *key, const char *val)
 {
-	S_WINSIZE	ws;
+	char	*tmp;
+	size_t	l1;
+	size_t	l2;
+	bool	o;
 
-	if (tcgetattr(0, &g_mn.tm_cfg) == -1)
-		exit(31);
-	g_mn.tm = g_mn.tm_cfg;
-	g_mn.tm.c_iflag = 0;
-	g_mn.tm.c_oflag = OPOST | ONLCR;
-	g_mn.tm.c_lflag = 0;
-	g_mn.tm.c_cc[VMIN] = 1;
-	g_mn.tm.c_cc[VTIME] = 0;
-	if (ioctl(1, TIOCGWINSZ, &ws))
-		exit(33);
-	g_mn.w = ws.ws_col;
+	l1 = ft_strlen(key);
+	l2 = ft_strlen(val);
+	tmp = MALT(char, l1 + l2 + 2);
+	if (tmp)
+	{
+		ft_strcpy(tmp, key);
+		ft_strcat(tmp, "=");
+		ft_strcat(tmp, val);
+		o = env_set(tmp);
+		free(tmp);
+		return (o);
+	}
+	return (false);
 }
