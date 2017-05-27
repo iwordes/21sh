@@ -6,16 +6,18 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:12:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/09 20:17:50 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 12:33:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		sh_exit(char **argv)
+#include <main.h>
+
+void	sh_exit(char **argv, int argc)
 {
-	if (argv[1] == NULL)
+	if (argc == 1)
 	{
 		uninit();
 		exit(0);
 	}
-	return (1);
+	(void)argv;
 }

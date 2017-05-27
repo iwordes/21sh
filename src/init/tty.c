@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:00:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/17 15:30:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 14:08:50 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 void	init_tty(void)
 {
-	S_TERMIOS	tio;
 	S_WINSIZE	ws;
 
 	if (tcgetattr(0, &g_mn.tm_cfg) == -1)
 		exit(31);
-	tio = g_mn.tm_cfg;
-	tio.c_iflag = 0;
-	tio.c_oflag = OPOST | ONLCR;
-	tio.c_lflag = 0;
-	tio.c_cc[VMIN] = 1;
-	tio.c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSANOW, &tio) == -1)
-		exit(32);
+	g_mn.tm = g_mn.tm_cfg;
+	g_mn.tm.c_iflag = 0;
+	g_mn.tm.c_oflag = OPOST | ONLCR;
+	g_mn.tm.c_lflag = 0;
+	g_mn.tm.c_cc[VMIN] = 1;
+	g_mn.tm.c_cc[VTIME] = 0;
+
+	ft_printf("{ %u, %u, %u }\n", g_mn.tm_cfg.c_iflag, g_mn.tm_cfg.c_oflag, g_mn.tm_cfg.c_lflag);
+	ft_printf("{ %u, %u, %u }\n", g_mn.tm.c_iflag, g_mn.tm.c_oflag, g_mn.tm.c_lflag);
+
 	if (ioctl(1, TIOCGWINSZ, &ws))
 		exit(33);
 	g_mn.w = ws.ws_col;

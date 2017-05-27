@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:46:22 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 12:46:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 13:08:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 char	*env_gets(const char *key)
 {
-	// ...
+	char	*tmp;
+
+	if ((tmp = env_get(key)))
+		return (tmp);
+	return ("");
 }

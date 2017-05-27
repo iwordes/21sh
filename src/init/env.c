@@ -6,13 +6,11 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:06:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/12 14:31:39 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 13:42:07 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
-
-/*
 
 static void	load_env(void)
 {
@@ -32,6 +30,7 @@ static void	load_env(void)
 			g_mn.env[i] = ft_strjoin(environ[i], "=");
 		MGUARD(g_mn.env[i]);
 	}
+	g_mn.env_len = i;
 }
 
 void		init_env(void)
@@ -40,5 +39,3 @@ void		init_env(void)
 	env_set("PS1=$ ");
 	env_set("PS2=: ");
 }
-
-*/

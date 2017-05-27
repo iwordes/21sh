@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:51:09 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 11:08:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 13:29:27 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	loop(void)
 	{
 		if (!parse(&ps, in))
 			ft_printf("\e[91mParse error\e[0m: %s\n", ps.err);
-		else
-			/*shell(&ps)*/;
+		else if (!shell(&ps))
+			ft_printf("\e[91mExec error\e[0m: %s\n", g_mn.err);
 		clean(&ps, in);
 	}
 }

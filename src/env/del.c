@@ -6,13 +6,22 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:53:29 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/10 12:53:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 13:07:32 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-bool	env_del(const char *key)
+void	env_del(const char *key)
 {
-	// ...
+	uint32_t	i;
+
+	i = ~0;
+	while (++i < g_mn.env_len)
+		if (env_cmp(key, g_mn.env[i]))
+		{
+			free(g_mn.env[i]);
+			ft_memcpy(g_mn.env + i, g_mn.env + i + 1, g_mn.env_len - i);
+			break ;
+		}
 }

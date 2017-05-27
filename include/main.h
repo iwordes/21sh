@@ -6,15 +6,18 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 11:52:39 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 14:05:23 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
 
+# include <errno.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <sys/ioctl.h>
+# include <sys/stat.h>
 # include <termios.h>
 # include <unistd.h>
 
@@ -144,26 +147,30 @@ typedef struct	s_ps
 typedef struct	s_bi
 {
 	char		*cmd;
-	int			(*fn)(char**);
+	void		(*fn)(char**, int);
 }				t_bi;
 
 typedef struct	s_main
 {
 	char		**env;
-	size_t		env_mem;
+	uint32_t	env_len;
+	uint32_t	env_mem;
 
 	char		**hist;
 	uint32_t	hist_len;
 	uint32_t	hist_mem;
 
+	char		*err;
 	t_in		*in;
 
 	uint32_t	h;
+
 	uint32_t	w;
 	uint32_t	x;
 	uint32_t	y;
 
 	S_TERMIOS	tm_cfg;
+	S_TERMIOS	tm;
 }				t_main;
 
 /*
@@ -173,11 +180,12 @@ typedef struct	s_main
 
 bool			env_grow();
 
-bool			env_del(const char *key);
+bool			env_cmp(const char *lhs, const char *rhs);
+void			env_del(const char *key);
 char			*env_get(const char *key);
 char			*env_gets(const char *key);
 bool			env_set(const char *keyval);
-bool			env_setkv(const char *key, const char *val);
+bool			env_set2(const char *key, const char *val);
 
 /*
 ** =============================================================================
@@ -186,7 +194,9 @@ bool			env_setkv(const char *key, const char *val);
 
 void			in_redraw(t_in *in);
 
+bool			in_init(t_in *in);
 void			in_sert(t_in *in, char *buff);
+void			in_uninit(t_in *in);
 
 void			in_tab(t_in *in);
 
@@ -254,6 +264,19 @@ bool			ps_is_semi(const char *tk);
 ** Execution
 */
 
+bool			shell(t_ps *ps);
+
+void			sh_cd(char **argv, int argc);
+void			sh_env(char **argv, int argc);
+void			sh_echo(char **argv, int argc);
+void			sh_exit(char **argv, int argc);
+void			sh_setenv(char **argv, int argc);
+void			sh_unsetenv(char **argv, int argc);
+
+pid_t			sh_meta_exec(t_exe *exe);
+char			*sh_meta_path(const char *bin);
+bool			sh_meta_builtin(t_exe *exe, pid_t *pid);
+
 // ...
 
 /*
@@ -265,10 +288,6 @@ void			clean(t_ps *ps, char *ln);
 void			init(void);
 void			loop(void);
 char			*input(void);
-/*
-bool			parse(t_ps *ps, const char *in);
-void			shell(t_ps *ps);
-*/
 void			uninit(void);
 
 void			init_hist(void);

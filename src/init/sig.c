@@ -6,18 +6,11 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 15:07:58 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 16:35:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 13:24:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
-
-/*
-** static void	sig_none(int sig)
-** {
-** 	(void)sig;
-** }
-*/
 
 static void	sig_winch(int sig)
 {
@@ -43,8 +36,8 @@ void		init_sig(void)
 {
 	uint8_t	sig;
 
-	sig = 1;
-	while (sig < 32)
+	sig = 0;
+	while (++sig < 32)
 		signal(sig, sig_nal);
 	signal(SIGWINCH, sig_winch);
 }
