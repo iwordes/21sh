@@ -6,13 +6,25 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/18 13:45:06 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/18 13:58:45 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 17:47:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
 #define TK ps->tk[i]
+
+static bool	pls_insert(char **str)
+{
+	char	*tmp;
+
+	if ((tmp = ft_strjoin(env_gets("HOME"), *str + 1)))
+	{
+		free(*str);
+		*str = tmp;
+	}
+	return (tmp != NULL);
+}
 
 bool	ps_home(t_ps *ps)
 {
@@ -22,19 +34,7 @@ bool	ps_home(t_ps *ps)
 	while (i < ps->tk_len)
 	{
 		if (TK.type == TKT_NONE && TK.str[0] == '~')
-		{
-			TK.str[0] = '#';
-			;
-			if (0)
-			{
-				// TODO: Grow string
-				// ...
-				if (TK.str == NULL)
-					return (false);
-			}
-			// ft_strcut(TK.str, 0, 1);
-			// ft_strins(TK.str, 0, env_gets("HOME"));
-		}
+			return (pls_insert(&TK.str));
 		i += 1;
 		while (i < ps->tk_len && (TK.flag & TKF_ADJ))
 			i += 1;
