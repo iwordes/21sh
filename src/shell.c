@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 15:23:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 18:18:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@ bool			shell(t_ps *ps)
 			BREAKIF(!PS.pipe);
 			i += 1;
 		}
+
+		// 1. Wait for last process
+		// 2. Perform cleanup
+		// 2i. Kill all other processes (?)
+		// 3. ...
+
 		errno = 0;
 		while (errno != ECHILD)
 			waitpid(-1, NULL, 0);

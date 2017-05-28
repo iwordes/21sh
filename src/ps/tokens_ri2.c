@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 18:07:18 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 15:32:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 18:24:03 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	ps_tokens_ri2(t_ps *ps, const char **ln)
 	}
 	if (!LN[n])
 		PSFAIL("Bad heredoc.");
-	if ((TK.str = ft_strsub(LN, 0, n - (n > 0))) == NULL)
+	if ((TK.str = ft_strsub(LN, 0, n + 1 - (n > 0))) == NULL)
 		PSFAIL("Allocation failure: heredoc.");
 	LN += n + l;
 	return (true);
