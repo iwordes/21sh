@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 14:45:35 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 15:34:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 19:00:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,30 @@ static bool	qloop_(t_ps *ps, const char **ln, uint32_t *i, char *q)
 {
 	*q = *LN;
 	LN += 1;
+
+	ft_printf("\e[95mqloop\e[0m\n");
+
+	ft_printf("  q:   %c\n", *q);
+	ft_printf("  in:  \"%s\"\n", LN);
+
 	TK.type = TKT_QUOT;
 	if (*q == '\"')
 		TK.flag |= TKF_VAR;
 	while (LN[*i] && LN[*i] != *q)
-		*i += 1 + (LN[*i] == '\\' && LN[*i + 1] == *q);
+	{
+		if (LN[*i] == '\\')
+			*i += 1;
+		*i += 1;
+	}
+
+	ft_printf("  n:   %u\n", *i);
+	ft_printf("  sub: \"%.*s\"\n", *i, LN);
+	ft_printf("  aft: \"%s\"\n", LN + *i);
+
 	if (LN[*i] != *q)
 		PSFAIL("Unmatched quote.");
+
+	ft_putstr("\e[92mqloop_\e[0m\n");
 	return (true);
 }
 
@@ -48,6 +65,8 @@ static bool	qloop_(t_ps *ps, const char **ln, uint32_t *i, char *q)
 
 static void	nloop_(const char **ln, uint32_t *i)
 {
+	ft_putstr("\e[95mnloop_\e[0m\n");
+
 	while (LN[*i])
 	{
 		if (LN[*i] == '<' || LN[*i] == '>')
@@ -57,10 +76,12 @@ static void	nloop_(const char **ln, uint32_t *i)
 		}
 		else if (LN[*i] == '\\')
 			*i += 1;
-		*i += (LN[*i] != 0);
-		if (DELIM(LN[*i]))
+		else if (DELIM(LN[*i]))
 			break ;
+		*i += (LN[*i] != 0);
 	}
+
+	ft_putstr("\e[92mnloop_\e[0m\n");
 }
 
 static bool	loop_(t_ps *ps, const char **ln)
@@ -74,12 +95,12 @@ static bool	loop_(t_ps *ps, const char **ln)
 		i = 1;
 	else if (ps->tk_len > 0 && LAST_RI2)
 		return (ps_tokens_ri2(ps, ln));
-	else if (QUOTE(LN[i]) && !qloop_(ps, ln, &i, &q))
+	else if (QUOTE(*LN) && !qloop_(ps, ln, &i, &q))
 		return (false);
 	else
 		nloop_(ln, &i);
-	MGUARD(TK.str = ft_strsub(LN, 0, i - (q != 0)));
-	LN += i;
+	MGUARD(TK.str = ft_strsub(LN, 0, i));
+	LN += i + (q != 0);
 	return (true);
 }
 
