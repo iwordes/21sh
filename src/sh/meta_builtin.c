@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 10:50:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 19:56:12 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 15:00:45 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,23 @@ void	*find_(const char *bi)
 ** 2: Error.
 */
 
+#define FD exe->fd
+
 static void	init_(t_exe *exe, int spare[3])
 {
 	spare[0] = dup(0);
 	spare[1] = dup(1);
 	spare[2] = dup(2);
-	dup2(exe->fd[0], 0);
-	dup2(exe->fd[1], 1);
-	dup2(exe->fd[2], 2);
+	dup2(FD[0], 0);
+	dup2(FD[1], 1);
+	dup2(FD[2], 2);
+	fd_close(FD[0]);
+	fd_close(FD[1]);
+	fd_close(FD[2]);
 }
 
 static void	uninit_(t_exe *exe, int spare[3])
 {
-	if (exe->pipe || exe->fd[0] > 2)
-		close(exe->fd[0]);
-	if (exe->pipe || exe->fd[1] > 2)
-		close(exe->fd[1]);
-	if (exe->pipe || exe->fd[2] > 2)
-		close(exe->fd[2]);
 	if (exe->pipe)
 		exit(0);
 	dup2(spare[0], 0);
@@ -67,14 +66,14 @@ static void	uninit_(t_exe *exe, int spare[3])
 	close(spare[2]);
 }
 
-bool	sh_meta_builtin(t_exe *exe, pid_t *pid)
+bool	sh_meta_builtin(t_exe *exe)
 {
 	void	(*fn)(char**, int);
 	int		spare[3];
 
 	if ((fn = find_(exe->argv[0])))
 	{
-		if (exe->pipe && (*pid = fork()))
+		if (exe->pipe && (exe->pid = fork()))
 			return (true);
 		init_(exe, spare);
 		fn(exe->argv, exe->argv_len);

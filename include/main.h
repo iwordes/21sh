@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 12:34:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 15:00:42 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ typedef struct	s_exe
 	uint32_t	argv_len;
 	uint32_t	argv_mem;
 
-	int			fd[3];
+	int			fd[4];
+	pid_t		pid;
 	bool		pipe;
 }				t_exe;
 
@@ -276,10 +277,10 @@ void			sh_exit(char **argv, int argc);
 void			sh_setenv(char **argv, int argc);
 void			sh_unsetenv(char **argv, int argc);
 
-pid_t			sh_meta_exec(t_exe *exe);
+bool			sh_meta_exec(t_exe *exe);
 char			*sh_meta_path(const char *bin);
 bool			sh_meta_pipe(t_ps *ps, uint32_t i);
-bool			sh_meta_builtin(t_exe *exe, pid_t *pid);
+bool			sh_meta_builtin(t_exe *exe);
 
 // ...
 
@@ -298,6 +299,8 @@ void			init_hist(void);
 void			init_env(void);
 void			init_sig(void);
 void			init_tty(void);
+
+void			fd_close(int fd);
 
 extern t_main	g_mn;
 
