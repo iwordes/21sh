@@ -6,96 +6,108 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 18:18:12 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 21:01:32 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
 #define PS ps->exe[i]
-#define PANIC(E) return (panic_(ps, pid, p, E))
+#define FD(N) ((PS.fd[N] > 2) ? PS.fd[N] : -1)
+#define FAIL(E) { g_mn.err = E; return (false); }
+#define PANIC(E) return (panic_(ps, pid, pl))
 
-static bool		panic_(t_ps *ps, pid_t pid[128], uint8_t pid_len, char *e)
+static bool		panic_(t_ps *ps, pid_t pid[128], uint8_t pid_len)
 {
-	uint8_t		p;
+	uint32_t	i;
 
-	p = 0;
-	while (p < pid_len)
+	i = ~0;
+	while (++i < pid_len)
+		if (pid[i] > 0)
+			kill(pid[i], SIGKILL);
+	i = ~0;
+	while (++i < ps->exe_len)
 	{
-		if (pid[p] > 0)
-			kill(pid[p], SIGKILL);
-		p += 1;
+		close(FD(0));
+		close(FD(1));
+		close(FD(2));
 	}
-	if (e)
-		g_mn.err = e;
 	return (false);
-	(void)ps;
 }
 
-static pid_t	exec_(t_exe *exe)
+static bool		pls_exec(t_ps *ps, pid_t pid[128], uint32_t *i, uint8_t *p)
 {
-	pid_t	pid;
-
-	pid = 0;
-	if (sh_meta_builtin(exe, &pid))
-		return (pid);
-	return (sh_meta_exec(exe));
-}
-
-static bool		pipeto(t_ps *ps, uint32_t i)
-{
-	int		fd[2];
-
-	if (PS.pipe)
+	*p = 0;
+	while (1)
 	{
-		if (pipe(fd))
+		if (*p >= 128)
+			FAIL("Too many processes in pipeline.");
+		if (!sh_meta_builtin(ps->exe + *i + *p, &pid[*p]))
+			pid[*p] = sh_meta_exec(ps->exe + *i + *p);
+		if (pid[*p] < 0)
 			return (false);
-		if (ps->exe[i].fd[1] > 2)
-			close(ps->exe[i].fd[1]);
-		if (ps->exe[i + 1].fd[0] > 2)
-			close(ps->exe[i + 1].fd[0]);
-		ps->exe[i].fd[1] = fd[1];
-		ps->exe[i + 1].fd[0] = fd[0];
+		*p += 1;
+		BREAKIF(!ps->exe[*i].pipe);
+		*i += 1;
 	}
 	return (true);
 }
 
-/*
-** NOTE: Probably needs more managerial work to properly handle pipelines.
-*/
+#define EX ps->exe[i - pl + p + 1]
+#define EX2 ps->exe[i - pl + p + 2]
+
+static void		pls_wait(t_ps *ps, pid_t pid[128], uint32_t i, uint8_t pl)
+{
+	uint8_t		p;
+
+	p = ~0;
+	ft_printf(": wait pipe\n");
+	while (++p + 1 < pl)
+	{
+		if (pid[p] > 0)
+			waitpid(pid[p], NULL, 0);
+
+		ft_printf("\e[92m|\e[0m \e[1m%u\e[0m (\e[1m%u\e[0m, \e[1m%u\e[0m, \e[1;91m%u\e[0m)\n",
+			p, EX.fd[0], EX.fd[1], EX.fd[2]);
+
+		close((EX.fd[0] > 2) ? EX.fd[0] : -1);
+		close((EX.fd[1] > 2) ? EX.fd[1] : -1);
+		close((EX.fd[2] > 2) ? EX.fd[2] : -1);
+		close((EX.pipe) ? EX2.fd[0] : -1);
+	}
+
+	ft_printf(": wait main\n");
+	if (pid[pl - 1] > 0)
+		waitpid(pid[pl - 1], NULL, 0);
+}
+
+static void		pls_stop(pid_t pid[128], uint8_t l)
+{
+	uint8_t		i;
+
+	i = ~0;
+	while (++i + 1 < l)
+		if (pid[i] > 0)
+			kill(pid[i], 9);
+}
 
 bool			shell(t_ps *ps)
 {
 	pid_t		pid[128];
+	uint8_t		pl;
 	uint32_t	i;
-	uint8_t		p;
 
 	i = ~0;
 	if (ps->exe[0].argv_len == 0)
 		return (true);
 	while (++i < ps->exe_len)
 	{
-		p = 0;
-		while (1)
-		{
-			if (p == 128)
-				PANIC("Too many processes in pipeline.");
-			if (!pipeto(ps, i))
-				PANIC("Could not create pipe.");
-			if ((pid[p++] = exec_(ps->exe + i)) < 0)
-				PANIC(NULL);
-			BREAKIF(!PS.pipe);
-			i += 1;
-		}
-
-		// 1. Wait for last process
-		// 2. Perform cleanup
-		// 2i. Kill all other processes (?)
-		// 3. ...
-
-		errno = 0;
-		while (errno != ECHILD)
-			waitpid(-1, NULL, 0);
+		if (!sh_meta_pipe(ps, i))
+			PANIC();
+		if (!pls_exec(ps, pid, &i, &pl))
+			PANIC();
+		pls_wait(ps, pid, i, pl);
+		pls_stop(pid, pl);
 	}
 	return (true);
 }

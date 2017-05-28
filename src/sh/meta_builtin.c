@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 10:50:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:30:57 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 19:56:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ static void	init_(t_exe *exe, int spare[3])
 
 static void	uninit_(t_exe *exe, int spare[3])
 {
-	if (exe->fd[0] > 2)
+	if (exe->pipe || exe->fd[0] > 2)
 		close(exe->fd[0]);
-	if (exe->fd[1] > 2)
+	if (exe->pipe || exe->fd[1] > 2)
 		close(exe->fd[1]);
-	if (exe->fd[2] > 2)
-	close(exe->fd[2]);
+	if (exe->pipe || exe->fd[2] > 2)
+		close(exe->fd[2]);
 	if (exe->pipe)
 		exit(0);
 	dup2(spare[0], 0);
