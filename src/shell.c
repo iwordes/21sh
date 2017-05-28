@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:41:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 15:23:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ bool			shell(t_ps *ps)
 	uint8_t		p;
 
 	i = ~0;
+	if (ps->exe[0].argv_len == 0)
+		return (true);
 	while (++i < ps->exe_len)
 	{
 		p = 0;

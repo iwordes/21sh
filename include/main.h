@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:05:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 15:34:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_in
 	bool		eot;
 	bool		cancel;
 	bool		submit;
+	bool		debug;
 }				t_in;
 
 typedef struct	s_inkey
@@ -193,6 +194,8 @@ bool			env_set2(const char *key, const char *val);
 */
 
 void			in_redraw(t_in *in);
+
+void			in_debug(t_in *in);
 
 bool			in_init(t_in *in);
 void			in_sert(t_in *in, char *buff);
