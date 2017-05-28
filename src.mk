@@ -12,7 +12,7 @@ SRC_IN    = redraw.c tab.c sert.c submit.c delete.c \
 SRC_PS    = escape.c home.c init.c is_pipe.c is_ri1.c is_ri2.c is_ro1.c is_ro2.c is_semi.c tokens.c proc.c proc_delim.c proc_plain.c proc_redir.c tokens_ri2.c uninit.c
 
 SRC_SH    = cd.c echo.c env.c exit.c setenv.c unsetenv.c
-SRC_SH   += meta_builtin.c meta_exec.c meta_path.c
+SRC_SH   += meta_builtin.c meta_exec.c meta_path.c meta_pipe.c
 
 SRC_TM    = goto.c left.c right.c
 

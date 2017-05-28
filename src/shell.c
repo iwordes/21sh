@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 21:01:32 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 13:36:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,16 @@ static bool		pls_exec(t_ps *ps, pid_t pid[128], uint32_t *i, uint8_t *p)
 	{
 		if (*p >= 128)
 			FAIL("Too many processes in pipeline.");
-		if (!sh_meta_builtin(ps->exe + *i + *p, &pid[*p]))
-			pid[*p] = sh_meta_exec(ps->exe + *i + *p);
+		if (!sh_meta_builtin(ps->exe + *i, &pid[*p]))
+			pid[*p] = sh_meta_exec(ps->exe + *i);
 		if (pid[*p] < 0)
+		{
+			ft_printf("  [\e[91m%u\e[0m]\n", *i);
 			return (false);
+		}
+
+		ft_printf("  [\e[92m%u\e[0m]\n", *i);
+
 		*p += 1;
 		BREAKIF(!ps->exe[*i].pipe);
 		*i += 1;
@@ -61,24 +67,27 @@ static void		pls_wait(t_ps *ps, pid_t pid[128], uint32_t i, uint8_t pl)
 	uint8_t		p;
 
 	p = ~0;
-	ft_printf(": wait pipe\n");
 	while (++p + 1 < pl)
 	{
+
 		if (pid[p] > 0)
 			waitpid(pid[p], NULL, 0);
-
-		ft_printf("\e[92m|\e[0m \e[1m%u\e[0m (\e[1m%u\e[0m, \e[1m%u\e[0m, \e[1;91m%u\e[0m)\n",
-			p, EX.fd[0], EX.fd[1], EX.fd[2]);
-
 		close((EX.fd[0] > 2) ? EX.fd[0] : -1);
 		close((EX.fd[1] > 2) ? EX.fd[1] : -1);
 		close((EX.fd[2] > 2) ? EX.fd[2] : -1);
 		close((EX.pipe) ? EX2.fd[0] : -1);
+
+		ft_printf("  [\e[92m%u\e[0m] %d (%d, %d, %d)\n",
+			p, pid[p], EX.fd[0], EX.fd[1], EX.fd[2]);
 	}
 
-	ft_printf(": wait main\n");
+	ft_printf("  [\e[1m%u\e[0m] %d (%d, %d, %d)\n",
+		pl - 1, pid[pl - 1], EX.fd[0], EX.fd[1], EX.fd[2]);
+
 	if (pid[pl - 1] > 0)
 		waitpid(pid[pl - 1], NULL, 0);
+
+	ft_printf("  [\e[1;92m%u\e[0m] %d\n", pl - 1, pid[pl - 1]);
 }
 
 static void		pls_stop(pid_t pid[128], uint8_t l)
@@ -104,10 +113,14 @@ bool			shell(t_ps *ps)
 	{
 		if (!sh_meta_pipe(ps, i))
 			PANIC();
+		ft_putstr("[ \e[92mOK\e[0m ] pipe\n");
 		if (!pls_exec(ps, pid, &i, &pl))
 			PANIC();
+		ft_putstr("[ \e[92mOK\e[0m ] exec\n");
 		pls_wait(ps, pid, i, pl);
+		ft_putstr("[ \e[92mOK\e[0m ] wait\n");
 		pls_stop(pid, pl);
+		ft_putstr("[ \e[92mOK\e[0m ] stop\n");
 	}
 	return (true);
 }

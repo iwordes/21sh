@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 20:23:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 20:34:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 13:31:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	sh_meta_pipe(t_ps *ps, uint32_t i)
 {
 	int			p[2];
 
-	while (i < ps->exe_len && PS.pipe)
+	while (i < ps->exe_len && ps->exe[i].pipe)
 	{
 		if (pipe(p))
 			return (false);
@@ -29,6 +29,8 @@ bool	sh_meta_pipe(t_ps *ps, uint32_t i)
 		D(0) = p[1];
 		D(1) = p[0];
 		i += 1;
+
+		ft_printf("  %u \e[92m|\e[0m %u\n", i, i + 1);
 	}
 	return (true);
 }
