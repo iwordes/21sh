@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 11:36:22 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 12:34:09 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/27 18:13:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	sh_unsetenv(char **argv, int argc)
 {
-	// ...
-	(void)argc;
-	(void)argv;
+	int		i;
+
+	i = 0;
+	while (++i < argc)
+		env_del(argv[i]);
 }
