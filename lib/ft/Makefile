@@ -135,8 +135,10 @@ $(NAME): $(OUT)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(CF) -c -o $@ $<
+	@$(CC) $(CF) -c -o $@ $<
+	@echo "[ \x1b[92mOK\x1b[0m ] $@"
 
 $(OUTDIR)/$(NAME).a: $(OBJ)
 	@mkdir -p $(@D)
-	libtool -static -o $@ $(OBJ)
+	@libtool -static -o $@ $(OBJ)
+	@echo "[ \x1b[92mOK\x1b[0m ] $@"
