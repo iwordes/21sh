@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/28 18:24:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 19:15:41 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 19:18:49 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-#define DELIM(C) (C == '/' || C == ':' || ft_isspace(C))
+#define DELIM(C) (ft_ispunct(C) || ft_isspace(C))
 #define C STR[n + 1]
 
 #define REQUIRED (l - (n + 1) + ft_strlen(val))
