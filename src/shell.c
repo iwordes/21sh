@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 18:11:03 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 18:13:24 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static bool		pls_exec(t_ps *ps, uint32_t i)
 	while (1)
 	{
 		if (!sh_meta_builtin(ps->exe + i))
-			sh_meta_exec(ps->exe + i);
+			if (!sh_meta_exec(ps->exe + i))
+				return (false);
 		if (PS.pid < 0)
 			return (false);
 		BREAKIF(!PS.pipe);
