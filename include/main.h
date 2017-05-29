@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 15:00:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 19:10:43 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ typedef struct	s_inkey
 # define TKF_ADJ 1
 # define TKF_VAR 2
 # define TKF_EXP 4
+
+# define TK_ADJ(T) (((T).flag & TKF_ADJ) != 0)
+# define TK_VAR(T) (((T).flag & TKF_VAR) != 0)
+# define TK_EXP(T) (((T).flag & TKF_EXP) != 0)
 
 # define TKT_NONE 0
 # define TKT_QUOT 1
@@ -249,6 +253,7 @@ bool			ps_home(t_ps *ps);
 bool			ps_escape(t_ps *ps);
 bool			ps_proc(t_ps *ps);
 void			ps_uninit(t_ps *ps);
+bool			ps_vars(t_ps *ps);
 
 bool			ps_proc_delim(t_ps *ps, uint32_t *t);
 bool			ps_proc_plain(t_ps *ps, uint32_t *t);

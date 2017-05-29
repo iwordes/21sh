@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 15:57:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 18:36:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,34 @@
 #define EXE ps->exe[j]
 #define ARG EXE.argv
 
-#define FAILIF(C) if (C) return (false);
-
 bool	parse(t_ps *ps, const char *in)
 {
 	ft_printf("\e[1;95mi\e[0m \e[92m\"%s\"\e[0m\n", in);
 
-	FAILIF(!ps_init(ps));
-	FAILIF(!ps_tokens(ps, in));
-	// FAILIF(!ps_var(ps));
-	FAILIF(!ps_home(ps));
-	// FAILIF(!ps_glob(ps));
-	FAILIF(!ps_escape(ps));
+	// 1. Tokenization
+	if (!ps_init(ps))
+		return (false);
+	if (!ps_tokens(ps, in))
+		return (false);
+
+	// 2. Replacement
+	if (!ps_vars(ps))
+		return (false);
+	if (!ps_home(ps))
+		return (false);
+	//if (!ps_glob(ps))
+	//	return (false);
+	if (!ps_escape(ps))
+		return (false);
 
 	///
 	for (uint32_t i = 0; i < ps->tk_len; i += 1)
 		ft_printf("\e[1;93mt\e[0;1m {\e[0m \e[92m\"%s\"\e[0m, \e[94m%u\e[0m, \e[95m%u\e[0m \e[1m}\e[0m\n", ps->tk[i].str, ps->tk[i].flag, ps->tk[i].type);
 	///
 
-	FAILIF(!ps_proc(ps));
+	// 3. Conversion
+	if (!ps_proc(ps))
+		return (false);
 
 	///
 	for (uint32_t j = 0; j < ps->exe_len; j += 1)
