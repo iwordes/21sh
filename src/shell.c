@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 18:13:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 19:38:01 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,25 @@ static bool		pls_pipe(t_ps *ps, uint32_t i)
 {
 	int			p[2];
 
+	ft_putstr("\e[95mpls_pipe\e[0m\n");
 	while (PS.pipe)
 	{
 		if (pipe(p))
+		{
+			ft_putstr("\e[91mpls_pipe\e[0m\n");
 			return (false);
+		}
 		fd_close(P_STDOUT);
 		fd_close(P_STDIN);
 		P_STDOUT = p[1];
 		P_STDIN = p[0];
+
+		ft_printf("  %u \e[92m|\e[0m %u\n", i, i + 1);
+
 		i += 1;
 	}
+
+	ft_putstr("\e[92mpls_pipe\e[0m\n");
 	return (true);
 }
 

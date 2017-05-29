@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 19:10:43 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/28 19:38:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,6 @@ void			sh_unsetenv(char **argv, int argc);
 
 bool			sh_meta_exec(t_exe *exe);
 char			*sh_meta_path(const char *bin);
-bool			sh_meta_pipe(t_ps *ps, uint32_t i);
 bool			sh_meta_builtin(t_exe *exe);
 
 // ...
