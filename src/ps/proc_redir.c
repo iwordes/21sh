@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:27:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 15:55:25 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/31 15:06:50 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static bool	rhs_(t_ps *ps, uint32_t *t, int *rhs, uint32_t i)
 	return (true);
 }
 
+#define BAD_RD_TYPE(T) (T != 0 && T != 1)
+
 bool	ps_proc_redir(t_ps *ps, uint32_t *t)
 {
 	char		*file;
@@ -59,6 +61,8 @@ bool	ps_proc_redir(t_ps *ps, uint32_t *t)
 	lhs = -1;
 	rhs = -1;
 	file = NULL;
+	if (*t + 1 >= ps->tk_len || BAD_RD_TYPE(ps->tk[*t + 1].type))
+		PSFAIL("Redirection to nowhere.");
 	if (ft_isdigit(TK.str[0]))
 		lhs = ft_atoi(TK.str);
 	ITER(i, ft_isdigit(TK.str[i]));
