@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 12:36:55 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 14:25:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/31 15:28:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	ps_escape(t_ps *ps)
 				if (TK.str[i] == '\\')
 				{
 					if (TK.str[i + 1] == 0)
-						PSFAIL("Backslash at EOL.")
+						PSFAIL("Backslash at EOL.");
 					ft_strcut(TK.str, i, 1);
 				}
 				i += 1;
