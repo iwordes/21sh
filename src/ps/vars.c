@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/28 18:24:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 19:29:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 20:11:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	ins_(t_tk *tk, uint32_t o)
 	n = 0;
 	ITER(n, !DELIM(tk->str[o + n + 1]));
 	if (n == 0)
-		seterr("Bad variable inclusion.");
+		return (seterr("Bad variable inclusion."));
 	if ((key = ft_strsub(tk->str, o + 1, n)) == NULL)
 		return (false);
 	val = env_gets(key);

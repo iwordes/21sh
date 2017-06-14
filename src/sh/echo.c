@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 11:50:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 13:25:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 20:05:22 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sh_echo(char **argv, int argc)
 	}
 	while (i < argc)
 	{
-		if (i > 1)
+		if (i > 2)
 			write(1, " ", 1);
 		ft_putstr(argv[i]);
 		i += 1;
