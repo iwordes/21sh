@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 18:52:01 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:55:15 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,16 @@ static bool		pls_pipe(t_ps *ps, uint32_t i)
 {
 	int			p[2];
 
-	ft_putstr("\e[95mpls_pipe\e[0m\n");
 	while (PS.pipe)
 	{
 		if (pipe(p))
-		{
-			ft_putstr("\e[91mpls_pipe\e[0m\n");
 			return (false);
-		}
 		fd_close(P_STDOUT);
 		fd_close(P_STDIN);
 		P_STDOUT = p[1];
 		P_STDIN = p[0];
-
-		ft_printf("  %u \e[92m|\e[0m %u\n", i, i + 1);
-
 		i += 1;
 	}
-
-	ft_putstr("\e[92mpls_pipe\e[0m\n");
 	return (true);
 }
 
@@ -86,11 +77,6 @@ static void		pls_wait(t_ps *ps, uint32_t i)
 		fd_close(PS.fd[2]);
 		if (PS.pid > 0)
 			waitpid(PS.pid, NULL, 0);
-
-		ft_printf("  [\e[92m%u\e[0m] %d "
-			"(\e[1m%d\e[0m, \e[1m%d\e[0m, \e[1;91m%d\e[0m)\n",
-			i, PS.pid, PS.fd[0], PS.fd[1], PS.fd[2]);
-
 		BREAKIF(!PS.pipe);
 		i += 1;
 	}
