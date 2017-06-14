@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:03:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:45:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ static t_inkey	g_key[] =
 	{ "\e[B", in_line_down },
 	{ "\e[C", in_line_right },
 	{ "\e[D", in_line_left },
+
+	{ "\e[F", in_end },
+	{ "\e[H", in_home },
 
 	{ "\e[1;2C", in_sel_right },
 	{ "\e[1;2D", in_sel_left },

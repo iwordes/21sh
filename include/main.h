@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 19:02:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:46:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,9 @@ bool			env_set2(const char *key, const char *val);
 void			in_redraw(t_in *in);
 
 void			in_debug(t_in *in);
+
+void			in_end(t_in *in);
+void			in_home(t_in *in);
 
 bool			in_init(t_in *in);
 void			in_sert(t_in *in, char *buff);

@@ -7,6 +7,7 @@ SRC_IN    = redraw.c tab.c sert.c submit.c delete.c \
 			skip_left.c skip_right.c \
 			hist_add.c hist_del.c \
 			init.c uninit.c \
+			home.c end.c \
 			debug.c
 
 SRC_PS    = escape.c home.c init.c is_pipe.c is_ri1.c is_ri2.c is_ro1.c is_ro2.c is_semi.c tokens.c proc.c proc_delim.c proc_plain.c proc_redir.c tokens_ri2.c uninit.c vars.c
