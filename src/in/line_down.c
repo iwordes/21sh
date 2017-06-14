@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:37:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/14 14:54:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/14 15:00:31 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	hist_down(t_in *in)
 {
 	char	*tmp;
 
+	// ISSUE
+
 	g_mn.h -= 1;
 	in->s = 0;
 	if (g_mn.h == ~0U)
@@ -54,6 +56,6 @@ void		in_line_down(t_in *in)
 {
 	if (in->len > 1)
 		line_down(in);
-	else
+	else if (g_mn.h != ~0U)
 		hist_down(in);
 }
