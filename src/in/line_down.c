@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:37:37 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/14 15:00:31 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/14 15:01:17 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static void	line_down(t_in *in)
 static void	hist_down(t_in *in)
 {
 	char	*tmp;
-
-	// ISSUE
 
 	g_mn.h -= 1;
 	in->s = 0;
