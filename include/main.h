@@ -6,14 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 19:46:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 20:04:10 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
 
-# include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <sys/ioctl.h>
