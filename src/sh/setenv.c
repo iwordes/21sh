@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 11:35:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/31 15:12:49 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 20:13:22 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	sh_setenv(char **argv, int argc)
 	int		i;
 
 	i = 0;
+	if (argc == 1)
+		ft_puterr("setenv: No arguments given.\n");
 	while (++i < argc)
 	{
 		if (ft_strchr(argv[i], '='))
