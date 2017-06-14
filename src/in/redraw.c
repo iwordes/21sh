@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:16:04 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 19:19:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/14 10:27:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	drawln(t_in *in, uint32_t y)
 		write(1, "\e[7m", 4);
 		draw(NULL, LONGEST, -in->s, 0);
 		write(1, "\e[0m" "\e[s", 7);
-		draw(NULL, LN.ln + in->x, LEN(LN.ln + in->x), 1);
+		draw(NULL, LN.ln + in->x, LEN(LN.ln + in->x), (y + 1 < in->len));
 	}
 	else
 	{
@@ -93,7 +93,7 @@ void		in_redraw(t_in *in)
 	while (y < in->len)
 	{
 		if (y != in->y)
-			draw(LN.ps, LN.ln, LEN(LN.ln), true);
+			draw(LN.ps, LN.ln, LEN(LN.ln), (y + 1 < in->len));
 		else
 		{
 			drawln(in, y);
