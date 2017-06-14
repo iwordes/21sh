@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 15:59:39 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:05:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:22:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 #define LN in->ln[i]
 
-void	in_uninit(t_in *in)
+static void	uninit_2_(t_in *in, uint64_t skip)
+{
+	tm_goto(-g_mn.x, (skip / g_mn.w) - (g_mn.y + 1));
+	write(1, "\n", 1);
+	in_hist_del(in);
+	free(in->clip);
+	free(in->ln);
+	if (in->submit)
+		return ;
+	free(in->line);
+	in->line = (in->cancel) ? ZALT(char, 1) : NULL;
+}
+
+void		in_uninit(t_in *in)
 {
 	uint64_t	skip;
 	uint64_t	len;
@@ -40,13 +53,5 @@ void	in_uninit(t_in *in)
 		ft_strcat(in->line, LN.ln);
 		free(LN.ln);
 	}
-	tm_goto(-g_mn.x, (skip / g_mn.w) - (g_mn.y + 1));
-	write(1, "\n", 1);
-	in_hist_del(in);
-	free(in->clip);
-	free(in->ln);
-	if (in->submit)
-		return ;
-	free(in->line);
-	in->line = (in->cancel) ? ZALT(char, 1) : NULL;
+	uninit_2_(in, skip);
 }

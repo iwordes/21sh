@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:16:04 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 17:36:19 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:19:36 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,14 @@
 #define LN in->ln[y]
 
 #define MIN_1 (MIN(len - i, W))
-#define MIN_2 (MIN(n - i, W - (x % W)))
+#define MIN_2 (MIN(n - i, W - (*x % W)))
 
-static void	draw(const char *ps, const char *ln, size_t n, bool newln)
+static void	draw_logic(const char *ps, const char *ln, size_t n, size_t *x)
 {
-	static size_t	x;
-	size_t			len;
-	size_t			i;
-	uint32_t		tmp;
+	size_t	len;
+	size_t	tmp;
+	size_t	i;
 
-	if (ps)
-		x = 0;
-	else
-		ps = "";
 	i = 0;
 	len = LEN(ps);
 	while (i < len)
@@ -36,7 +31,7 @@ static void	draw(const char *ps, const char *ln, size_t n, bool newln)
 		tmp = MIN_1;
 		(i) && write(1, "\n", 1);
 		write(1, ps + i, tmp);
-		x += tmp;
+		*x += tmp;
 		i += tmp;
 	}
 	i = 0;
@@ -44,10 +39,21 @@ static void	draw(const char *ps, const char *ln, size_t n, bool newln)
 	{
 		tmp = MIN_2;
 		write(1, ln + i, tmp);
-		(tmp == W - (x % W)) && write(1, "\n", 1);
-		x += tmp;
+		(tmp == W - (*x % W)) && write(1, "\n", 1);
+		*x += tmp;
 		i += tmp;
 	}
+}
+
+static void	draw(const char *ps, const char *ln, size_t n, bool newln)
+{
+	static size_t	x;
+
+	if (ps)
+		x = 0;
+	else
+		ps = "";
+	draw_logic(ps, ln, n, &x);
 	if (newln)
 		write(1, "\n", 1);
 }

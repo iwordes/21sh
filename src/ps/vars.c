@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/28 18:24:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 19:18:49 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:29:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 ** TODO: Variable expansion.
 */
 
+static bool	seterr(const char *err)
+{
+	g_mn.err = (char*)err;
+	return (false);
+}
+
 static bool	ins_(t_tk *tk, uint32_t o)
 {
 	char		*key;
@@ -31,10 +37,7 @@ static bool	ins_(t_tk *tk, uint32_t o)
 	n = 0;
 	ITER(n, !DELIM(tk->str[o + n + 1]));
 	if (n == 0)
-	{
-		g_mn.err = "Bad variable inclusion.";
-		return (false);
-	}
+		seterr("Bad variable inclusion.");
 	if ((key = ft_strsub(tk->str, o + 1, n)) == NULL)
 		return (false);
 	val = env_gets(key);

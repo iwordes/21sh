@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:50:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 18:56:08 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:57:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,18 @@
 
 bool	parse(t_ps *ps, const char *in)
 {
-	// 1. Tokenization
 	if (!ps_init(ps))
 		return (false);
 	if (!ps_tokens(ps, in))
 		return (false);
-
-	// 2. Replacement
 	if (!ps_vars(ps))
 		return (false);
 	if (!ps_home(ps))
 		return (false);
-	//if (!ps_glob(ps))
-	//	return (false);
 	if (!ps_escape(ps))
 		return (false);
-
-	// 3. Conversion
 	if (!ps_proc(ps))
 		return (false);
-
 	ps_uninit(ps);
 	return (true);
 }

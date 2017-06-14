@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:15:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/25 15:12:06 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:13:41 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 
 #define LN in->ln[*y]
-#define CMP (ft_strncmp(eof, LN.ln, l) == 0 /*&& LN.ln[l] == '\n' || LN.ln[l] == 0*/)
+#define CMP (ft_strncmp(eof, LN.ln, l) == 0)
 
 static bool	pps_ri2(t_in *in, size_t *x, size_t *y)
 {
@@ -43,35 +43,41 @@ static bool	pps_ri2(t_in *in, size_t *x, size_t *y)
 #define LN in->ln[y]
 #define IS_QUOTE(C) (C == '\"' || C == '\'' || C == '\\')
 
+static bool	pps_logic(t_in *in, size_t *y, char *q)
+{
+	size_t	x;
+
+	x = ~0;
+	if (*q == '\\')
+		*q = 0;
+	while (++x < in->ln[*y].len)
+	{
+		if (*q == '\\')
+			*q = 0;
+		else if (in->ln[*y].ln[x] == *q)
+			*q = 0;
+		else if (*q == 0 && IS_QUOTE(in->ln[*y].ln[x]))
+			*q = in->ln[*y].ln[x];
+		else if (ft_strnequ(in->ln[*y].ln + x, "<<", 2))
+		{
+			if (!pps_ri2(in, &x, y))
+				return (false);
+			break ;
+		}
+	}
+	return (true);
+}
+
 static bool	preparse(t_in *in)
 {
 	char	q;
-	size_t	x;
 	size_t	y;
 
 	q = 0;
 	y = ~0;
 	while (++y < in->len)
-	{
-		x = ~0;
-		if (q == '\\')
-			q = 0;
-		while (++x < LN.len)
-		{
-			if (q == '\\')
-				q = 0;
-			else if (LN.ln[x] == q)
-				q = 0;
-			else if (q == 0 && IS_QUOTE(LN.ln[x]))
-				q = LN.ln[x];
-			else if (ft_strnequ(LN.ln + x, "<<", 2))
-			{
-				if (!pps_ri2(in, &x, &y))
-					return (false);
-				break ;
-			}
-		}
-	}
+		if (!pps_logic(in, &y, &q))
+			return (false);
 	return (q == 0);
 }
 
@@ -93,8 +99,7 @@ void		in_submit(t_in *in)
 		}
 		in->y += 1;
 		in->x = 0;
-		//      env_get("PS2");
-		LN.ps = ": ";
+		LN.ps = env_gets("PS2");
 		LN.ps_len = ft_strlen(LN.ps);
 		MGUARD(LN.ln = ZALT(char, 128));
 		LN.mem = 128;

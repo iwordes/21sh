@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:27:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/31 15:06:50 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:39:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,22 @@
 #define O_PERM_1 (TK.type <= TKT_R_O2) ? (O_WRONLY | O_CREAT) : (O_RDONLY)
 #define O_PERM (O_PERM_1 | ((TK.type == TKT_R_O2) ? (O_APPEND) : (0)))
 
+static bool	rhs_ri2(t_ps *ps, uint32_t *t, int *rhs, char *file)
+{
+	if (*file != '&')
+	{
+		if ((*rhs = open(file, O_PERM, 0600)) < 0)
+			PSFAIL("Could not open file for redirection.");
+	}
+	else
+	{
+		*rhs = ft_atoi(file + 1);
+		if (file[1] == '-' && file[2] == 0)
+			*rhs = -1;
+	}
+	return (true);
+}
+
 static bool	rhs_(t_ps *ps, uint32_t *t, int *rhs, uint32_t i)
 {
 	char	*file;
@@ -25,17 +41,8 @@ static bool	rhs_(t_ps *ps, uint32_t *t, int *rhs, uint32_t i)
 	file = (TK.str[i] != 0) ? (TK.str + i) : (ps->tk[*t + 1].str);
 	if (TK.type != TKT_R_I2)
 	{
-		if (*file != '&')
-		{
-			if ((*rhs = open(file, O_PERM, 0600)) < 0)
-				PSFAIL("Could not open file for redirection.");
-		}
-		else
-		{
-			*rhs = ft_atoi(file + 1);
-			if (file[1] == '-' && file[2] == 0)
-				*rhs = -1;
-		}
+		if (!rhs_ri2(ps, t, rhs, file))
+			return (false);
 	}
 	else
 	{
@@ -50,7 +57,21 @@ static bool	rhs_(t_ps *ps, uint32_t *t, int *rhs, uint32_t i)
 
 #define BAD_RD_TYPE(T) (T != 0 && T != 1)
 
-bool	ps_proc_redir(t_ps *ps, uint32_t *t)
+static bool	post_(t_ps *ps, int lhs, int rhs)
+{
+	if (lhs < 0)
+		lhs = 1;
+	if (lhs > 0 && rhs == 0)
+		rhs = (lhs > 1) + 1;
+	else if (lhs > 2)
+		PSFAIL("File descriptor too large.");
+	if (EXE.fd[lhs] > 2)
+		close(EXE.fd[lhs]);
+	EXE.fd[lhs] = rhs;
+	return (true);
+}
+
+bool		ps_proc_redir(t_ps *ps, uint32_t *t)
 {
 	char		*file;
 	int			lhs;
@@ -69,16 +90,10 @@ bool	ps_proc_redir(t_ps *ps, uint32_t *t)
 	if (TK.str[i] == '<')
 		lhs = 0;
 	ITER(i, TK.str[i] == '<' || TK.str[i] == '>');
-	rhs_(ps, t, &rhs, i);
-	if (lhs < 0)
-		lhs = 1;
-	if (lhs > 0 && rhs == 0)
-		rhs = (lhs > 1) + 1;
-	else if (lhs > 2)
-		PSFAIL("File descriptor too large.");
-	if (EXE.fd[lhs] > 2)
-		close(EXE.fd[lhs]);
-	EXE.fd[lhs] = rhs;
+	if (!rhs_(ps, t, &rhs, i))
+		return (false);
+	if (!post_(ps, lhs, rhs))
+		return (false);
 	*t += (TK.str[i] == 0);
 	*t += 1;
 	return (true);

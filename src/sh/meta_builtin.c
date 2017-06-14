@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 10:50:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 18:51:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:41:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
 
-t_bi	g_bi[] =
+t_bi		g_bi[] =
 {
 	{ "cd", sh_cd },
 	{ "env", sh_env },
@@ -22,7 +22,7 @@ t_bi	g_bi[] =
 	{ "unsetenv", sh_unsetenv }
 };
 
-void	*find_(const char *bi)
+void		*find_(const char *bi)
 {
 	uint8_t		i;
 
@@ -77,7 +77,7 @@ static void	uninit_(t_exe *exe, int spare[3])
 	close(spare[2]);
 }
 
-bool	sh_meta_builtin(t_ps *ps, uint32_t i)
+bool		sh_meta_builtin(t_ps *ps, uint32_t i)
 {
 	void	(*fn)(char**, int);
 	int		spare[3];

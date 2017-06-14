@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:26:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/22 14:26:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:27:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@
 #define ARG EXE.argv[EXE.argv_len]
 #define TK_VAL (TK.type <= 1 && (i == 0 || (TK.flag & TKF_ADJ)))
 
-
-bool	ps_proc_plain(t_ps *ps, uint32_t *t)
+static bool	part__(t_ps *ps, uint32_t *t, uint32_t *len)
 {
-	uint32_t	len;
 	uint32_t	i;
 
 	i = 0;
-	len = 0;
+	*len = 0;
 	while (i + *t < ps->tk_len && TK_VAL)
 	{
-		len += ft_strlen(TK.str);
+		*len += ft_strlen(TK.str);
 		i += 1;
 	}
 	while (EXE.argv_len + 2 >= EXE.argv_mem)
@@ -37,6 +35,16 @@ bool	ps_proc_plain(t_ps *ps, uint32_t *t)
 		bzero(EXE.argv + EXE.argv_mem, sizeof(char*) * EXE.argv_mem);
 		EXE.argv_mem *= 2;
 	}
+	return (true);
+}
+
+bool		ps_proc_plain(t_ps *ps, uint32_t *t)
+{
+	uint32_t	len;
+	uint32_t	i;
+
+	if (!part__(ps, t, &len))
+		return (false);
 	i = 0;
 	if ((ARG = ZALT(char, len + 1)) == NULL)
 		PSFAIL("Could not allocate space for argument.");
