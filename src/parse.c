@@ -25,8 +25,6 @@ bool	parse(t_ps *ps, const char *in)
 		return (false);
 	if (!ps_home(ps))
 		return (false);
-	// if (!ps_wild(ps))
-	//	return (false);
 	if (!ps_escape(ps))
 		return (false);
 	if (!ps_proc(ps))
