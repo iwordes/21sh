@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 20:24:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/14 11:06:07 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ typedef struct	s_inquote
 	char		*s;
 	char		*e;
 }				t_inquote;
+
+/*
+** IDEA: Apply an array of selections as effect ranges for printing; e.g.
+** sel #1: { "\e[7m", 0, 14 }, sel #2: { "\e[92m", 0, 4 }
+*/
 
 typedef struct	s_in
 {
