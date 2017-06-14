@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 10:50:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/28 15:00:45 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 18:51:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,29 @@ void	*find_(const char *bi)
 */
 
 #define FD exe->fd
+#define EXE ps->exe[i]
 
-static void	init_(t_exe *exe, int spare[3])
+static void	init_(t_ps *ps, uint32_t i, int spare[3])
 {
 	spare[0] = dup(0);
 	spare[1] = dup(1);
 	spare[2] = dup(2);
-	dup2(FD[0], 0);
-	dup2(FD[1], 1);
-	dup2(FD[2], 2);
-	fd_close(FD[0]);
-	fd_close(FD[1]);
-	fd_close(FD[2]);
+	dup2(EXE.fd[0], 0);
+	dup2(EXE.fd[1], 1);
+	dup2(EXE.fd[2], 2);
+	fd_close(EXE.fd[0]);
+	fd_close(EXE.fd[1]);
+	fd_close(EXE.fd[2]);
+	if (EXE.pipe)
+	{
+		i = ~0;
+		while (++i < ps->exe_len)
+		{
+			fd_close(EXE.fd[0]);
+			fd_close(EXE.fd[1]);
+			fd_close(EXE.fd[2]);
+		}
+	}
 }
 
 static void	uninit_(t_exe *exe, int spare[3])
@@ -66,18 +77,18 @@ static void	uninit_(t_exe *exe, int spare[3])
 	close(spare[2]);
 }
 
-bool	sh_meta_builtin(t_exe *exe)
+bool	sh_meta_builtin(t_ps *ps, uint32_t i)
 {
 	void	(*fn)(char**, int);
 	int		spare[3];
 
-	if ((fn = find_(exe->argv[0])))
+	if ((fn = find_(EXE.argv[0])))
 	{
-		if (exe->pipe && (exe->pid = fork()))
+		if (EXE.pipe && (EXE.pid = fork()))
 			return (true);
-		init_(exe, spare);
-		fn(exe->argv, exe->argv_len);
-		uninit_(exe, spare);
+		init_(ps, i, spare);
+		fn(EXE.argv, EXE.argv_len);
+		uninit_(&EXE, spare);
 		return (true);
 	}
 	return (false);
