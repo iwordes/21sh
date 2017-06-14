@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 20:04:10 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 20:24:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ void			init_sig(void);
 void			init_tty(void);
 
 void			fd_close(int fd);
+void			fd_dup2(int fd1, int fd2);
 
 extern t_main	g_mn;
 

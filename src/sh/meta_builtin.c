@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 10:50:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 19:41:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 20:23:50 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void	init_(t_ps *ps, uint32_t i, int spare[3])
 	spare[0] = dup(0);
 	spare[1] = dup(1);
 	spare[2] = dup(2);
-	dup2(EXE.fd[0], 0);
-	dup2(EXE.fd[1], 1);
-	dup2(EXE.fd[2], 2);
+	fd_dup2(EXE.fd[0], 0);
+	fd_dup2(EXE.fd[1], 1);
+	fd_dup2(EXE.fd[2], 2);
 	fd_close(EXE.fd[0]);
 	fd_close(EXE.fd[1]);
 	fd_close(EXE.fd[2]);

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 10:48:13 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 18:51:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/13 20:23:17 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 static void	filedes_(t_ps *ps, uint32_t i)
 {
-	dup2(EXE.fd[0], 0);
-	dup2(EXE.fd[1], 1);
-	dup2(EXE.fd[2], 2);
+	fd_dup2(EXE.fd[0], 0);
+	fd_dup2(EXE.fd[1], 1);
+	fd_dup2(EXE.fd[2], 2);
 	i = ~0;
 	while (++i < ps->exe_len)
 	{

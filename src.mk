@@ -1,4 +1,4 @@
-SRC       = clean.c fd_close.c init.c input.c loop.c main.c parse.c shell.c uninit.c
+SRC       = clean.c fd_dup2.c fd_close.c init.c input.c loop.c main.c parse.c shell.c uninit.c
 
 SRC_IN    = redraw.c tab.c sert.c submit.c delete.c \
 			ctrl_c.c ctrl_d.c ctrl_v.c ctrl_x.c \
