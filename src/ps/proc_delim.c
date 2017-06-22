@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:26:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/22 14:30:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:00:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ static bool	grow_exe(t_ps *ps)
 	}
 	return (true);
 }
+
+/*
+** 1. Error check when delimiting with a pipe.
+** 2. If necessary, allocate more memory for our `t_exe` array.
+** 3. Increment the length of the array by one.
+** 4. Advance forward by one token.
+*/
 
 bool		ps_proc_delim(t_ps *ps, uint32_t *t)
 {

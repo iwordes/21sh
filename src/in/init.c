@@ -6,11 +6,20 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 16:00:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/27 14:04:57 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 10:15:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <main.h>
+
+/*
+** 1. Set the terminal to use our custom config.
+** 2. Protect against using a partial line for input.
+** 3. Allocate and setup our input struct.
+** 4. Print the first prompt string.
+** 5. Reset the virtual cursor position.
+** 6. Link our input struct to our main one.
+*/
 
 bool	in_init(t_in *in)
 {

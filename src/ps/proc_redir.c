@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:27:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/22 09:59:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:09:51 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ static bool	post_(t_ps *ps)
 		EXE.file[ps->lhs] = ps->file;
 	return (true);
 }
+
+/*
+** 1. Init variables.
+** 2. Check redirection syntax.
+** 3. Get the left-hand side of our redirection.
+** 4. Iterate past digits at the start of the token.
+** 5. Correct redirections in to overwrite stdin.
+** 6. Iterate past '<' and '>'.
+** 7. Get the right-hand side of our redirection.
+** 8. Perform final checks and assign either a string or fd to our t_exe.
+** 9. Advance one or two tokens.
+*/
 
 bool		ps_proc_redir(t_ps *ps, uint32_t *t)
 {

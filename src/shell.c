@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/22 09:54:57 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:14:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,15 @@ static void		pls_wait(t_ps *ps, uint32_t i)
 		i += 1;
 	}
 }
+
+/*
+** 1. Skip t_exe entries with no arguments. (e.g. 'echo ;;;; cat that')
+** 2. Break if skipping exceeds the number of `t_exe`s. (e.g. 'echo ;;;;')
+** 3. Create and assign pipes for this pipeline, if any, and open files.
+** 4. Execute the completed `t_exe`s.
+** 5. Wait for and clean up after each t_exe.
+** 6. Skip all `t_exe`s in this pipeline.
+*/
 
 bool			shell(t_ps *ps)
 {

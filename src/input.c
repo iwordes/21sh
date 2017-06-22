@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:28:23 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/22 10:02:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 10:24:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ static t_inkey	g_key[] =
 };
 
 #define G_KEY_LEN (sizeof(g_key) / sizeof(t_inkey))
+
+/*
+** 1. Init buffer.
+** 2. While there are keys to read...
+** 2a. If the key has special handling, use it.
+** 2b. Otherwise, insert the buffer into our current line.
+** 3. If a handler set any EOI flag, exit the loop.
+*/
 
 static void		in_loop_(t_in *in)
 {

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 12:55:49 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/22 15:05:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 10:58:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static bool	init_(t_ps *ps)
 	}
 	return (true);
 }
+
+/*
+** 1. Allocate and initialize each t_exe.
+** 2. For each token...
+** 2a. Identify and process the token.
+** 2b. If processing failed, cleanup and exit. (failure)
+** 3. Increment the final number of t_exes in our array to match the real one.
+*/
 
 bool		ps_proc(t_ps *ps)
 {

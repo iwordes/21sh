@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:26:43 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 19:27:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:05:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ static bool	part__(t_ps *ps, uint32_t *t, uint32_t *len)
 	}
 	return (true);
 }
+
+/*
+** 1. Get the length of our contiguous tokens and grow our argv if necessary.
+** 2. Allocate space for one new argument.
+** 3. Append each contiguous token to our new memory.
+** 4. Advance forward by one token.
+** 5. Increment our number of arguments by one.
+*/
 
 bool		ps_proc_plain(t_ps *ps, uint32_t *t)
 {
