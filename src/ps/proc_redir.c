@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:27:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 20:19:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 09:57:31 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,23 @@
 #define O_PERM_1 (TK.type <= TKT_R_O2) ? (O_WRONLY | O_CREAT) : (O_RDONLY)
 #define O_PERM (O_PERM_1 | ((TK.type == TKT_R_O2) ? (O_APPEND) : (0)))
 
-static bool	rhs_ri2(t_ps *ps, uint32_t *t, int *rhs, char *file)
-{
-	if (*file != '&')
-	{
-		if ((*rhs = open(file, O_PERM, 0600)) < 0)
-			PSFAIL("Could not open file for redirection.");
-	}
-	else
-	{
-		*rhs = ft_atoi(file + 1);
-		if (file[1] == '-' && file[2] == 0)
-			*rhs = -2;
-	}
-	return (true);
-}
+/*
+** TODO: Fix redirs: Delay file opening til later stage
+*/
 
-static bool	rhs_(t_ps *ps, uint32_t *t, int *rhs, uint32_t i)
+static bool	rhs_(t_ps *ps, uint32_t *t, uint32_t i)
 {
 	char	*file;
 	int		p[2];
 
 	file = (TK.str[i] != 0) ? (TK.str + i) : (ps->tk[*t + 1].str);
-	if (TK.type != TKT_R_I2)
+	if (TK.type != TKT_R_I2 && *file != '&')
+		ps->file = file;
+	else if (TK.type != TKT_R_I2)
 	{
-		if (!rhs_ri2(ps, t, rhs, file))
-			return (false);
+		ps->rhs = ft_atoi(file + 1);
+		if (file[1] == '-' && file[2] == 0)
+			ps->rhs = -2;
 	}
 	else
 	{
@@ -50,50 +41,54 @@ static bool	rhs_(t_ps *ps, uint32_t *t, int *rhs, uint32_t i)
 			PSFAIL("Could not create pipe for heredoc.");
 		write(p[1], file, ft_strlen(file));
 		close(p[1]);
-		*rhs = p[0];
+		ps->rhs = p[0];
 	}
 	return (true);
 }
 
 #define BAD_RD_TYPE(T) (T != 0 && T != 1)
 
-static bool	post_(t_ps *ps, int lhs, int rhs)
+static bool	post_(t_ps *ps)
 {
-	if (lhs < 0)
-		lhs = 1;
-	if (lhs > 0 && rhs == 0)
-		rhs = (lhs > 1) + 1;
-	else if (lhs > 2)
+	if (ps->lhs < 0)
+		ps->lhs = 1;
+	if (ps->lhs > 0 && ps->rhs == 0)
+		ps->rhs = (ps->lhs > 1) + 1;
+	else if (ps->lhs > 2)
 		PSFAIL("File descriptor too large.");
-	if (EXE.fd[lhs] > 2)
-		close(EXE.fd[lhs]);
-	EXE.fd[lhs] = rhs;
+	if (EXE.fd[ps->lhs] > 2)
+		close(EXE.fd[ps->lhs]);
+	if (!ps->file)
+		EXE.fd[ps->lhs] = ps->rhs;
+	else
+		EXE.file[ps->lhs] = ps->file;
 	return (true);
 }
 
 bool		ps_proc_redir(t_ps *ps, uint32_t *t)
 {
-	char		*file;
-	int			lhs;
-	int			rhs;
 	uint32_t	i;
 
 	i = 0;
-	lhs = -1;
-	rhs = -1;
-	file = NULL;
+	ps->lhs = -1;
+	ps->rhs = -1;
+	ps->file = NULL;
 	if (*t + 1 >= ps->tk_len || BAD_RD_TYPE(ps->tk[*t + 1].type))
 		PSFAIL("Redirection to nowhere.");
 	if (ft_isdigit(TK.str[0]))
-		lhs = ft_atoi(TK.str);
+		ps->lhs = ft_atoi(TK.str);
 	ITER(i, ft_isdigit(TK.str[i]));
 	if (TK.str[i] == '<')
-		lhs = 0;
+		ps->lhs = 0;
 	ITER(i, TK.str[i] == '<' || TK.str[i] == '>');
-	if (!rhs_(ps, t, &rhs, i))
+
+
+	if (!rhs_(ps, t, i))
 		return (false);
-	if (!post_(ps, lhs, rhs))
+	if (!post_(ps))
 		return (false);
+
+
 	*t += (TK.str[i] == 0);
 	*t += 1;
 	return (true);

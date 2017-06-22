@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:23:50 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/14 11:06:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 09:57:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define S_TERMIOS struct termios
 # define S_WINSIZE struct winsize
 
+# define MFAIL(M) { g_mn.err = M; return (false); }
 # define PSFAIL(M) { ps->err = M; return (false); }
 # define MGUARD(M) if ((M) == NULL) exit(255)
 
@@ -131,6 +132,7 @@ typedef struct	s_exe
 	uint32_t	argv_len;
 	uint32_t	argv_mem;
 
+	char		*file[3];
 	int			fd[4];
 	pid_t		pid;
 	bool		pipe;
@@ -141,6 +143,10 @@ typedef struct	s_ps
 	t_tk		*tk;
 	uint32_t	tk_len;
 	uint32_t	tk_mem;
+
+	int			lhs;
+	int			rhs;
+	char		*file;
 
 	char		*err;
 
@@ -311,6 +317,7 @@ void			init_tty(void);
 
 void			fd_close(int fd);
 void			fd_dup2(int fd1, int fd2);
+bool			fd_open(t_exe *exe);
 
 extern t_main	g_mn;
 

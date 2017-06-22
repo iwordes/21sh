@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 14:55:12 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/13 18:55:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 09:54:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool		pls_pipe(t_ps *ps, uint32_t i)
 
 	while (PS.pipe)
 	{
-		if (pipe(p))
+		if (!fd_open(ps->exe + i) || pipe(p))
 			return (false);
 		fd_close(P_STDOUT);
 		fd_close(P_STDIN);
@@ -50,7 +50,7 @@ static bool		pls_pipe(t_ps *ps, uint32_t i)
 		P_STDIN = p[0];
 		i += 1;
 	}
-	return (true);
+	return (fd_open(ps->exe + i));
 }
 
 static bool		pls_exec(t_ps *ps, uint32_t i)
