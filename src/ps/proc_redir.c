@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/19 14:27:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/22 09:57:31 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 09:59:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,10 @@ bool		ps_proc_redir(t_ps *ps, uint32_t *t)
 	if (TK.str[i] == '<')
 		ps->lhs = 0;
 	ITER(i, TK.str[i] == '<' || TK.str[i] == '>');
-
-
 	if (!rhs_(ps, t, i))
 		return (false);
 	if (!post_(ps))
 		return (false);
-
-
 	*t += (TK.str[i] == 0);
 	*t += 1;
 	return (true);
