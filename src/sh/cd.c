@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 11:42:49 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/21 17:15:34 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 09:57:51 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		sh_cd(char **argv, int argc)
 	if (argc > 2)
 		ft_putstr("cd: Too many arguments.\n");
 	else if (argc == 1)
-		pls_shdir(env_get("HOME"));
+		pls_chdir(env_get("HOME"));
 	else if (argc == 2 && ft_strequ(argv[1], "-"))
 		pls_chdir(env_get("OLDPWD"));
 	else if (access(argv[1], F_OK))
